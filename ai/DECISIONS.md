@@ -224,6 +224,163 @@ should have blocked the merge. Standard CI hygiene says gates run on PRs.
 
 ---
 
+## ADR-011: Evolve, don't clone — modernize design while preserving brand and IA
+Date: 2026-05-02
+Status: Accepted
+
+### Decision
+The DevilDog rebuild preserves the existing brand identity, copy, and
+information architecture (navigation, page list, URL structure) from the
+legacy site at `~/repos/devildog`, but does not preserve the existing
+visual design or component implementations. Typography rhythm, spacing
+scale, mobile UX, accessibility behavior, and component patterns are
+re-thought from scratch on Astro 5 + Tailwind 4.
+
+### Reason
+- The brand (DevilDog reds, Marine-rooted voice) and IA (services,
+  compliance, story, team, contact) are working — re-doing them would be
+  pure churn with no business value.
+- The visual design carries Bootstrap-era choices (heavy CTAs, mouse-first
+  dropdowns, CDN font load, raw `<img>` tags) that hurt Lighthouse
+  scores, accessibility, and mobile UX. Astro + Tailwind 4 give us a
+  clean base to do better without fighting legacy patterns.
+- Cloning pixel-for-pixel would also constrain us into JavaScript-heavy
+  patterns Astro is built to avoid (everything-is-a-component,
+  client:load by default).
+
+### Tradeoffs
+- The new site will look related but not identical to the old one —
+  marketing should be informed before launch. Preserved: logo, color
+  palette, typography families, copy, page list. Re-thought: hero
+  composition, card layouts, button styles, nav behavior on touch.
+- More design judgment required during P2. Mitigated by referencing the
+  old site as a content/IA source of truth and treating new design as a
+  greenfield modernization (not a redesign that needs marketing approval
+  for every change — small visual evolution, large UX win).
+
+### Related Tasks
+P2-T1 through P2-T13 — every page port is an evolve-not-clone operation.
+
+---
+
+## ADR-012: Typed content modules in `src/content/`, no CMS
+Date: 2026-05-02
+Status: Accepted
+
+### Decision
+All site copy lives in TypeScript modules under `src/content/`
+(`siteContent.ts`, `detailPages.ts`, `contactContent.ts`,
+`teamMembers.ts`). Pages and components import from these modules.
+No CMS, no MDX, no headless content service.
+
+### Reason
+- The legacy site uses the same pattern (`src/features/site/siteContent.ts`,
+  `detailPages.ts`) and it has worked well: copy lives next to types, drift
+  is caught at compile time, content review happens via PRs.
+- A CMS adds an account, an editor experience, and a content cache —
+  none of which marketing has asked for and all of which add deploy-time
+  surface area.
+- Typed modules also make the no-orphan-link test trivial (iterate over
+  the typed nav arrays, assert each href exists). This caught real bugs
+  in the legacy site.
+
+### Tradeoffs
+- Non-engineer content edits require a PR. Acceptable for a marketing
+  site that updates copy a few times per quarter; revisit if cadence
+  changes.
+- If editorial workflow becomes a real pain point, MDX is the next step
+  before a CMS — less moving parts.
+
+### Related Tasks
+P2-T1, P2-T3, P2-T4 through P2-T10 — every content port lands here.
+
+---
+
+## ADR-013: Self-hosted fonts via `@fontsource`, not Google Fonts CDN
+Date: 2026-05-02
+Status: Accepted
+
+### Decision
+Montserrat (display) and Open Sans (body) are loaded from
+`@fontsource/montserrat` and `@fontsource/open-sans` and bundled with
+the build. No external request to `fonts.googleapis.com`.
+
+### Reason
+- The legacy site loads both families from Google's CDN, which costs a
+  third-party DNS lookup, a TLS handshake, and a render-blocking CSS
+  fetch on first paint.
+- Self-hosting via `@fontsource` keeps the font binaries inside the SWA
+  static bundle, served by the same CDN as the rest of the site, with
+  proper `font-display: swap` and the option to subset.
+- Removing Google Fonts also avoids passing visitor IPs to Google for
+  every page load (privacy posture matters for a security firm's site).
+
+### Tradeoffs
+- Adds two npm packages and a small amount of bundle size. Net
+  Lighthouse Performance gain expected because the render-blocking
+  third-party CSS request goes away.
+
+### Related Tasks
+P1-T1 (install), P2-T1 (wire into BaseLayout), P2-I1 (verify in audit).
+
+---
+
+## ADR-014: `www` → apex 301 lives in `staticwebapp.config.json`, not in code
+Date: 2026-05-02
+Status: Accepted
+
+### Decision
+The 301 redirect from `www.devildogcyber.com` to `devildogcyber.com` is
+configured as a SWA route rule in `staticwebapp.config.json`, not in
+application code.
+
+### Reason
+- The legacy site implements this via a Next.js `proxy.ts`, which only
+  fires after the request hits the Node origin — adds a hop and only
+  works when the App Service is up.
+- SWA's edge-level redirect rules fire at the CDN, never reach the
+  Function runtime, and survive scenarios where the origin is down.
+- One config file is easier to reason about than a request handler.
+
+### Tradeoffs
+- The redirect lives in infra config rather than code, so a developer
+  reading only `src/` won't see it. Mitigated by documenting it here and
+  in `/ai/ARCHITECTURE.md`.
+
+### Related Tasks
+P2-T13 (SEO finalization), P4-T6 (DNS cutover).
+
+---
+
+## ADR-015: Single source of truth for contact validation — `src/lib/contactValidation.ts`
+Date: 2026-05-02
+Status: Accepted
+
+### Decision
+The contact form's validation rules (field lengths, email regex,
+Turnstile-token-required flag) live in one TypeScript module at
+`src/lib/contactValidation.ts`. The React form imports it for client-side
+checks. The Azure Function imports it for server-side checks.
+
+### Reason
+- The legacy site already does this (`src/features/contact/contactValidation.ts`)
+  and it prevents the classic "client says valid, server says invalid"
+  drift bug.
+- Sharing the module also means the same Vitest spec covers both client
+  and server validation logic — no duplicated test surface.
+- Astro + SWA managed Functions live in the same monorepo, so import
+  works cleanly without a publish-to-npm step.
+
+### Tradeoffs
+- The Azure Function bundle pulls in code from `src/`, which slightly
+  blurs the API/UI boundary. Acceptable: the module is pure functions
+  with no DOM or framework imports.
+
+### Related Tasks
+P2-T11 (form), P2-T12 (function).
+
+---
+
 ## ADR Template
 
 ## ADR-XXX: Title

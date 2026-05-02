@@ -1,81 +1,116 @@
 # Architecture
 
 ## Architecture Status
-Default pattern documented; project-specific details TBD until initialization.
+Project-specific architecture documented. Default pattern from the starter
+applies, with project-specific notes for content modeling, brand tokens,
+www→apex redirect, and the contact endpoint.
 
 ---
 
-## System Overview (Default Pattern)
+## System Overview
 
 ```
    Browser
       |
       | HTTPS (free SSL via SWA)
       v
-   Azure Static Web Apps
-   ├── Static hosting (Astro-built HTML/JS/CSS)
-   |     ├── Pre-rendered Astro pages
-   |     └── Hydrated React islands (contact form, etc.)
+   Cloudflare DNS (devildogcyber.com)
+      |
+      v
+   Azure Static Web Apps (single resource)
+   ├── Static hosting (Astro-built HTML/JS/CSS, pre-rendered)
+   |     ├── Pages: home, services hub + 11 service detail pages,
+   |     |          compliance hub + 8 framework pages,
+   |     |          story, about-us (team), about, contact
+   |     ├── Hydrated React islands: SiteHeader (mobile menu, dropdowns),
+   |     |                           ContactForm + TurnstileWidget
+   |     └── Self-hosted fonts (Montserrat, Open Sans) via @fontsource
    |
-   └── Managed API (Azure Functions)
-         └── POST /api/contact
-               ├── verify Turnstile token
-               ├── check honeypot field
-               ├── apply rate limit (per-IP sliding window)
-               ├── send transactional email via Postmark
-               └── return JSON status
+   ├── Managed API (Azure Functions v4, Node 22 ESM)
+   |     └── POST /api/contact
+   |           ├── verify Turnstile token (server-side)
+   |           ├── reject if honeypot field is non-empty
+   |           ├── apply rate limit (per-IP sliding window, in-memory)
+   |           ├── send transactional email via Postmark
+   |           └── return JSON status
+   |
+   └── SWA routes config: 301 from www.devildogcyber.com → devildogcyber.com
 ```
 
 External services:
-
-- **Postmark** — transactional email API.
-- **Cloudflare Turnstile** — CAPTCHA replacement, server-verified.
+- **Postmark** — transactional email API (existing DevilDog account, sender
+  re-verification required for the new SWA-hosted origin if DKIM domain stays
+  the same it should be a no-op).
+- **Cloudflare Turnstile** — invisible CAPTCHA, server-verified.
 - **GitHub** — source control, CI/CD via Actions.
 - **Azure** — hosting (SWA static + managed Functions).
+- **Cloudflare** — DNS (existing zone for `devildogcyber.com`).
 
 ---
 
 ## Major Components
 
 ### `src/pages/` — Astro pages
-Static HTML pages, pre-rendered at build time. Content lives in `.astro`
-files; dynamic interactive components are imported as React islands.
+Static HTML pages, pre-rendered at build time. Files map 1:1 to URL paths
+per the page mapping in `/ai/MIGRATION_INVENTORY.md`. Pages compose layouts,
+typed content modules, and React islands where interactivity is required.
 
-### `src/components/` — React components
-Interactive UI: contact form, carousels, anything that needs client-side
-state. Each is a standard React component, mounted via Astro's
-`client:load` / `client:visible` directives.
+### `src/content/` — Typed content modules
+TypeScript modules holding all site copy (`siteContent.ts`, `detailPages.ts`,
+`contactContent.ts`, `teamMembers.ts`). Mirrors the legacy site's content
+shape so that copy can be ported nearly verbatim. Astro pages import from
+here. Strict typing (`as const satisfies readonly Foo[]`) preserved from
+the old codebase because it caught real content bugs.
+
+### `src/components/` — React islands
+Interactive UI only. Two known islands at v1:
+- `SiteHeader.tsx` — primary nav with hover/click dropdowns and mobile drawer.
+- `ContactForm.tsx` (+ `TurnstileWidget.tsx`) — contact submission with
+  client-side validation, Turnstile token, error/success states.
+
+### `src/layouts/` — Astro layouts
+- `BaseLayout.astro` — `<html>`, head metadata, fonts, JSON-LD, header,
+  footer, slot.
+- Optional sub-layouts as patterns repeat across detail pages.
 
 ### `src/lib/` — Shared frontend utilities
-Types, schema validation (zod), formatting helpers. No framework code.
+Types and validation shared between client form and server endpoint
+(`contactValidation.ts`), SEO helpers, slug helpers, content selectors.
+No framework code.
 
 ### `api/contact/` — Contact form endpoint
-Azure Function HTTP trigger. Receives form POST, validates Turnstile,
-sends Postmark email, returns status. Business logic in `api/contact/lib/`
-for unit-testability without function-runtime dependencies.
+Single Azure Function HTTP trigger. Receives form POST, runs honeypot →
+rate limit → Turnstile verify → Postmark send. Business logic in
+`api/contact/lib/` for unit-testability without function-runtime
+dependencies. Validation schema imported from `src/lib/contactValidation.ts`
+(shared) so client and server stay in sync.
 
 ### `tests/` — Test suite
-Vitest specs. Mirrors `src/` structure. Unit tests for `lib/`, component
-tests for interactive React components, integration tests for the contact
-endpoint (mock Postmark + Turnstile, real HTTP).
+Vitest specs. Mirrors `src/` structure. Coverage targets in `/ai/TESTING.md`.
 
 ---
 
 ## Data Flow
 
 ### Contact form submission
-
-1. User fills form on a static Astro page (form is a hydrated React island).
+1. User loads `/contact`. Form is a hydrated React island.
 2. Turnstile widget produces a token client-side.
-3. React component POSTs `{ name, email, message, token, honeypot? }` to
-   `/api/contact`.
+3. Form POSTs `{ name, email, companyName, message, turnstileToken, hp }` to
+   `/api/contact`. `hp` is the honeypot — must be empty.
 4. Azure Function:
-   - rejects if honeypot is non-empty
-   - rejects if rate limit exceeded for source IP
-   - calls Cloudflare Turnstile verify endpoint with the token + secret
+   - rejects if honeypot non-empty (200 OK with `{ ok: true }` to avoid
+     signaling bot detection)
+   - rejects if rate limit exceeded (429)
+   - calls Cloudflare Turnstile verify endpoint with the token + secret + IP
    - if verified, calls Postmark send endpoint with templated email
    - returns `{ ok: true }` or `{ ok: false, reason: '...' }`
-5. React component shows success or error UI.
+5. React component shows success or generic-error UI (no detailed server
+   error leaked to client).
+
+### Page render
+1. CI builds static HTML via `astro build`.
+2. SWA serves files from CDN. React islands hydrate as needed.
+3. `/api/contact` is the only server-touched route.
 
 ---
 
@@ -83,29 +118,55 @@ endpoint (mock Postmark + Turnstile, real HTTP).
 
 - **Secrets** live in environment variables, never in source.
   - Local: `.env.local` (gitignored)
-  - SWA: configured via Azure Portal or `swa-cli` env-var management
+  - SWA: configured via Azure Portal or `swa-cli`
   - GitHub Actions: federated OIDC + Azure secrets (no static client secrets)
 - **CORS** is implicit — same-origin from the SWA-served frontend.
-- **Rate limiting** is enforced server-side; client-side is advisory only.
+- **Rate limiting** is enforced server-side; client-side advisory only.
+  In-memory per-instance (acceptable for marketing site traffic; revisit
+  with an ADR if scaling out).
+- **Honeypot** is a hidden form field that real users never fill.
 - **PII** in form submissions is forwarded to Postmark; not persisted on
-  Azure unless a project specifically adds storage (and an ADR for it).
+  Azure. No analytics, no logs of message body content.
 - **Turnstile keys** — site key is public; secret key is server-only.
+- **Server error messages** to the client are intentionally neutral
+  ("Something went wrong, please try again later") to avoid information
+  disclosure. Detail stays in Application Insights / Function logs.
+
+---
+
+## SEO and canonical URL strategy
+
+- One canonical domain: `devildogcyber.com`.
+- `www.devildogcyber.com` 301-redirects to apex via SWA `staticwebapp.config.json`
+  redirect rule (the old site did this with a Next.js proxy redirect; SWA
+  handles it natively).
+- Each page sets `<link rel="canonical">` to the apex URL.
+- `/sitemap.xml` and `/robots.txt` generated at build (Astro's
+  `@astrojs/sitemap` integration).
+- Structured data: Organization (ProfessionalService) and WebSite JSON-LD
+  injected via `BaseLayout` (ported from `src/features/site/seo.ts`).
+- Open Graph and Twitter card metadata per page (default OG image is the
+  DevilDog "looking up trees" hero image).
 
 ---
 
 ## External Services
 
-| Service              | Purpose                            | Where keys live                     |
-| -------------------- | ---------------------------------- | ----------------------------------- |
-| Postmark             | Transactional email                | env: `POSTMARK_API_TOKEN`           |
-| Cloudflare Turnstile | Bot mitigation                     | env: `TURNSTILE_SECRET_KEY` (server) |
-| Azure SWA            | Static hosting + managed API       | Azure portal config                 |
-| GitHub Actions       | CI/CD                              | Repo secrets / OIDC federation      |
+| Service              | Purpose                            | Where keys live                            |
+| -------------------- | ---------------------------------- | ------------------------------------------ |
+| Postmark             | Transactional email                | env: `POSTMARK_SERVER_TOKEN`               |
+| Cloudflare Turnstile | Bot mitigation                     | env: `TURNSTILE_SECRET_KEY` (server)       |
+|                      |                                    | env: `PUBLIC_TURNSTILE_SITE_KEY` (client)  |
+| Azure SWA            | Static hosting + managed API       | Azure portal config                        |
+| Cloudflare DNS       | Apex + www DNS records             | Cloudflare dashboard                       |
+| GitHub Actions       | CI/CD                              | OIDC federation; no client secrets in repo |
 
 ---
 
 ## Repository Structure
-See `/ai/PROJECT.md` for the canonical default structure.
+See `/ai/PROJECT.md` for the canonical default structure. The `src/content/`
+folder is the project-specific addition (typed content modules ported from
+the old site's `src/features/site/`).
 
 ---
 
@@ -118,10 +179,20 @@ See `/ai/PROJECT.md` for the canonical default structure.
 - Document architecture changes via ADR before or during implementation.
 - The contact endpoint logic must be unit-testable in isolation from the
   Azure Functions runtime (extract into `api/contact/lib/`).
-- One canonical implementation per concern. If the contact form logic is
-  needed in two places, extract to a shared package, do not duplicate.
+- Validation lives in `src/lib/contactValidation.ts` and is imported by
+  both the React form and the Azure Function — single source of truth.
+- One canonical implementation per concern. If something is needed in two
+  places, extract to a shared module, do not duplicate.
+- Content is typed. Page-level copy lives in `src/content/`, never inline
+  in components or `.astro` files (mirrors the old site's pattern,
+  preserved because it caught content drift bugs).
 
 ---
 
 ## Open Architecture Questions
-- TBD per-project (filled in during P0-T1 initialization)
+- **Rate-limit storage**: in-memory per-function-instance is fine at our
+  expected traffic. If we ever scale to >1 instance routinely, switch to
+  Azure Table Storage or Cosmos. Tracked as a Phase-3 follow-up, not v1.
+- **Analytics**: deferred. Open question is whether to add
+  Plausible / Cloudflare Web Analytics (privacy-respecting, no consent
+  banner needed) before launch or after.
