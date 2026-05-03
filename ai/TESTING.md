@@ -1,6 +1,6 @@
 # Testing Strategy
 
-Last Updated: 2026-05-02
+Last Updated: 2026-05-03
 
 ## Testing Status
 Project-specific strategy documented. Defaults from the starter apply with
@@ -17,11 +17,12 @@ and the navigation/IA invariants.
   token requirement).
 - `src/lib/seo.ts` — output shape for `buildPageMetadata`,
   `getOrganizationJsonLd`, `getWebsiteJsonLd`.
-- `src/content/siteContent.ts` and `src/content/detailPages.ts` — a
-  "no orphan link" test that asserts every link target in
-  `primaryNavigation`, `navigationGroups`, `footerLinkGroups`, and CTA
-  blocks resolves to either a real Astro page file or a slug present in
-  `detailPages`.
+- **`tests/content/navLinks.test.ts`** (landed **P2-B2**) — proves every href
+  under `navigationGroups` resolves either to `/` + non-dynamic `*.astro`
+  routes or to a slash path synthesized from `detailPages` (plus a guard so
+  static pages never collide with the catch-all emitter). Extend this pattern
+  to `primaryNavigation`, footer groups, and CTA blocks inside page content once
+  those surfaces freeze.
 - `api/contact/lib/postmark.ts` — config validation, body building,
   HTML escaping, error handling.
 - `api/contact/lib/turnstile.ts` — config validation, success path,

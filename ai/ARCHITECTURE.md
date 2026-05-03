@@ -1,6 +1,6 @@
 # Architecture
 
-Last Updated: 2026-05-02
+Last Updated: 2026-05-03
 
 ## Architecture Status
 Project-specific architecture documented. Default pattern from the starter
@@ -53,9 +53,14 @@ External services:
 ## Major Components
 
 ### `src/pages/` — Astro pages
-Static HTML pages, pre-rendered at build time. Files map 1:1 to URL paths
-per the page mapping in `/ai/MIGRATION_INVENTORY.md`. Pages compose layouts,
-typed content modules, and React islands where interactivity is required.
+Static HTML pages, pre-rendered at build time. Home + stubs map to discrete
+routes (e.g. `index.astro`, `about.astro`, `contact.astro`); every entry in the
+typed `detailPages` array emits a static HTML file via **`[...slug].astro`**
+(`getStaticPaths()` joins each slug segment with `/`). Those detail templates
+consume `src/components/detail/*` Astro partials (`DetailPageSections.astro`,
+`DetailSplitSection.astro`, `DetailPageCta.astro`). React islands hydrate only
+where needed (currently `SiteHeader`). Remaining conventions follow
+`/ai/MIGRATION_INVENTORY.md` for IA parity.
 
 ### `src/content/` — Typed content modules
 TypeScript modules holding all site copy (`siteContent.ts`, `detailPages.ts`,

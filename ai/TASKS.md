@@ -119,8 +119,9 @@ Phase: 2 — Depends on P2-T3.
 
 ### P2-T9: About-us (team) page
 Status: Backlog
-Phase: 2 — Depends on P2-T3. Port team imagery to
-`public/images/devildog/team/`.
+Phase: 2 — Depends on P2-T3. Legacy leadership imagery already rests in
+`public/images/devildog/team/` from **P2-B2** supporting **P2-T4**/about-us
+routing; backlog work is parity review + UX polish versus the old About Us treatment.
 **Execution batch:** **P2-B5**.
 
 ### P2-T10: About page (about this site)

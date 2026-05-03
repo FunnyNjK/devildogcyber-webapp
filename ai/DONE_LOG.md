@@ -9,7 +9,8 @@ Last Updated: 2026-05-03
 - **Assets:** Legacy `public/images/devildog/pages/*` copied; `public/images/devildog/team/*` for leadership imagery referenced by detail content.
 - **Tests:** `tests/content/navLinks.test.ts` verifies every `navigationGroups` href resolves to `detailPages` or a literal `src/pages/*.astro` route; collision guard versus catch-all duplicates.
 - **Checks:** `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build` (WSL).
-- Commit: `12788f7`
+- Implementation commit: `12788f7`
+- Documentation follow-up fixing the DONE_LOG hash after amend: `ba9eaed`
 
 ## 2026-05-02 — P0-T1: Initialize project-specific AI files
 - Catalogued the legacy DevilDog site at `~/repos/devildog` (Next.js 15,
