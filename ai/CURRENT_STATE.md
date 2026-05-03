@@ -1,5 +1,7 @@
 # Current State
 
+Last Updated: 2026-05-02
+
 ## Current Phase
 Phase 0 — Project Initialization (P0-T1 in progress; closes at end of this session)
 

@@ -1,5 +1,7 @@
 # Migration Inventory — devildog (old) → devildogcyber-webapp (new)
 
+Last Updated: 2026-05-02
+
 This document is the bridge between the legacy site at `~/repos/devildog`
 (Next.js 15 + App Router, Azure App Service) and the new site in this
 repository (Astro 5 + React 19 + Tailwind 4, Azure SWA managed API).

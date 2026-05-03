@@ -1,5 +1,7 @@
 # Architecture Decision Records
 
+Last Updated: 2026-05-02
+
 This file records decisions that affect architecture, dependencies, security,
 deployment, testing, or scope. The first block of ADRs (ADR-001 through
 ADR-010) are pre-populated cross-project defaults baked into this starter.
@@ -111,7 +113,9 @@ Status: Accepted
 
 ### Decision
 Deploy frontend as static files to Azure Static Web Apps. Deploy the contact
-endpoint as the SWA managed API (Azure Functions v4, Node 22 ESM).
+endpoint as the SWA managed API (Azure Functions v4, Node 24 LTS ESM).
+Dev / CI / Functions runtime all on the same Node major. (See ADR-018 for
+the Node 22→24 bump.)
 
 ### Reason
 - Free SSL on custom domains.
@@ -179,7 +183,7 @@ All new code is TypeScript with strict mode. ESM only — no CommonJS
 
 ### Reason
 Strict TS catches real bugs cheaply. ESM is the JS standard; CJS is
-legacy. ES2022 covers Node 22+ and modern browsers without polyfill noise.
+legacy. ES2022 covers Node 24+ and modern browsers without polyfill noise.
 
 ### Tradeoffs
 - Some older npm packages still ship CJS-only. Resolved per-package; if
@@ -378,6 +382,51 @@ checks. The Azure Function imports it for server-side checks.
 
 ### Related Tasks
 P2-T11 (form), P2-T12 (function).
+
+---
+
+## ADR-018: Node 24 LTS end-to-end (dev, CI, Functions runtime)
+Date: 2026-05-02
+Status: Accepted
+Supersedes the Node 22 references in ADR-005.
+
+### Decision
+Use Node 24 LTS for everything: local dev, CI runners, and the Azure
+Functions runtime backing the SWA managed API. To be pinned via:
+
+- `package.json` → `engines.node: ">=24"` (set in P1-T1 scaffold)
+- `.nvmrc` → `24`
+- `.github/workflows/ci.yml` → `setup-node` reads `engines.node`
+- Azure Functions runtime version → set to Node 24 in the SWA resource
+  configuration during P4-T1 (provision step)
+
+### Reason
+- Node 24 became the active LTS; Azure Functions v4 supports Node 24.
+- Aligning dev / CI / production on the same Node major eliminates a
+  whole class of "works locally, breaks on cold start" surprises.
+- Aligns this project with the cross-portfolio "always on the latest
+  supported Node major" posture.
+
+### Tradeoffs
+- Locks the project to whatever Azure Functions currently certifies. If
+  Azure ever pulls Node 24 support before Node 26 is GA, we'd need to
+  step back — minor risk.
+- Some `node_modules` packages may not yet declare Node 24 in their
+  `engines`. CI catches the obvious cases; subtle issues surface in
+  Dependabot PRs.
+
+### Related Tasks
+- P1-T1 (set `engines.node` to `>=24`, `.nvmrc` to `24`)
+- P1-T2 (CI uses Node 24)
+- P2-T12 (Azure Function endpoint — confirm `node_modules` resolve
+  cleanly under Node 24)
+- P4-T1 (set Functions runtime version to Node 24 in SWA config)
+
+### Related ADRs
+- ADR-005 (Azure SWA + managed Functions API) — Node 22 reference there
+  is superseded; left in place per the "do not edit baked-in ADRs" rule.
+- ADR-008 (TypeScript strict, ESM, ES2022) — ES2022 target stays;
+  comfortable on Node 24.
 
 ---
 

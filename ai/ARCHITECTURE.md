@@ -1,5 +1,7 @@
 # Architecture
 
+Last Updated: 2026-05-02
+
 ## Architecture Status
 Project-specific architecture documented. Default pattern from the starter
 applies, with project-specific notes for content modeling, brand tokens,
@@ -26,7 +28,7 @@ www→apex redirect, and the contact endpoint.
    |     |                           ContactForm + TurnstileWidget
    |     └── Self-hosted fonts (Montserrat, Open Sans) via @fontsource
    |
-   ├── Managed API (Azure Functions v4, Node 22 ESM)
+   ├── Managed API (Azure Functions v4, Node 24 ESM)
    |     └── POST /api/contact
    |           ├── verify Turnstile token (server-side)
    |           ├── reject if honeypot field is non-empty

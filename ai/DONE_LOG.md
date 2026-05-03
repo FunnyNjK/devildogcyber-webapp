@@ -1,5 +1,7 @@
 # Done Log
 
+Last Updated: 2026-05-02
+
 ## 2026-05-02 — P0-T1: Initialize project-specific AI files
 - Catalogued the legacy DevilDog site at `~/repos/devildog` (Next.js 15,
   App Router, Azure App Service deploy with Postmark + Turnstile contact

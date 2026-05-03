@@ -1,5 +1,7 @@
 # Tasks
 
+Last Updated: 2026-05-02
+
 ## Active Task
 None — pick the next "Ready" task below.
 
@@ -71,7 +73,7 @@ Add `.github/workflows/ci.yml` per `/ai/DEPLOYMENT.md`. Wired to run on
 #### Acceptance Criteria
 - CI runs lint, typecheck, test, build on PR and push to `main`.
 - pnpm cache restored from lockfile.
-- Node 22 used.
+- Node 24 used (per ADR-018).
 - First PR shows green check.
 
 #### Test Requirements

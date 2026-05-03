@@ -1,5 +1,7 @@
 # Deployment
 
+Last Updated: 2026-05-02
+
 ## Deployment Status
 Project-specific deployment plan documented. Resource provisioning in
 Azure happens during P4-T1 (not now).

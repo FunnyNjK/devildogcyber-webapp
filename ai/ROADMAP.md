@@ -1,5 +1,7 @@
 # Roadmap
 
+Last Updated: 2026-05-02
+
 ## Phase 0: Project Initialization
 Status: Done
 

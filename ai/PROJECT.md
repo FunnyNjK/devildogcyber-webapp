@@ -1,5 +1,7 @@
 # Project
 
+Last Updated: 2026-05-02
+
 ## Project Name
 DevilDog Cybersecurity Web App (`devildogcyber-webapp`)
 
@@ -80,7 +82,8 @@ without losing the existing brand identity, copy, or information architecture.
 - **TypeScript strict mode**, ES2022 target, ESM only.
 
 ### Backend (contact form / dynamic pieces only)
-- **Azure Functions v4** (Node 22, ESM) deployed as the Azure SWA managed API.
+- **Azure Functions v4** (Node 24 LTS, ESM) deployed as the Azure SWA managed API.
+  Dev / CI / Functions runtime all on Node 24 — see ADR-018.
 - All business logic (Postmark send, Turnstile verify, IP extraction,
   rate-limit check) extracted into a `lib/` folder for testability.
 - No database in this default. Add one only if the project requires it (and

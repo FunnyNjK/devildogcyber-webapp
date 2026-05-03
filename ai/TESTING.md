@@ -1,5 +1,7 @@
 # Testing Strategy
 
+Last Updated: 2026-05-02
+
 ## Testing Status
 Project-specific strategy documented. Defaults from the starter apply with
 DevilDog-specific notes for content drift, the contact endpoint branches,

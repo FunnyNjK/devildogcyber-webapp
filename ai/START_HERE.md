@@ -1,5 +1,7 @@
 # START HERE - AI Project Control File
 
+Last Updated: 2026-05-02
+
 This is the only file an AI assistant needs to read first.
 
 After reading this file, the AI must follow the instructions below and
