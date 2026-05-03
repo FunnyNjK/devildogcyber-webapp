@@ -3,16 +3,16 @@
 Last Updated: 2026-05-03
 
 ## Current State Summary
-**P2-B4** complete (**P2-T7**): compliance hub `/compliance` and framework pages (`/compliance/cmmc`, `cmmi`, `nist-800-171`, `glba`, `hipaa`, `hitrust`, `iso-27001-27002`) were already present in verbatim `detailPages` from **P2-B2**; **P2-B4** adds `navLinks` regression coverage for those paths.
+**P2-B5** complete (**P2-T9**): `/about-us` uses optional **`hero.layout: 'backdrop'`** (full-bleed dimmed photo + gradient, matching legacy detail hero) and **team** section cards reworked to legacy vertical layout (portrait strip, role eyebrow, pill highlights). **`navLinks`** asserts `/about-us`.
 
 ## Last Completed Task
-**P2-B4:** **P2-T7** — Done 2026-05-03. See `DONE_LOG.md`.
+**P2-B5:** **P2-T9** — Done 2026-05-03. See `DONE_LOG.md`.
 
 ## Active Task
-**P2-B5** — **P2-T9** About-us (team) page parity + UX polish vs legacy.
+**P2-B6** — **P2-T10** About-this-site (`/about`) page.
 
 ## Next Recommended Task
-Execute **P2-B5**: review `/about-us` (or routing equivalent) versus legacy IA and polish layout/imagery as needed.
+Execute **P2-B6**: standalone **`/about`** Astro page vs legacy IA and content port.
 
 ## What Is Blocked
 Nothing on the AI side. Azure (**P4-B1**) is production-only.

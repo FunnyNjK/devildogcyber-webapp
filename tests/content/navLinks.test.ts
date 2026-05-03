@@ -53,6 +53,10 @@ describe("navigation link targets resolve", () => {
     }
   });
 
+  it("P2-B5 detail route (About Us / team) is emitted by detailPages", () => {
+    expect(detailPaths.has("/about-us"), "Missing detail route /about-us").toBe(true);
+  });
+
   it("every navigationGroups href resolves to a detail page slug or static src/pages route", () => {
     expect(staticRoutes.has("/")).toBe(true);
 

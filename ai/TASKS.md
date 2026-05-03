@@ -3,7 +3,7 @@
 Last Updated: 2026-05-03
 
 ## Active Task
-**P2-B5** — run **P2-T9** (About-us team page parity + UX polish).
+**P2-B6** — run **P2-T10** (About-this-site page).
 
 ---
 
@@ -91,16 +91,9 @@ Not batch-scheduled (per-request). Do not include in `run-phase*.sh` counts.
 ---
 
 ## Ready
-None — **P2-B5** backlog entry (**P2-T9**) sits below until picked up.
+None — pick up **P2-B6** (**P2-T10**) from backlog.
 
 ## Backlog (Phase 2 — Core Buildout)
-
-### P2-T9: About-us (team) page
-Status: Backlog
-Phase: 2 — Depends on P2-T3. Legacy leadership imagery already rests in
-`public/images/devildog/team/` from **P2-B2** supporting **P2-T4**/about-us
-routing; backlog work is parity review + UX polish versus the old About Us treatment.
-**Execution batch:** **P2-B5**.
 
 ### P2-T10: About page (about this site)
 Status: Backlog
@@ -300,6 +293,7 @@ None.
 ### P2-T6: Security Reconnaissance page — Done; see `DONE_LOG.md`.
 ### P2-T8: Story page — Done; see `DONE_LOG.md`.
 ### P2-T7: Compliance hub + framework pages — Done; see `DONE_LOG.md`.
+### P2-T9: About-us (team) page — Done; see `DONE_LOG.md`.
 
 ### P0-T1: Initialize project-specific AI files
 Status: Done

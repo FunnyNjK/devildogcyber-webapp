@@ -2,6 +2,13 @@
 
 Last Updated: 2026-05-03
 
+## 2026-05-03 — P2-B5: P2-T9 About-us (team) parity + UX polish
+- **`hero.layout?: 'backdrop'`** on **`DetailPage`** — **`src/pages/[...slug].astro`** renders full-bleed hero (photo at 40% opacity + gradient overlay + copy) matching legacy **`DetailPage.tsx`**; **`/about-us`** sets **`layout: 'backdrop'`** (split gradient hero unchanged for other detail pages).
+- **`DetailPageSections.astro`** — **`kind: 'team'`** reworked to vertical **`TeamCard`**-style articles (portrait strip **`h-80`**, role uppercase, name + bio + bordered cream highlight pills); section shell matches legacy transparent padding (no outer bordered panel).
+- **Tests:** **`tests/content/navLinks.test.ts`** — asserts **`/about-us`** exists on **`detailPages`** map.
+- **Checks:** `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build` (WSL).
+- Implementation commit: `eb51e57`
+
 ## 2026-05-03 — P2-B4: P2-T7 Compliance hub + framework pages
 - **Finding:** Full hub + framework payloads for `/compliance` and `/compliance/*` frameworks were already in the verbatim **`detailPages`** port (**P2-B2**); **`public/images/devildog/pages`** already included referenced assets (`compliance.jpg`, `badge.jpeg`, `hitrust.jpg`, `iso.jpg`, `finance.jpg`, `healthcare.jpg`, military/finance imagery for CMMC/NIST/etc.).
 - **Tests:** `tests/content/navLinks.test.ts` — explicit regression that `/compliance` plus `/compliance/cmmc`, `/compliance/cmmi`, `/compliance/nist-800-171`, `/compliance/glba`, `/compliance/hipaa`, `/compliance/hitrust`, `/compliance/iso-27001-27002` exist on the `detailPages` map (IA drift guard).

@@ -71,6 +71,8 @@ export type DetailPage = {
     imageSrc: string;
     imageAlt: string;
     align?: 'left' | 'center';
+    /** Full-bleed dimmed photo behind copy (legacy detail hero). Omit for split/column hero. */
+    layout?: 'backdrop';
   };
   sections: readonly DetailPageSection[];
   cta?: {
@@ -1346,6 +1348,7 @@ export const detailPages = [
         'The leadership page brings together technical depth, military experience, academic leadership, and long-term engineering practice.',
       imageSrc: '/images/devildog/home/looking-up-trees.jpg',
       imageAlt: 'Leadership and team introduction image',
+      layout: 'backdrop',
     },
     sections: [
       {

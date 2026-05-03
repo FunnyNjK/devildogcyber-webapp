@@ -103,37 +103,40 @@ const cardGrid = (cols: 2 | 3 | 4) =>
           </ul>
         </section>
       ) : section.kind === "team" ? (
-        <section data-section-index={index} class:list={["scroll-mt-28 border px-8 py-12 sm:px-10 sm:py-16", sectionShell(section.theme)]}>
-          {section.eyebrow ? <p class={eyebrow(section.theme)}>{section.eyebrow}</p> : null}
-          <h2 class="mt-3 max-w-3xl font-display text-3xl font-extrabold tracking-tight sm:text-4xl">{section.title}</h2>
-          {section.description ? <p class:list={["mt-4 max-w-3xl leading-8", muted(section.theme)]}>{section.description}</p> : null}
-          <div class="mt-12 grid gap-10 lg:grid-cols-2">
+        <section data-section-index={index} class="scroll-mt-28 text-[color:var(--dd-copy)]">
+          {section.eyebrow ? (
+            <p class="text-sm font-semibold uppercase tracking-[0.28em] text-[color:var(--dd-red-bright)]">{section.eyebrow}</p>
+          ) : null}
+          <h2 class="mt-4 max-w-3xl font-display text-4xl font-extrabold tracking-tight sm:text-5xl">{section.title}</h2>
+          {section.description ? (
+            <p class="mt-4 max-w-3xl text-base leading-8 text-[color:var(--dd-muted)] sm:text-lg">{section.description}</p>
+          ) : null}
+          <div class="mt-10 grid gap-6 lg:grid-cols-2">
             {section.members.map((member) => (
-              <article class="flex flex-col gap-6 rounded-[2rem] border border-[color:var(--dd-border)] bg-dd-cream/50 p-6 sm:flex-row sm:items-start">
-                <img
-                  src={member.imageSrc}
-                  alt={member.imageAlt}
-                  width={540}
-                  height={540}
-                  loading="lazy"
-                  decoding="async"
-                  class="mx-auto aspect-square w-full max-w-[14rem] rounded-2xl object-cover sm:mx-0 sm:max-w-[11rem]"
-                />
-                <div class="flex-1">
-                  <div>
-                    <h3 class="text-2xl font-bold text-[color:var(--dd-red)]">{member.name}</h3>
-                    <p class:list={["mt-1 font-semibold", muted(section.theme)]}>{member.role}</p>
-                  </div>
-                  <div class:list={["mt-4 space-y-3 text-sm leading-7 sm:text-[0.9375rem]", muted(section.theme)]}>
+              <article class="h-full overflow-hidden rounded-[1.75rem] border border-[color:var(--dd-border)] bg-white shadow-[0_18px_40px_rgba(15,23,42,0.08)]">
+                <div class="aspect-[16/10] max-h-80 min-h-[12rem] overflow-hidden sm:aspect-auto sm:h-80">
+                  <img
+                    src={member.imageSrc}
+                    alt={member.imageAlt}
+                    width={900}
+                    height={900}
+                    loading="lazy"
+                    decoding="async"
+                    class="h-full w-full object-cover"
+                  />
+                </div>
+                <div class="p-7">
+                  <p class="text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--dd-red-bright)]">{member.role}</p>
+                  <h3 class="mt-3 font-display text-3xl font-bold text-[color:var(--dd-copy)]">{member.name}</h3>
+                  <div class="mt-5 space-y-4 text-sm leading-7 text-[color:var(--dd-muted)]">
                     {member.bio.map((b) => (
                       <p>{b}</p>
                     ))}
                   </div>
-                  <ul class="mt-6 list-none space-y-3 text-sm leading-7">
+                  <ul class="mt-6 space-y-3">
                     {member.highlights.map((h) => (
-                      <li class="flex gap-3">
-                        <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[color:var(--dd-red)]" aria-hidden />
-                        <span class="text-[color:var(--dd-copy)]">{h}</span>
+                      <li class="rounded-2xl border border-[color:var(--dd-border)] bg-dd-cream px-4 py-3 text-sm leading-7 text-[color:var(--dd-copy)]">
+                        {h}
                       </li>
                     ))}
                   </ul>
