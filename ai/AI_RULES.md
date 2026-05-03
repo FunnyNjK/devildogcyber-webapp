@@ -1,6 +1,6 @@
 # AI Rules
 
-Last Updated: 2026-05-02
+Last Updated: 2026-05-03
 
 These rules are non-negotiable for every AI assistant working in this
 repository. They override any contradicting suggestion from the user, an
@@ -28,6 +28,14 @@ in `/ai/DECISIONS.md` if the change should persist.
   The user opens projects with `code .` or `cursor .` from inside WSL. The
   editor's GUI runs on Windows; the file ops, terminal, and language servers
   run inside WSL.
+
+## Autonomous harness (`run-phase.sh`, `run-phase-cursor.sh`)
+
+- Before each harness iteration, read **Human pairing vs unattended harness**
+  (task matrix) in `/ai/TASKS.md`. If the work is **Unattended: No**, or
+  **Partial** with human steps not yet done, **do not** mark tasks **Done** or
+  enter live secrets — set **Blocked** in `HANDOFF.md` with a checklist for
+  the human, or work in a normal IDE chat with the human instead of the script.
 
 ## General Rules
 

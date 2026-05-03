@@ -23,6 +23,54 @@ meant to finish in **one agent session** before handoff / commit
 - Do **not** merge tasks across batches or invent new groupings without
   updating this section and ADR-019.
 
+### Human pairing vs unattended harness (`run-phase*.sh`)
+
+Some work **must not** be driven only by the phase scripts: it needs you
+(keys in portals, DNS at registrar, Azure admin consent, Postmark
+verification, domain decisions). Other work is fine unattended if CI and
+repo auth already work.
+
+**Legend**
+
+| Tag | Meaning |
+|-----|---------|
+| **`Unattended: OK`** | Safe to run under `./run-phase.sh` / `./run-phase-cursor.sh` without you at the keyboard (AI reads `/ai`, edits code, runs tests; no live secrets or tenant-only actions required to finish). |
+| **`Unattended: Partial`** | AI can do most of the implementation; **you** must supply secrets, approve org settings, confirm domain/DNS choices, run a provider dashboard step, or do a **manual** check (e.g. keyboard walk) before the task is truly **Done**. **Pause the script** for those steps, then resume or run the next batch in chat. |
+| **`Unattended: No`** | **Do not** rely on the harness alone for completion. Treat as **pair work**: Cursor/IDE session with the human, or human executes portal/registrar while AI documents. Script may still be used **only** for doc/code prep if `HANDOFF.md` says so. |
+
+**Task matrix (every ID — check before each `run-phase*.sh` iteration)**
+
+| ID | Unattended | Why |
+|----|------------|-----|
+| **P0-T1** | OK | Planning-only. |
+| **P1-T1** | OK | Scaffold + `.env.example`; no live API keys. |
+| **P1-T2** | Partial | First-time GitHub Actions may need org/repo settings (billing, Actions enabled, branch protection). |
+| **P2-T1**–**P2-T10** | OK | Code and static content; domain strings in copy are from spec, not live DNS changes. |
+| **P2-T11** | Partial | Turnstile hostname allowlist / real widget verification often needs your Cloudflare dashboard + local `.env` secrets (never committed). |
+| **P2-T12** | Partial | Postmark + Turnstile **server** secrets for real sends; AI uses mocks in tests — you paste keys in Azure/local when validating. |
+| **P2-T13** | Partial | `staticwebapp.config.json` uses real hostnames; file edits OK unattended — **you** confirm DNS/SWA when going live (overlaps P4). |
+| **P2-I4** | OK | Code/refactor; Lighthouse targets may need your eye on scores in **P3-T1**. |
+| **P2-I5** | Partial | Gap-fill a11y — may include manual keyboard verification with you. |
+| **P2-I6** | OK | CSS/tokens; quick OS reduced-motion check is optional with you. |
+| **P3-T1** | Partial | Lighthouse interpretation + prod/preview URL context; often automated in CI but **you** confirm “good enough” for launch. |
+| **P3-T2** | Partial | Explicit **manual** keyboard / screen-reader walk — not fully automatable. |
+| **P3-T3** | OK | Thresholds in repo/CI. |
+| **P4-T1** | No | Azure subscription, resource naming, DNS delegation — **you** + AI together. |
+| **P4-T2** | Partial | AI edits workflows; **Entra / federated credential** often needs tenant admin (you or IT). |
+| **P4-T3** | No | **Typing production secrets** into SWA / GitHub Environments — **you**; AI lists names only. |
+| **P4-T4** | No | Postmark sender/DNS verification — **your** inbox or DNS console. |
+| **P4-T5** | Partial | Deploy pipeline may need **your** approval click + smoke test observation. |
+| **P4-T6** | No | Registrar DNS cutover / go-live window — **you** execute; AI documents checklist. |
+
+**Operational rule for any AI run**
+
+Before starting a batch in `run-phase*.sh`, read this matrix. If **any**
+constituent task is **No** or **Partial** and the human has **not** already
+completed the hands-on parts, either: (1) **skip** that batch in the script
+and work with the human in a normal chat session first, or (2) run the
+script only for the **OK** sub-portion and leave `HANDOFF.md` in **Blocked**
+with “needs human: …” until unblocked.
+
 ### Phase 1 — Foundation
 
 | Batch ID | Constituent tasks (order) | `run-phase*.sh` runs for full phase |
@@ -64,6 +112,9 @@ meant to finish in **one agent session** before handoff / commit
 **Runs for full Phase 3:** **2**
 
 ### Phase 4 — Deployment
+
+**Default: do not run Phase 4 batches unattended end-to-end.** Pair with the
+human per the matrix above (`P4-T*` includes multiple **No** / **Partial**).
 
 | Batch ID | Constituent tasks | Notes |
 |----------|-------------------|--------|
@@ -108,6 +159,7 @@ Done (2026-05-03) — **`P2-B7`**.
 Status: Backlog
 Phase: 2
 **Scheduling:** Default **P3-B1** with P3-T1 / P3-T2 (see Execution batches).
+**Unattended script:** **OK** (see matrix; confirm Lighthouse with human if needed).
 
 Replace raw `<img>` with Astro's `<Image>` (or hand-tuned `srcset`),
 serve AVIF/WebP, set explicit width/height, lazy-load below the fold.
@@ -118,6 +170,7 @@ preloaded on home + each detail page hero.
 Status: Backlog
 Phase: 2
 **Scheduling:** Primary work in **P2-B1** / **P2-T1** acceptance. Use this backlog row only for gap-fill if P2-B1 shipped with nav a11y incomplete.
+**Unattended script:** **Partial** — manual keyboard / screen-reader verification with human.
 
 Keyboard support (Tab/Shift-Tab, Enter/Space toggle, Esc close, arrow
 navigation between items), correct ARIA (`aria-expanded`, `aria-haspopup`,
@@ -128,6 +181,7 @@ core reports zero serious/critical violations on `/` and `/contact`.
 Status: Backlog
 Phase: 2
 **Scheduling:** Default **P3-B1** unless already satisfied during **P2-B1**.
+**Unattended script:** **OK** (optional OS setting check with human).
 
 Respect `prefers-reduced-motion` for any transitions over 200ms. Add a
 sitewide focus-visible ring using brand red. Acceptance: with
@@ -139,15 +193,18 @@ sitewide focus-visible ring using brand red. Acceptance: with
 
 ### P3-T1: Lighthouse audit pass
 Status: Backlog · Phase: 3 · **Execution batch:** **P3-B1** (with P3-T2, P2-I4, P2-I6).
+**Unattended script:** **Partial** — CI/automation can run audits; human confirms launch bar and prod/preview URLs.
 Hit Performance ≥ 95 home / ≥ 90 detail; Accessibility ≥ 95 sitewide;
 SEO ≥ 95 sitewide; Best Practices ≥ 95 sitewide.
 
 ### P3-T2: Accessibility audit pass (axe + manual keyboard walk)
 Status: Backlog · Phase: 3 · **Execution batch:** **P3-B1** (with P3-T1, P2-I4, P2-I6).
+**Unattended script:** **Partial** — axe can be automated; **manual keyboard walk requires human**.
 Zero serious/critical violations on every public route.
 
 ### P3-T3: Bundle size budget
 Status: Backlog · Phase: 3 · **Execution batch:** **P3-B2**.
+**Unattended script:** **OK**.
 Document per-page JS budget; fail build above threshold.
 
 ---
@@ -156,21 +213,27 @@ Document per-page JS budget; fail build above threshold.
 
 ### P4-T1: Provision Azure SWA resource + DNS
 Status: Backlog · Phase: 4 · **Execution batch:** **P4-B1**.
+**Unattended script:** **No** — Azure subscription, naming, DNS delegation; **pair with human** (do not complete via harness alone).
 
 ### P4-T2: Configure OIDC federated credential and deploy.yml
 Status: Backlog · Phase: 4 · **Execution batch:** **P4-B2** (with P4-T3).
+**Unattended script:** **Partial** — AI edits YAML; **Entra / federated credential** needs tenant admin (you or IT).
 
 ### P4-T3: Production env-var configuration in SWA
 Status: Backlog · Phase: 4 · **Execution batch:** **P4-B2** (with P4-T2).
+**Unattended script:** **No** — **you** enter secrets in Azure/GitHub; AI must not fake Done without confirmation.
 
 ### P4-T4: Postmark sender verification confirmed in production
 Status: Backlog · Phase: 4 · **Execution batch:** **P4-B3** (with P4-T5).
+**Unattended script:** **No** — Postmark/DNS inbox steps **require human**.
 
 ### P4-T5: First production deploy + smoke test
 Status: Backlog · Phase: 4 · **Execution batch:** **P4-B3** (with P4-T4).
+**Unattended script:** **Partial** — pipeline may need **your** approval + observed smoke test.
 
 ### P4-T6: DNS cutover + www→apex verification
 Status: Backlog · Phase: 4 · **Execution batch:** **P4-B4**.
+**Unattended script:** **No** — registrar / go-live **requires human**; AI documents checklist only.
 
 ---
 

@@ -12,6 +12,8 @@
 #   - Authenticate once: `agent login` (or set CURSOR_API_KEY for headless/CI).
 #
 # Run from your project root (where /ai/ lives).
+# Human-only steps (Azure, DNS, secrets, Postmark): see /ai/TASKS.md
+# "Human pairing vs unattended harness".
 
 set -euo pipefail
 
@@ -28,7 +30,7 @@ TASKS=${1:?Usage: $0 <num_tasks>   e.g.  ./run-phase-cursor.sh 8}
 LOG_DIR="ai/logs/run_cursor_$(date +%Y%m%d_%H%M%S)"
 mkdir -p "$LOG_DIR"
 
-START_PROMPT="Please read /ai/START_HERE.md and follow it. Then pick up the next task per HANDOFF.md."
+START_PROMPT="Please read /ai/START_HERE.md and follow it. Read /ai/TASKS.md section 'Human pairing vs unattended harness' (task matrix) for the task or batch IDs in HANDOFF.md. If any constituent work is Unattended: No, stop after documenting what the human must do and set HANDOFF to Blocked — do not claim Done or enter live secrets from the harness. If Unattended: Partial, implement only the automatable parts and list remaining human steps in HANDOFF before marking Done. Otherwise pick up the next task per HANDOFF.md."
 END_PROMPT="Please read /ai/templates/CHAT_END_PROMPT.md and follow it."
 
 # Headless automation: trust repo, allow tool/shell actions without interactive approval.
