@@ -1,6 +1,6 @@
 # Roadmap
 
-Last Updated: 2026-05-02
+Last Updated: 2026-05-03
 
 ## Phase 0: Project Initialization
 Status: Done
@@ -22,6 +22,9 @@ Deliverables (all complete):
 ## Phase 1: Foundation
 Status: Ready
 
+**Autonomous runs (batches):** **1** — **P1-B1** (P1-T1 + P1-T2). See
+`/ai/TASKS.md` → *Execution batches* and ADR-019.
+
 Goals:
 - Scaffold Astro 5 + React 19 + Tailwind 4 + TypeScript per `/ai/PROJECT.md`.
 - Wire brand tokens into Tailwind theme (DevilDog reds, cream, fonts).
@@ -37,6 +40,10 @@ Deliverables:
 ## Phase 2: Core Buildout — pages, content, contact form
 Status: Backlog
 
+**Autonomous runs (batches):** **8** — **P2-B1** … **P2-B8** (grouped task
+IDs in `/ai/TASKS.md`). Phase 2 improvement rows **P2-I\*** default into
+those batches or Phase 3 as listed there — not separate harness counts.
+
 Goals:
 - Port content modules from the old site into `src/content/` (typed).
 - Port image assets to `public/images/devildog/`.
@@ -50,37 +57,25 @@ Goals:
 - Add SEO baseline: per-page metadata, JSON-LD, sitemap, robots,
   www→apex redirect via `staticwebapp.config.json`.
 
-Tasks (one per page or major section, sized for one focused session):
-- P2-T1: Layout, header, footer, base SEO + JSON-LD
-- P2-T2: Home page
-- P2-T3: Detail-page system (one Astro template, content-driven)
-- P2-T4: Services hub + Services detail pages (executive, maritime trio,
-         identity, monitoring, risk, controls, training, watchdog, docs,
-         penetration testing — 11 detail pages)
-- P2-T5: AI Threats top-level page
-- P2-T6: Security Reconnaissance top-level page
-- P2-T7: Compliance hub + framework pages (CMMC, CMMI, NIST 800-171,
-         GLBA, HIPAA, HITRUST, ISO 27001/27002 — 8 pages)
-- P2-T8: Story page
-- P2-T9: About-us (team) page
-- P2-T10: About page (about this site)
-- P2-T11: Contact page (form UI, validation, Turnstile widget)
-- P2-T12: `/api/contact` Azure Function (Postmark + Turnstile +
-          honeypot + rate limit + tests)
-- P2-T13: SEO finalization (sitemap, robots, JSON-LD, canonical,
-          OG/Twitter, www→apex redirect)
+Task IDs (grouped for autonomous runs — see `/ai/TASKS.md` *Execution batches*):
+- **P2-B1:** P2-T1, P2-T2 — layout + home (nav a11y **P2-I5** folded into T1)
+- **P2-B2:** P2-T3, P2-T4 — detail system + services port
+- **P2-B3:** P2-T5, P2-T6, P2-T8 — AI Threats, Security Recon, Story
+- **P2-B4:** P2-T7 — compliance hub + frameworks
+- **P2-B5:** P2-T9 — team page
+- **P2-B6:** P2-T10 — about this site
+- **P2-B7:** P2-T11, P2-T12 — contact UI + managed API
+- **P2-B8:** P2-T13 — SEO + sitemap + robots + `staticwebapp.config.json`
 
-Improvement-list tasks queued in addition to the page ports:
-- P2-I1: Self-hosted fonts via `@fontsource` (kill Google Fonts CDN call)
-- P2-I2: Honeypot field on contact form
-- P2-I3: Per-IP sliding-window rate limiter on `/api/contact`
-- P2-I4: Image optimization pass (responsive `srcset`, AVIF/WebP, lazy)
-- P2-I5: Accessibility pass on nav dropdowns (keyboard, ARIA, focus
-         management) — old site is mouse-first
-- P2-I6: Reduced-motion + focus-visible styling tokens
+Improvement rows **P2-I1** … **P2-I6** — schedule per `/ai/TASKS.md`
+(superseded, bundled into P2-B7 / P3-B1, or folded into P2-B1); not extra
+harness iterations by default.
 
 ## Phase 3: Hardening and Testing
 Status: Backlog
+
+**Autonomous runs (batches):** **2** — **P3-B1** (P3-T1, P3-T2, P2-I4, P2-I6),
+**P3-B2** (P3-T3).
 
 Goals:
 - Test coverage targets met (`/ai/TESTING.md`).
@@ -91,6 +86,8 @@ Goals:
 
 ## Phase 4: Deployment and Operations
 Status: Backlog
+
+**Autonomous runs (batches):** **4** — **P4-B1** … **P4-B4** (see `TASKS.md`).
 
 Goals:
 - Provision Azure SWA resource (start on free tier).

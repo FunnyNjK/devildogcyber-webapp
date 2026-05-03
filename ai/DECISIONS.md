@@ -1,6 +1,6 @@
 # Architecture Decision Records
 
-Last Updated: 2026-05-02
+Last Updated: 2026-05-03
 
 This file records decisions that affect architecture, dependencies, security,
 deployment, testing, or scope. The first block of ADRs (ADR-001 through
@@ -427,6 +427,37 @@ Functions runtime backing the SWA managed API. To be pinned via:
   is superseded; left in place per the "do not edit baked-in ADRs" rule.
 - ADR-008 (TypeScript strict, ESM, ES2022) — ES2022 target stays;
   comfortable on Node 24.
+
+---
+
+## ADR-019: Autonomous execution batches for harness runs
+Date: 2026-05-03
+Status: Accepted
+
+### Decision
+Define **execution batches** in `/ai/TASKS.md`: named groups of existing
+task IDs (e.g. **P1-B1** = P1-T1 + P1-T2) that may be completed in **one**
+autonomous agent session (one `run-phase.sh` / `run-phase-cursor.sh`
+iteration) before handoff and git commit. Batching reduces repeated
+full-context reads of `/ai/*.md` and lowers token spend. Phase-level
+**batch counts** are documented in `/ai/ROADMAP.md` and the quick-reference
+table in `/ai/TASKS.md`.
+
+### Reason
+Sequential single-task runs re-pay the same planning context every loop.
+Grouping tasks that are already ordered by dependency (scaffold then CI,
+layout then home, contact UI then API, etc.) preserves safety while cutting
+overhead.
+
+### Tradeoffs
+- Larger diffs per commit; review burden may increase.
+- A partial failure can stall multiple task IDs until resolved — mitigated
+  by keeping batches dependency-safe and documenting Blocked state clearly.
+- Any batch change must update `TASKS.md`, `ROADMAP.md`, and this ADR in
+  lockstep.
+
+### Related Tasks
+All phases; canonical list under *Execution batches* in `/ai/TASKS.md`.
 
 ---
 

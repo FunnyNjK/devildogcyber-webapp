@@ -1,6 +1,6 @@
 # Done Log
 
-Last Updated: 2026-05-02
+Last Updated: 2026-05-03
 
 ## 2026-05-02 — P0-T1: Initialize project-specific AI files
 - Catalogued the legacy DevilDog site at `~/repos/devildog` (Next.js 15,
@@ -44,6 +44,16 @@ Last Updated: 2026-05-02
   (linked to P2-I* tasks), and migration risks.
 - Updated `/ai/HANDOFF.md` to brief the next AI on context, hard rules,
   and next recommended task (P1-T1 scaffold).
+
+## 2026-05-03 — Planning: execution batches (ADR-019)
+- Added **Execution batches** section and per-task **Execution batch** /
+  **Scheduling** lines to `/ai/TASKS.md` (P1–P4 batch IDs, `<num_tasks>`
+  quick reference, Phase 5 note).
+- Updated `/ai/ROADMAP.md` with batch counts per phase and Phase 2 batch list.
+- Updated `/ai/HANDOFF.md` and `/ai/CURRENT_STATE.md` for **P1-B1** next.
+- Updated `/ai/START_HERE.md` scope rule (section 7) to allow batched task
+  IDs per `TASKS.md`.
+- Added **ADR-019** to `/ai/DECISIONS.md`.
 
 ## 2026-05-02 — Workflow setup (pre-existing)
 - Created customized AI project starter for WSL-native dev with Astro 5 +

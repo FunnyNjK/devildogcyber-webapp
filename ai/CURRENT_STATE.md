@@ -1,52 +1,38 @@
 # Current State
 
-Last Updated: 2026-05-02
+Last Updated: 2026-05-03
 
 ## Current Phase
-Phase 0 — Project Initialization (P0-T1 in progress; closes at end of this session)
+Phase 1 — Foundation (**Ready**). Phase 0 complete.
 
 ## Current Task
-P0-T1: Initialize project-specific AI files (this session)
+**P1-B1** next (constituents: **P1-T1**, **P1-T2** in one autonomous session).
+See `/ai/TASKS.md` → *Execution batches* and ADR-019.
 
 ## What Exists Now
-- `/ai/` planning files customized for this project (DevilDog Cybersecurity
-  marketing rebuild on Astro 5 + React 19 + Tailwind 4 + Azure SWA).
-- Cross-project ADRs ADR-001 through ADR-010 baked in.
-- Project-specific ADRs ADR-011 through ADR-015 added (see DECISIONS.md).
-- `/ai/MIGRATION_INVENTORY.md` documenting page mapping, asset mapping,
-  content mapping, drop list, and improvement list relative to the old
-  Next.js site at `~/repos/devildog`.
-- No application code yet. No `package.json`, no `astro.config.ts`,
-  no scaffold, no CI workflow.
+- Full `/ai/` planning set for the DevilDog Astro + SWA rebuild.
+- ADRs through **ADR-019** (autonomous execution batches).
+- **Execution batch** tables in `TASKS.md` for `run-phase.sh` /
+  `run-phase-cursor.sh` counts.
+- No application scaffold yet (P1-T1 not started). No CI workflow (P1-T2).
 
 ## What Works
-- The AI workflow is fully briefed for the DevilDog rebuild.
-- The next AI tool can pick up P1-T1 (scaffold) directly from `TASKS.md`.
+- AI workflow, migration inventory, and batched task schedule are aligned.
 
 ## What Is Not Built Yet
-- Astro project scaffold (P1-T1).
-- GitHub Actions CI workflow (P1-T2).
-- Any pages, components, or content modules.
-- Contact-form Azure Function.
-- Azure SWA resource and DNS for `devildogcyber.com`.
+- Astro project, pages, contact API, Azure SWA (see `ROADMAP.md`).
 
 ## Known Problems
-- None at the planning level.
-- Risks tracked in `/ai/MIGRATION_INVENTORY.md` (image rights, Postmark
-  sender re-verification, www→apex redirect path on SWA).
+- None at planning level. Risks in `MIGRATION_INVENTORY.md`.
 
 ## Important Files or Folders
-- `/ai/START_HERE.md` — main AI entry file
-- `/ai/PROJECT.md` — DevilDog project definition, brand tokens, non-goals
-- `/ai/MIGRATION_INVENTORY.md` — page/asset/content map from old to new
-- `/ai/AI_RULES.md` — hard rules (WSL-native, no Docker for dev)
-- `/ai/DEV_ENVIRONMENT.md` — dev setup and conventions
-- `/ai/DECISIONS.md` — cross-project + project-specific ADRs (011+)
-- `/ai/TASKS.md` — Ready / Backlog / Done tracker
-- `/ai/HANDOFF.md` — resume context
-- Old reference repo (read-only): `~/repos/devildog`
+- `/ai/START_HERE.md` — entry file
+- `/ai/TASKS.md` — tasks + **Execution batches** (harness `<num_tasks>`)
+- `/ai/HANDOFF.md` — resume pointer
+- `/ai/ROADMAP.md` — phase batch counts
+- `/ai/DECISIONS.md` — ADR-019
+- Old site (read-only): `~/repos/devildog`
 
 ## Next Recommended Action
-Start P1-T1: scaffold the Astro 5 + React 19 + Tailwind 4 + TypeScript
-project per the structure in `PROJECT.md`. Do not begin Phase 2 page work
-until the scaffold and CI are green.
+Run **P1-B1**: scaffold per `TASKS.md` / `PROJECT.md`, then CI per
+`DEPLOYMENT.md`. Do not start Phase 2 until P1-B1 is Done.

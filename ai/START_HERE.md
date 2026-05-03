@@ -150,7 +150,10 @@ The AI must follow these rules:
 - Do not change architecture silently.
 - Do not remove tests to make a build pass.
 - Do not mark a task complete unless acceptance criteria are met.
-- Do not work across multiple tasks unless the user explicitly asks.
+- Do not work across multiple **independent** task IDs in one session
+  **except** when those IDs are listed together under **Execution batches**
+  in `/ai/TASKS.md` (ADR-019). In a batch, complete every listed task (or
+  document Blocked) before handoff.
 
 ---
 
