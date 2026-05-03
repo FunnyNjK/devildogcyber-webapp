@@ -1,0 +1,22 @@
+{
+  "name": "api",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "main": "contact/index.js",
+  "scripts": {
+    "build": "node ./scripts/bundle-contact.mjs",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@azure/functions": "^4.7.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.17",
+    "esbuild": "^0.25.2",
+    "typescript": "~5.8.3"
+  }
+}

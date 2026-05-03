@@ -9,12 +9,12 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && pnpm --filter api run build",
     "preview": "astro preview",
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit && pnpm --filter api typecheck"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.0",

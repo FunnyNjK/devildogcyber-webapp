@@ -53,22 +53,20 @@ External services:
 ## Major Components
 
 ### `src/pages/` — Astro pages
-Static HTML pages, pre-rendered at build time. **`index.astro`**, **`about.astro`**, and **`contact.astro`** (stub until **P2-B7**); every entry in the
+Static HTML pages, pre-rendered at build time. **`index.astro`**, **`about.astro`**, and **`contact.astro`**; every entry in the
 typed `detailPages` array emits a static HTML file via **`[...slug].astro`**
 (`getStaticPaths()` joins each slug segment with `/`). Detail heroes default to the split gradient layout; **`hero.layout: 'backdrop'`** (used on **`/about-us`**) renders the legacy-style full-bleed photo + overlay. Templates
 consume `src/components/detail/*` Astro partials (`DetailPageSections.astro`,
-`DetailSplitSection.astro`, `DetailPageCta.astro`). React islands hydrate only
-where needed (currently `SiteHeader`). Remaining conventions follow
+`DetailSplitSection.astro`, `DetailPageCta.astro`). **`SiteHeader`** hydrates **`client:load`**; **`/contact`** hydrates **`ContactForm`** (**`client:visible`**) beside static sections. Remaining conventions follow
 `/ai/MIGRATION_INVENTORY.md` for IA parity.
 
 ### `src/content/` — Typed content modules
-TypeScript modules holding site copy: **`siteContent.ts`** (nav, footer, home-adjacent copy), **`aboutPageContent.ts`** (**`/about`**, **P2-T10**), and **`detailPages.ts`** (all catch-all detail payloads, including **`/about-us`** team members inline). **`contactContent.ts`** and shared **`contactValidation.ts`** land with **P2-B7**. Mirrors the legacy module shape; strict typing (`as const satisfies readonly DetailPage[]`) preserved because it caught real content bugs.
+TypeScript modules holding site copy: **`siteContent.ts`** (nav, footer, home-adjacent copy), **`aboutPageContent.ts`** (**`/about`**, **P2-T10**), **`contactContent.ts`** (**`/contact`**, **P2-T11 / P2-T12** alongside form component copy), and **`detailPages.ts`** (all catch-all detail payloads, including **`/about-us`** team members inline). Mirrors the legacy module shape; strict typing (`as const satisfies readonly DetailPage[]`) preserved because it caught real content bugs.
 
 ### `src/components/` — React islands
-Interactive UI only. Two known islands at v1:
+Interactive UI only. Hydrated islands at v1:
 - `SiteHeader.tsx` — primary nav with hover/click dropdowns and mobile drawer.
-- `ContactForm.tsx` (+ `TurnstileWidget.tsx`) — contact submission with
-  client-side validation, Turnstile token, error/success states.
+- `ContactForm.tsx` (+ `TurnstileWidget.tsx`) — **`client:visible`** on **`contact.astro`**; submits JSON to **`/api/contact`** with honeypot + Turnstile token.
 
 ### `src/layouts/` — Astro layouts
 - `BaseLayout.astro` — `<html>`, head metadata, fonts, JSON-LD, header,
@@ -76,16 +74,10 @@ Interactive UI only. Two known islands at v1:
 - Optional sub-layouts as patterns repeat across detail pages.
 
 ### `src/lib/` — Shared frontend utilities
-Types and validation shared between client form and server endpoint
-(`contactValidation.ts`), SEO helpers, slug helpers, content selectors.
-No framework code.
+Types and **`contactValidation.ts`** shared between **`ContactForm`** and the **`/api/contact`** Function (**ADR-015**); SEO helpers, slug helpers, content selectors.
 
 ### `api/contact/` — Contact form endpoint
-Single Azure Function HTTP trigger. Receives form POST, runs honeypot →
-rate limit → Turnstile verify → Postmark send. Business logic in
-`api/contact/lib/` for unit-testability without function-runtime
-dependencies. Validation schema imported from `src/lib/contactValidation.ts`
-(shared) so client and server stay in sync.
+Azure Functions **v4** programming model: **`contact/index.ts`** registers **`POST /api/contact`** via **`app.http`** (**`route: 'contact'`**). Runtime loads bundled **`contact/index.js`** (**esbuild**) so **`src/lib/contactValidation.ts`** ships as a single Function artifact alongside **`@azure/functions`**. Logic: honeypot (env **`CONTACT_HONEYPOT_FIELD_NAME`**) silent OK → validation (generic **`400`** on malformed input) → per-IP sliding rate limit (**`CONTACT_RATE_LIMIT_*`**) → Turnstile → Postmark (**`CONTACT_EMAIL_TO`**, etc.). Business logic extracted into **`api/contact/lib/`** for unit testing.
 
 ### `tests/` — Test suite
 Vitest specs. Mirrors `src/` structure. Coverage targets in `/ai/TESTING.md`.
@@ -97,8 +89,7 @@ Vitest specs. Mirrors `src/` structure. Coverage targets in `/ai/TESTING.md`.
 ### Contact form submission
 1. User loads `/contact`. Form is a hydrated React island.
 2. Turnstile widget produces a token client-side.
-3. Form POSTs `{ name, email, companyName, message, turnstileToken, hp }` to
-   `/api/contact`. `hp` is the honeypot — must be empty.
+3. Form POSTs JSON with name/email/company/message/turnstileToken plus an empty honeypot field named by **`CONTACT_HONEYPOT_FIELD_NAME`** (default **`company_website`** — not a credential, only rotates the bots’ target field).
 4. Azure Function:
    - rejects if honeypot non-empty (200 OK with `{ ok: true }` to avoid
      signaling bot detection)

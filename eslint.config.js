@@ -9,7 +9,7 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   ...astro.configs.recommended,
   {
-    ignores: ["dist/**", ".astro/**", "node_modules/**"],
+    ignores: ["dist/**", ".astro/**", "node_modules/**", "api/contact/index.js", "api/contact/index.js.map"],
   },
   {
     files: ["**/*.{ts,tsx}"],
@@ -20,6 +20,12 @@ export default tseslint.config(
         ecmaFeatures: { jsx: true },
       },
       globals: globals.browser,
+    },
+  },
+  {
+    files: ["api/**/*.ts"],
+    languageOptions: {
+      globals: globals.node,
     },
   },
 );

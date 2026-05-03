@@ -3,29 +3,27 @@
 Last Updated: 2026-05-03
 
 ## Current Phase
-Phase 2 — Core buildout (**in progress**). **P2-B6** Done; next batch **P2-B7**.
+Phase 2 — Core buildout (**in progress**). **P2-B7** Done; next batch **P2-B8**.
 
 ## Current Task
-Pick up **P2-B7**: **P2-T11** + **P2-T12** contact UI + **`/api/contact`**.
+Pick up **P2-B8**: **P2-T13** SEO baseline + **`staticwebapp.config.json`** (after route set stabilized).
 
 ## What Exists Now
-- **P2-B6:** **`/about`** — legacy **`(marketing)/about/page.tsx`** port: gradient hero, three principle cards, story image + **`storyContent`** block; copy in **`aboutPageContent.ts`** (ADR-012). **`aboutPrinciples`** removed from **`siteContent.ts`**. **`navLinks`** asserts static **`/about`**.
-- **P2-B5:** **`/about-us`** leadership page — backdrop hero + **team** grid aligned with legacy **`DetailPage.tsx`** (`TeamCard`). **`detailPages`** hero type gains optional **`layout?: 'backdrop'`**. **`navLinks`** asserts **`/about-us`**.
-- **P2-B4:** **`detailPages`** already included compliance overview + CMMC/CMMI/NIST 800-171/GLBA/HIPAA/HITRUST/ISO 27001–27002 from **P2-B2** port; **`public/images/devildog/pages`** has matching imagery (e.g. `compliance.jpg`, `hitrust.jpg`, framework heroes). **`tests/content/navLinks.test.ts`** now asserts compliance routes explicitly.
-- **P2-B3:** **P2-T5** / **P2-T6** / **P2-T8** + nav regression `/ai-threats`, `/security-reconnaissance`, `/story`.
-- **P2-B2:** Verbatim legacy `detailPages`, `[...slug].astro`, detail partials + assets.
+- **P2-B7:** **`/contact`** — legacy marketing layout mirrored (dark hero + form section + sidebar CTA): **`contactPageContent.ts`**, **`ContactForm.tsx`** + **`TurnstileWidget.tsx`**, **`src/lib/contactValidation.ts`**. **`api/contact`** — Azure Functions v4 HTTP **`contact`** (`app.http`), Postmark/Turnstile/honeypot/sliding rate limit (**`CONTACT_RATE_LIMIT_*`**, per-IP **`x-forwarded-for`/`cf-connecting-ip`**). Shared validation bundled into **`api/contact/index.js`** via **`esbuild`**. **`pnpm-workspace`** + **`api`** package; root **`pnpm build`** bundles Functions.
+- **P2-B6:** **`/about`** — ported legacy marketing About (see `DONE_LOG.md`).
+- Earlier **P2-B1…P2-B5:** layout, detail system, hubs, **`/about-us`**.
 
 ## What Works
-Static HTML build for compliance hub + all framework URLs, nav groups, Services, Story, **`/about`**, stub for **`/contact`** until **P2-B7**.
+Static site builds; **`/contact`** renders; CI **`pnpm lint`/`typecheck`/`test`/`build`** exercises Astro + bundled API workspace.
 
 ## What Is Not Built Yet
-Contact form + API (**P2-B7**), SWA infra (**P4**), SEO finalization (**P2-B8**) after route set stabilizes.
+**P2-B8** (SEO infra + apex/www config), Phase 4 SWA provisioning.
 
 ## Known Problems
-None at repo level. **`/contact`** stub remains until **P2-B7**.
+None at repo level. Live Postmark/Turnstile need env vars in SWA (**P4**).
 
 ## Important Files or Folders
-`src/content/aboutPageContent.ts`, `src/pages/about.astro`, `src/content/detailPages.ts`, `src/pages/[...slug].astro`, `src/components/detail/DetailPageSections.astro`, `tests/content/navLinks.test.ts`, `public/images/devildog/pages/`, `public/images/devildog/team/`
+`src/pages/contact.astro`, `src/components/ContactForm.tsx`, `src/lib/contactValidation.ts`, `src/content/contactContent.ts`, `api/contact/`, `api/scripts/bundle-contact.mjs`, `pnpm-workspace.yaml`, `tests/components/ContactForm.test.tsx`, `tests/api/contact-handler.integration.test.ts`
 
 ## Next Recommended Action
-Run **P2-B7**: contact page + **`/api/contact`** (P2-T11 + P2-T12).
+Run **P2-B8** (**P2-T13**).

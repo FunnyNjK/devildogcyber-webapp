@@ -1,6 +1,10 @@
 # build output
 dist/
 
+# bundled Azure Function (pnpm --filter api run build during root build / CI)
+api/contact/index.js
+api/contact/index.js.map
+
 # generated types
 .astro/
 

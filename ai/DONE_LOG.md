@@ -2,6 +2,17 @@
 
 Last Updated: 2026-05-03
 
+## 2026-05-03 — P2-B7: P2-T11 + P2-T12 `/contact` + **`POST /api/contact`**
+
+- **`src/content/contactContent.ts`**, **`src/pages/contact.astro`** — marketing contact hero + sidebar CTA (**`Turnstile` + Postmark teaser copy** toned), **`ContactForm`** island (**`client:visible`**).
+- **`src/components/ContactForm.tsx`**, **`src/components/TurnstileWidget.tsx`**, **`src/lib/contactValidation.ts`** — legacy validation rules (**ADR‑015**) + honeypot (field name **`CONTACT_HONEYPOT_FIELD_NAME`**, surfaced from Astro env at build-time).
+- **`api/contact`** — Azure Functions v4 **`app.http('contact')`** (**`route: 'contact'`** ⇒ **`POST /api/contact`**), libs for Postmark / Turnstile / sliding-window limiter (**`CONTACT_RATE_LIMIT_*`**, keyed by **`cf-connecting-ip` / `x-forwarded-for` first hop**).
+- **`api/scripts/bundle-contact.mjs`** + **`esbuild`** — emits **`contact/index.js`** (gitignored artifact) importing shared **`src/lib/contactValidation.ts`** (**ADR‑020**).
+- **`pnpm-workspace.yaml`**, **`api/package.json`**; root **`pnpm build`** now chains **`pnpm --filter api build`** after Astro.
+- Tests: **`tests/lib/contactValidation.test.ts`**, **`tests/components/ContactForm.test.tsx`**, **`tests/components/TurnstileWidget.test.tsx`**, **`api/contact/lib/*.test.ts`**, **`tests/api/contact-handler.integration.test.ts`**.
+- Checks: `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build` (WSL).
+- Implementation commit: **`41dd14c`**
+
 ## 2026-05-03 — P2-B6: P2-T10 `/about` (legacy marketing About page)
 - **`src/content/aboutPageContent.ts`** — SEO + hero + **`aboutPagePrinciples`** (moved off **`siteContent.ts`**); story teaser pulls **`storyContent`** for single source with home/story IA.
 - **`src/pages/about.astro`** — ports legacy **`(marketing)/about/page.tsx`** structure: gradient hero with **Back Home**, three principle cards, image + **`The DevilDog Story`** paragraphs.

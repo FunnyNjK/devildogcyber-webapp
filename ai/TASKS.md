@@ -3,7 +3,7 @@
 Last Updated: 2026-05-03
 
 ## Active Task
-**P2-B7** — run **P2-T11** + **P2-T12** (Contact UI + **`/api/contact`**).
+**P2-B8** — run **P2-T13** (SEO + sitemap + robots + **`staticwebapp.config.json`**).
 
 ---
 
@@ -91,83 +91,9 @@ Not batch-scheduled (per-request). Do not include in `run-phase*.sh` counts.
 ---
 
 ## Ready
-None — pick up **P2-B7** (**P2-T11**, **P2-T12**) from backlog.
+None — pick up **P2-B8** (**P2-T13**) from backlog.
 
 ## Backlog (Phase 2 — Core Buildout)
-
-### P2-T11: Contact page (UI only)
-Status: Backlog
-Owner: any
-Priority: High
-Phase: 2
-**Execution batch:** **P2-B7** (with P2-T12 in one session).
-
-#### Goal
-Build the contact page with form UI, client-side validation, and the
-Turnstile widget. Pair with P2-T12 for the server endpoint.
-
-#### Scope Included
-- `src/pages/contact.astro`
-- `src/components/ContactForm.tsx` (React island)
-- `src/components/TurnstileWidget.tsx`
-- `src/lib/contactValidation.ts` — port from
-  `~/repos/devildog/src/features/contact/contactValidation.ts` (used by
-  both client and server, per ADR-015)
-- Port `contactPageContent` from old repo
-
-#### Acceptance Criteria
-- Client validation matches the legacy rules (name 2–100, email regex,
-  company 2–120, message 20–4000, Turnstile token required).
-- Submitting without a Turnstile token shows the verification error.
-- Honeypot field present in the rendered HTML but not visible to users.
-
-#### Test Requirements
-- Unit tests on `contactValidation.ts` (port the existing test file too).
-- Component tests on `ContactForm` for validation, submit-success, and
-  submit-error paths (mock `/api/contact`).
-
----
-
-### P2-T12: `/api/contact` Azure Function (Postmark + Turnstile + honeypot + rate limit)
-Status: Backlog
-Owner: any
-Priority: High
-Phase: 2
-Depends on: P2-T11 (implement after UI in same **P2-B7** session).
-**Execution batch:** **P2-B7** (with P2-T11).
-
-#### Goal
-Build the SWA managed-API endpoint that receives contact submissions and
-dispatches via Postmark, with Turnstile, honeypot, and rate limiting.
-
-#### Scope Included
-- `api/contact/function.json` + `api/contact/index.ts` (HTTP trigger)
-- `api/contact/lib/postmark.ts` — port from
-  `~/repos/devildog/src/features/contact/postmark.ts`
-- `api/contact/lib/turnstile.ts` — port from
-  `~/repos/devildog/src/features/contact/turnstile.ts`
-- `api/contact/lib/rateLimit.ts` — new (per-IP sliding window in memory)
-- Shared validation imported from `src/lib/contactValidation.ts`
-- `api/package.json` with minimal deps
-
-#### Acceptance Criteria
-- POST `/api/contact` with valid body + token returns `{ ok: true }` and
-  triggers a Postmark send (verifiable by test fixture, real call mocked).
-- Honeypot filled → `{ ok: true }` with no email send (silent reject).
-- Rate limit exceeded → 429.
-- Turnstile failure → `{ ok: false }`.
-- Server-side validation rejects malformed payloads with a generic
-  message (no field-by-field info disclosure beyond what client already
-  knows).
-
-#### Test Requirements
-- Unit tests on each `lib/` module (mocking `fetch` for Postmark +
-  Turnstile, fake timers for rate limit).
-- Integration test on the function handler covering all six branches
-  (valid, honeypot, rate-limit, turnstile-fail, postmark-fail, missing
-  fields).
-
----
 
 ### P2-T13: SEO finalization
 Status: Backlog
@@ -195,10 +121,10 @@ the www→apex 301 redirect (replaces the old Next.js `proxy.ts`).
 Status: Done (2026-05-03). Fonts imported in `src/styles/global.css` at **P1-B1**; confirm no Google Fonts request + Lighthouse under **P3-T1**.
 
 ### P2-I2: Honeypot field on contact form
-Covered by P2-T11 + P2-T12 acceptance criteria.
+Done (2026-05-03) — **`P2-B7`**.
 
 ### P2-I3: Per-IP sliding-window rate limiter on `/api/contact`
-Covered by P2-T12 acceptance criteria.
+Done (2026-05-03) — **`P2-B7`**.
 
 ### P2-I4: Image optimization pass
 Status: Backlog
@@ -290,6 +216,8 @@ None.
 ### P2-T7: Compliance hub + framework pages — Done; see `DONE_LOG.md`.
 ### P2-T9: About-us (team) page — Done; see `DONE_LOG.md`.
 ### P2-T10: `/about` (legacy marketing About page) — Done; see `DONE_LOG.md`.
+### P2-T11: Contact page (React island + validation + Turnstile) — Done; see `DONE_LOG.md`.
+### P2-T12: `/api/contact` Azure Function (Postmark, Turnstile, honeypot, rate limit) — Done; see `DONE_LOG.md`.
 
 ### P0-T1: Initialize project-specific AI files
 Status: Done

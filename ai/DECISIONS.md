@@ -461,6 +461,25 @@ All phases; canonical list under *Execution batches* in `/ai/TASKS.md`.
 
 ---
 
+## ADR-020: Bundle `/api/contact` with esbuild to import shared repo validation (ADR-015)
+
+Date: 2026-05-03
+Status: Accepted
+
+### Decision
+The managed Azure Function (**`POST /api/contact`**) imports **`src/lib/contactValidation.ts`**. Produce the deployable **`api/contact/index.js`** via **`esbuild`** (**`api/scripts/bundle-contact.mjs`**) with **`@azure/functions`** marked external while inlining repo-owned modules. **`api/package.json`** `build` invokes the bundle script; **`pnpm build`** chains **`astro build`** then **`pnpm --filter api build`**. Artifact **`contact/index.js` (+ `.map`)** stays **gitignored** and regenerates locally / in CI every build.
+
+### Reason
+Shipping TypeScript imports that traverse **`src/` from `api/contact/`** relies on brittle zip layouts for SWA-managed Functions; bundling materializes **`ADR-015` single-module validation**, pins the runtime graph, and still keeps Azure’s runtime-provided **`@azure/functions`** outside the bundle footprint.
+
+### Tradeoffs
+Adds **`esbuild`** as an **`api`** devDependency; slightly longer **`pnpm build`**.
+
+### Related Tasks
+**P2-T12**; **`pnpm-workspace.yaml`**, **`api/`** package, **`api/scripts/bundle-contact.mjs`**, root **`package.json`** `build` script.
+
+---
+
 ## ADR Template
 
 ## ADR-XXX: Title

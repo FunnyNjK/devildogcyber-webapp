@@ -12,9 +12,7 @@ and the navigation/IA invariants.
 ## Required Test Types
 
 ### Unit tests (required)
-- `src/lib/contactValidation.ts` — port the existing legacy tests verbatim
-  (they cover name/email/company/message length boundaries and Turnstile
-  token requirement).
+- `src/lib/contactValidation.ts` + **`tests/lib/contactValidation.test.ts`** — legacy rules ported verbatim (boundary coverage + mandatory Turnstile token when flagged).
 - `src/lib/seo.ts` — output shape for `buildPageMetadata`,
   `getOrganizationJsonLd`, `getWebsiteJsonLd`.
 - **`tests/content/navLinks.test.ts`** (landed **P2-B2**, extended **P2-B3**, **P2-B4**, **P2-B5**, **P2-B6**) — proves every href
@@ -30,24 +28,23 @@ and the navigation/IA invariants.
   HTML escaping, error handling.
 - `api/contact/lib/turnstile.ts` — config validation, success path,
   failure path, missing-config path, network-error path.
-- `api/contact/lib/rateLimit.ts` — sliding window math with `vi.useFakeTimers()`.
+- `api/contact/lib/rateLimit.ts` — sliding window math (`api/contact/lib/rateLimit.test.ts`).
 
 ### Component tests (required for interactive components)
 - `SiteHeader.tsx` — dropdown open/close (mouse + keyboard), mobile drawer
   toggle, Esc closes dropdowns, clicking a link closes the menu.
 - `ContactForm.tsx` — validation errors per field, submit-success path,
   submit-error path, Turnstile token required, honeypot present in DOM.
-- `TurnstileWidget.tsx` — renders, surfaces token to the form via the
-  documented callback contract.
+- `TurnstileWidget.tsx` — **P2-T11**: missing-site-key affordance (**`tests/components/TurnstileWidget.test.tsx`**); token handshake covered indirectly via mocked widget in **`ContactForm`** specs.
 
-### Integration tests (recommended)
-- `/api/contact` covering all six branches:
-  1. valid payload → 200 + Postmark mock called once
-  2. honeypot non-empty → 200 + Postmark mock NOT called
-  3. rate limit exceeded → 429
-  4. Turnstile verification fails → 400 with `{ ok: false }`
-  5. Postmark API returns non-200 → 500 with neutral error
-  6. payload fails server validation → 400
+### Integration tests (**P2-T12**, `tests/api/contact-handler.integration.test.ts`)
+Exercises **`handleContactSubmission`** for:
+1. valid payload → 200 + Turnstile + Postmark `fetch` called
+2. honeypot non-empty → 200 + no outbound `fetch`
+3. rate limit exceeded → 429
+4. Turnstile verification fails → 400 `{ ok: false }` (without Postmark dispatch)
+5. Postmark HTTP error → 500 neutral copy
+6. payload fails validation → generic 400 (`ok: false`; body must not echo field-level `"Please …"` strings)
 
 ### End-to-end (deferred)
 - Skipped at v1. If added later, use Playwright in `tests/e2e/` and run
@@ -81,15 +78,15 @@ and the navigation/IA invariants.
 pnpm test                  # vitest --run
 pnpm test:watch            # vitest
 pnpm lint                  # eslint .
-pnpm typecheck             # tsc -b --noEmit
-pnpm build                 # astro build
+pnpm typecheck             # `tsc --noEmit` + `pnpm --filter api typecheck`
+pnpm build                 # `astro build` + `pnpm --filter api build` (esbuild bundle)
 ```
 
-API workspace (when contact endpoint exists):
+API workspace (`pnpm-workspace.yaml` → **`api`** package):
 
 ```bash
-pnpm --filter api test
 pnpm --filter api typecheck
+pnpm --filter api build
 ```
 
 ---

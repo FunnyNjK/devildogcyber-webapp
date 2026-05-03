@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "verbatimModuleSyntax": true,
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "skipLibCheck": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "lib": ["ES2022"],
+    "types": ["node"]
+  },
+  "include": ["contact/**/*.ts", "scripts/**/*.mjs"],
+  "exclude": ["contact/**/*.test.ts", "**/node_modules/**"]
+}
