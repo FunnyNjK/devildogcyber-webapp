@@ -1,0 +1,34 @@
+@import "@fontsource/montserrat/600.css";
+@import "@fontsource/montserrat/700.css";
+@import "@fontsource/montserrat/800.css";
+@import "@fontsource/open-sans/400.css";
+@import "@fontsource/open-sans/500.css";
+@import "@fontsource/open-sans/600.css";
+@import "@fontsource/open-sans/700.css";
+
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Open Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-dd-red: #6c0404;
+  --color-dd-red-deep: #2a0505;
+  --color-dd-red-bright: #b01116;
+  --color-dd-cream: #f8f1ef;
+  --color-dd-copy: #18181b;
+  --color-dd-muted: #5b5560;
+  --color-dd-ink: #090909;
+  --color-dd-border: rgb(108 4 4 / 0.14);
+}
+
+:root {
+  --dd-red: #6c0404;
+  --dd-red-deep: #2a0505;
+  --dd-red-bright: #b01116;
+  --dd-cream: #f8f1ef;
+  --dd-copy: #18181b;
+  --dd-muted: #5b5560;
+  --dd-border: rgba(108, 4, 4, 0.14);
+  --dd-ink: #090909;
+}

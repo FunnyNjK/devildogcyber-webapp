@@ -3,36 +3,31 @@
 Last Updated: 2026-05-03
 
 ## Current Phase
-Phase 1 — Foundation (**Ready**). Phase 0 complete.
+Phase 1 — Foundation (**Done**). Phase 2 — Core buildout (**Ready**): next batch **P2-B1**.
 
 ## Current Task
-**P1-B1** next (constituents: **P1-T1**, **P1-T2** in one autonomous session).
-See `/ai/TASKS.md` → *Execution batches* and ADR-019.
+Pick up **P2-B1** (`P2-T1` + `P2-T2`): layout + home. See `/ai/TASKS.md` → *Execution batches*.
 
 ## What Exists Now
-- Full `/ai/` planning set for the DevilDog Astro + SWA rebuild.
-- ADRs through **ADR-019** (autonomous execution batches).
-- **Execution batch** tables in `TASKS.md` for `run-phase.sh` /
-  `run-phase-cursor.sh` counts.
-- No application scaffold yet (P1-T1 not started). No CI workflow (P1-T2).
+- Astro **5.18** + React **19** + Tailwind **4** (`@tailwindcss/vite`) + `@astrojs/react`, `@astrojs/sitemap`.
+- DevilDog tokens in `src/styles/global.css` (`@theme` + `:root` CSS vars); `@fontsource` Montserrat / Open Sans.
+- Vitest + Testing Library (jest-dom), ESLint 9 flat + `typescript-eslint` + `eslint-plugin-astro`, `tests/sanity.test.ts`.
+- `.env.example` (eight vars per `DEPLOYMENT.md`), `.nvmrc` **24**, `engines.node` **>=24**.
+- CI: `.github/workflows/ci.yml` — Node **24**, pnpm **10** cache, lint / typecheck / test / build on `push` + `pull_request`.
 
 ## What Works
-- AI workflow, migration inventory, and batched task schedule are aligned.
+- `pnpm dev` (placeholder `/`), `pnpm build` → `dist/` + sitemap, full script suite green locally.
 
 ## What Is Not Built Yet
-- Astro project, pages, contact API, Azure SWA (see `ROADMAP.md`).
+- Real pages, content modules, contact API, SWA deploy (Phases 2–4).
 
 ## Known Problems
-- None at planning level. Risks in `MIGRATION_INVENTORY.md`.
+- None at scaffold level. CI must run on GitHub after push (first green run validates workflow).
 
 ## Important Files or Folders
-- `/ai/START_HERE.md` — entry file
-- `/ai/TASKS.md` — tasks + **Execution batches** (harness `<num_tasks>`)
+- `astro.config.ts`, `src/pages/index.astro`, `src/styles/global.css`
+- `.github/workflows/ci.yml`
 - `/ai/HANDOFF.md` — resume pointer
-- `/ai/ROADMAP.md` — phase batch counts
-- `/ai/DECISIONS.md` — ADR-019
-- Old site (read-only): `~/repos/devildog`
 
 ## Next Recommended Action
-Run **P1-B1**: scaffold per `TASKS.md` / `PROJECT.md`, then CI per
-`DEPLOYMENT.md`. Do not start Phase 2 until P1-B1 is Done.
+Run **P2-B1**: `P2-T1` (BaseLayout, header, footer, SEO) then `P2-T2` (home page) in one session.

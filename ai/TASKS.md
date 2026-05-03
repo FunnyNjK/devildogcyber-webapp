@@ -3,8 +3,7 @@
 Last Updated: 2026-05-03
 
 ## Active Task
-None — pick the next **execution batch** below (`HANDOFF.md` →
-`TASKS.md` → section **Execution batches**).
+**P2-B1** — **P2-T1** and **P2-T2** are in **Ready** (pick up both in one session).
 
 ---
 
@@ -47,7 +46,7 @@ meant to finish in **one agent session** before handoff / commit
 
 | Item | Default |
 |------|---------|
-| **P2-I1** | **Superseded** by P1-T1 (`@fontsource` in scaffold, ADR-013). Mark **Done** or **Deferred** with pointer when P1-B1 completes; no standalone run. |
+| **P2-I1** | **Done** at **P1-B1** — `@fontsource` in `src/styles/global.css`; Lighthouse / no Google Fonts verified in **P3-T1**. |
 | **P2-I2, P2-I3** | Covered by P2-B7. |
 | **P2-I4** | Run as part of **P3-B1** (image pass + audit fixes together). |
 | **P2-I5** | Primary work in **P2-B1** / P2-T1; backlog row = gap-fill only if something ships incomplete. |
@@ -93,84 +92,8 @@ Not batch-scheduled (per-request). Do not include in `run-phase*.sh` counts.
 
 ## Ready
 
-### P1-T1: Scaffold Astro 5 + React 19 + Tailwind 4 project
-Status: Ready
-Owner: Claude Code
-Priority: High
-Phase: 1
-**Execution batch:** **P1-B1** — finish in the **same** autonomous session as **P1-T2** (see Execution batches).
-
-#### Goal
-Create the initial scaffold per `/ai/PROJECT.md` defaults, running natively
-in WSL. Wire DevilDog brand tokens into the Tailwind theme so subsequent
-page work has the right design primitives available.
-
-#### Scope Included
-- `pnpm create astro@latest` (TypeScript strict, no template content beyond
-  the minimum)
-- Add `@astrojs/react`, `react`, `react-dom`
-- Add `@tailwindcss/vite`, configure in `astro.config.ts`
-- Add `@astrojs/sitemap`
-- Add Vitest, `@testing-library/react`, `@testing-library/jest-dom`
-- Add ESLint 9 flat config + `typescript-eslint`
-- Add `@fontsource/montserrat` + `@fontsource/open-sans` (per ADR-013)
-- Configure Tailwind theme with DevilDog brand tokens from `/ai/PROJECT.md`
-  (`--dd-red`, `--dd-red-deep`, `--dd-red-bright`, `--dd-cream`, etc.)
-- Add `.env.example` with all variables from `/ai/DEPLOYMENT.md`
-- Add `.gitignore` covering `.env.local`, `dist/`, `node_modules/`,
-  `.vscode/settings.json`
-- Add `package.json` scripts: `dev`, `build`, `preview`, `test`,
-  `test:watch`, `lint`, `typecheck`
-- Pin pnpm via `packageManager` field
-- Verify `pnpm dev`, `pnpm build`, `pnpm test`, `pnpm lint`,
-  `pnpm typecheck` all run cleanly
-
-#### Scope Excluded
-- Do not build the contact form yet (P2-T12).
-- Do not configure Azure resources yet (P4 tasks).
-- Do not write page content yet (P2 tasks).
-- Do not port assets yet (P2-T1 will pull only what `BaseLayout` needs).
-
-#### Acceptance Criteria
-- `pnpm dev` serves a placeholder homepage at `localhost:4321`.
-- `pnpm build` produces a `dist/` directory with static assets.
-- `pnpm lint && pnpm typecheck && pnpm test && pnpm build` all exit 0.
-- Tailwind theme exposes `bg-dd-red`, `text-dd-cream`, etc. usable from
-  `.astro` and `.tsx` files.
-- All work happened in `~/repos/devildogcyber-webapp` inside WSL — no
-  `/mnt/c` paths appear in any committed file.
-
-#### Test Requirements
-- One placeholder Vitest spec (`tests/sanity.test.ts`) exists and passes.
-
----
-
-### P1-T2: Add GitHub Actions CI workflow
-Status: Ready
-Owner: Claude Code
-Priority: High
-Phase: 1
-**Execution batch:** **P1-B1** — run **after** P1-T1 acceptance is met in the same session.
-
-#### Goal
-Add `.github/workflows/ci.yml` per `/ai/DEPLOYMENT.md`. Wired to run on
-`push` and `pull_request`, NOT `workflow_dispatch`-only (per ADR-010).
-
-#### Acceptance Criteria
-- CI runs lint, typecheck, test, build on PR and push to `main`.
-- pnpm cache restored from lockfile.
-- Node 24 used (per ADR-018).
-- First PR shows green check.
-
-#### Test Requirements
-- Workflow yields a green run on a no-op PR.
-
----
-
-## Backlog (Phase 2 — Core Buildout)
-
 ### P2-T1: BaseLayout, SiteHeader, SiteFooter, base SEO + JSON-LD
-Status: Backlog
+Status: Ready
 Owner: any
 Priority: High
 Phase: 2
@@ -211,7 +134,7 @@ WebSite, OG/Twitter defaults).
 ---
 
 ### P2-T2: Home page
-Status: Backlog
+Status: Ready
 Owner: any
 Priority: High
 Phase: 2
@@ -239,6 +162,8 @@ typography rhythm, mobile-first).
 - Content unit test asserting `featureCards` + `serviceHighlights` shapes.
 
 ---
+
+## Backlog (Phase 2 — Core Buildout)
 
 ### P2-T3: Detail-page system (template + content driver)
 Status: Backlog
@@ -423,14 +348,7 @@ the www→apex 301 redirect (replaces the old Next.js `proxy.ts`).
 ## Backlog (Phase 2 — Improvements, in addition to ports)
 
 ### P2-I1: Self-hosted fonts via `@fontsource` (per ADR-013)
-Status: Backlog
-Phase: 2
-**Scheduling:** **Superseded** by **P1-T1** / **P1-B1** (fonts added at scaffold per ADR-013). Close this row when scaffold ships; no separate batch.
-
-Replace Google Fonts CDN call with `@fontsource/montserrat` and
-`@fontsource/open-sans`. Acceptance: Lighthouse no longer flags
-"render-blocking resources" for fonts; no third-party request to Google
-Fonts in network panel.
+Status: Done (2026-05-03). Fonts imported in `src/styles/global.css` at **P1-B1**; confirm no Google Fonts request + Lighthouse under **P3-T1**.
 
 ### P2-I2: Honeypot field on contact form
 Covered by P2-T11 + P2-T12 acceptance criteria.
@@ -515,6 +433,9 @@ None.
 None.
 
 ## Done
+
+### P1-T1: Scaffold Astro 5 + React 19 + Tailwind 4 project — Done; see `DONE_LOG.md`.
+### P1-T2: Add GitHub Actions CI workflow — Done; see `DONE_LOG.md`.
 
 ### P0-T1: Initialize project-specific AI files
 Status: Done

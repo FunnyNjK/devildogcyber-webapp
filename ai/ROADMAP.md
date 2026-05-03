@@ -20,10 +20,9 @@ Deliverables (all complete):
 - Phase 1 + Phase 2 tasks queued in `TASKS.md`.
 
 ## Phase 1: Foundation
-Status: Ready
+Status: Done
 
-**Autonomous runs (batches):** **1** — **P1-B1** (P1-T1 + P1-T2). See
-`/ai/TASKS.md` → *Execution batches* and ADR-019.
+**Autonomous runs (batches):** **1** — **P1-B1** complete (**P1-T1**, **P1-T2**).
 
 Goals:
 - Scaffold Astro 5 + React 19 + Tailwind 4 + TypeScript per `/ai/PROJECT.md`.
@@ -38,7 +37,7 @@ Deliverables:
 - GitHub Actions `ci.yml` passes on push.
 
 ## Phase 2: Core Buildout — pages, content, contact form
-Status: Backlog
+Status: Ready (next batch **P2-B1**)
 
 **Autonomous runs (batches):** **8** — **P2-B1** … **P2-B8** (grouped task
 IDs in `/ai/TASKS.md`). Phase 2 improvement rows **P2-I\*** default into
