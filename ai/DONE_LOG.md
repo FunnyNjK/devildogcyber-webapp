@@ -11,7 +11,7 @@ Last Updated: 2026-05-03
 - **`pnpm-workspace.yaml`**, **`api/package.json`**; root **`pnpm build`** now chains **`pnpm --filter api build`** after Astro.
 - Tests: **`tests/lib/contactValidation.test.ts`**, **`tests/components/ContactForm.test.tsx`**, **`tests/components/TurnstileWidget.test.tsx`**, **`api/contact/lib/*.test.ts`**, **`tests/api/contact-handler.integration.test.ts`**.
 - Checks: `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build` (WSL).
-- Implementation commit: **`41dd14c`**
+- Implementation commit: **`05fc62f`**
 
 ## 2026-05-03 — P2-B6: P2-T10 `/about` (legacy marketing About page)
 - **`src/content/aboutPageContent.ts`** — SEO + hero + **`aboutPagePrinciples`** (moved off **`siteContent.ts`**); story teaser pulls **`storyContent`** for single source with home/story IA.
