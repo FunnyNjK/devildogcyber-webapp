@@ -50,7 +50,7 @@ Last Updated: 2026-05-03
 - **P2-T2:** `src/pages/index.astro` — hero, feature cards, mission + service highlights, story sections; `src/components/home/ServiceHighlightIcon.astro`.
 - **Tests:** `tests/lib/seo.test.ts`, `tests/components/SiteHeader.test.tsx`, `tests/content/siteContent.test.ts`.
 - Lighthouse ≥ 95 on `/` (Performance / Accessibility) not run in CI — track under **P3-T1** / local verification.
-- Commit: `774a932`
+- Commit: `9002155`
 
 ## 2026-05-03 — Planning: execution batches (ADR-019)
 - Added **Execution batches** section and per-task **Execution batch** /
