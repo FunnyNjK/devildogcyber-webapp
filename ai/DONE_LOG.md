@@ -7,6 +7,7 @@ Last Updated: 2026-05-03
 - **Tests:** `tests/content/navLinks.test.ts` — explicit regression that those three paths exist on the `detailPages` map (IA drift guard).
 - **Checks:** `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build` (WSL).
 - Implementation commit: `af62e1b`
+- Documentation follow-up (DONE_LOG commit hash correction): `9959802`
 
 ## 2026-05-03 — P2-B2: P2-T3 detail system + P2-T4 services port
 - **`src/content/detailPages.ts`** — verbatim legacy port from `~/repos/devildog/src/features/site/detailPages.ts` (typed `detailPages`, helpers, frameworks, maritime builders, `/about-us` team payloads).
