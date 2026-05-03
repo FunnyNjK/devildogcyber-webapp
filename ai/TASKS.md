@@ -3,7 +3,7 @@
 Last Updated: 2026-05-03
 
 ## Active Task
-**P2-B4** — run **P2-T7** (compliance hub + framework pages).
+**P2-B5** — run **P2-T9** (About-us team page parity + UX polish).
 
 ---
 
@@ -91,16 +91,9 @@ Not batch-scheduled (per-request). Do not include in `run-phase*.sh` counts.
 ---
 
 ## Ready
-None — **P2-B4** backlog entry (**P2-T7**) sits below until picked up.
+None — **P2-B5** backlog entry (**P2-T9**) sits below until picked up.
 
 ## Backlog (Phase 2 — Core Buildout)
-
-### P2-T7: Compliance hub + framework pages
-Status: Backlog
-Phase: 2 — Depends on P2-T3.
-**Execution batch:** **P2-B4**.
-Pages: compliance overview, CMMC, CMMI, NIST 800-171, GLBA, HIPAA, HITRUST,
-ISO 27001/27002.
 
 ### P2-T9: About-us (team) page
 Status: Backlog
@@ -306,6 +299,7 @@ None.
 ### P2-T5: AI Threats page — Done; see `DONE_LOG.md`.
 ### P2-T6: Security Reconnaissance page — Done; see `DONE_LOG.md`.
 ### P2-T8: Story page — Done; see `DONE_LOG.md`.
+### P2-T7: Compliance hub + framework pages — Done; see `DONE_LOG.md`.
 
 ### P0-T1: Initialize project-specific AI files
 Status: Done

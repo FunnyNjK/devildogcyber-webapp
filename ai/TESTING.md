@@ -17,11 +17,13 @@ and the navigation/IA invariants.
   token requirement).
 - `src/lib/seo.ts` — output shape for `buildPageMetadata`,
   `getOrganizationJsonLd`, `getWebsiteJsonLd`.
-- **`tests/content/navLinks.test.ts`** (landed **P2-B2**, extended **P2-B3**) — proves every href
+- **`tests/content/navLinks.test.ts`** (landed **P2-B2**, extended **P2-B3**, **P2-B4**) — proves every href
   under `navigationGroups` resolves either to `/` + non-dynamic `*.astro`
   routes or to a slash path synthesized from `detailPages` (plus a guard so
   static pages never collide with the catch-all emitter); asserts batch routes
-  `/ai-threats`, `/security-reconnaissance`, `/story`. Extend this pattern
+  `/ai-threats`, `/security-reconnaissance`, `/story`; compliance hub `/compliance`
+  and frameworks `/compliance/cmmc`, `.../cmmi`, `.../nist-800-171`, `.../glba`,
+  `.../hipaa`, `.../hitrust`, `.../iso-27001-27002`. Extend this pattern
   to `primaryNavigation`, footer groups, and CTA blocks inside page content once
   those surfaces freeze.
 - `api/contact/lib/postmark.ts` — config validation, body building,

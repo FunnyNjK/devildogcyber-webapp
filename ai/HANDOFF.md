@@ -3,16 +3,16 @@
 Last Updated: 2026-05-03
 
 ## Current State Summary
-**P2-B3** complete (**P2-T5**, **P2-T6**, **P2-T8**): AI Threats, Security Recon, and Story were already in verbatim `detailPages` from **P2-B2**; batch added an explicit `navLinks` regression for `/ai-threats`, `/security-reconnaissance`, `/story`. Next unit: **P2-B4** (**P2-T7** compliance hub + frameworks).
+**P2-B4** complete (**P2-T7**): compliance hub `/compliance` and framework pages (`/compliance/cmmc`, `cmmi`, `nist-800-171`, `glba`, `hipaa`, `hitrust`, `iso-27001-27002`) were already present in verbatim `detailPages` from **P2-B2**; **P2-B4** adds `navLinks` regression coverage for those paths.
 
 ## Last Completed Task
-**P2-B3:** **P2-T5** + **P2-T6** + **P2-T8** — Done 2026-05-03. See `DONE_LOG.md`.
+**P2-B4:** **P2-T7** — Done 2026-05-03. See `DONE_LOG.md`.
 
 ## Active Task
-**P2-B4** — run **P2-T7** (compliance hub + framework pages). Content likely already in `detailPages`; confirm nav + imagery + acceptance vs `TASKS.md` row.
+**P2-B5** — **P2-T9** About-us (team) page parity + UX polish vs legacy.
 
 ## Next Recommended Task
-**P2-B4** — parity check compliance routes (`/compliance`, framework slugs) against legacy IA; expand or polish only if gaps surface.
+Execute **P2-B5**: review `/about-us` (or routing equivalent) versus legacy IA and polish layout/imagery as needed.
 
 ## What Is Blocked
 Nothing on the AI side. Azure (**P4-B1**) is production-only.

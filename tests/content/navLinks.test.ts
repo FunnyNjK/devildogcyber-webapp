@@ -38,6 +38,21 @@ describe("navigation link targets resolve", () => {
     }
   });
 
+  it("P2-B4 detail routes (compliance hub + framework pages) are emitted by detailPages", () => {
+    for (const routePath of [
+      "/compliance",
+      "/compliance/cmmc",
+      "/compliance/cmmi",
+      "/compliance/nist-800-171",
+      "/compliance/glba",
+      "/compliance/hipaa",
+      "/compliance/hitrust",
+      "/compliance/iso-27001-27002",
+    ] as const) {
+      expect(detailPaths.has(routePath), `Missing detail route ${routePath}`).toBe(true);
+    }
+  });
+
   it("every navigationGroups href resolves to a detail page slug or static src/pages route", () => {
     expect(staticRoutes.has("/")).toBe(true);
 
