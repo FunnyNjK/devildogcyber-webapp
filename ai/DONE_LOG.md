@@ -7,7 +7,7 @@ Last Updated: 2026-05-03
 - **`src/pages/about.astro`** — ports legacy **`(marketing)/about/page.tsx`** structure: gradient hero with **Back Home**, three principle cards, image + **`The DevilDog Story`** paragraphs.
 - **Tests:** **`tests/content/navLinks.test.ts`** — asserts **`about.astro`** registers static **`/about`** (P2-B6 regression).
 - **Checks:** `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build` (WSL).
-- Implementation commit: `2f3a7e4`
+- Implementation commit: `6c45a6d`
 
 ## 2026-05-03 — P2-B5: P2-T9 About-us (team) parity + UX polish
 - **`hero.layout?: 'backdrop'`** on **`DetailPage`** — **`src/pages/[...slug].astro`** renders full-bleed hero (photo at 40% opacity + gradient overlay + copy) matching legacy **`DetailPage.tsx`**; **`/about-us`** sets **`layout: 'backdrop'`** (split gradient hero unchanged for other detail pages).
