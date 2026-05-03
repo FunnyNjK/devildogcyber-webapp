@@ -7,6 +7,7 @@ Last Updated: 2026-05-03
 - **Tests:** `tests/content/navLinks.test.ts` — explicit regression that `/compliance` plus `/compliance/cmmc`, `/compliance/cmmi`, `/compliance/nist-800-171`, `/compliance/glba`, `/compliance/hipaa`, `/compliance/hitrust`, `/compliance/iso-27001-27002` exist on the `detailPages` map (IA drift guard).
 - **Checks:** `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build` (WSL).
 - Implementation commit: `b52049a`
+- Documentation follow-up (DONE_LOG hash after amend): `0fa6a9c`
 
 ## 2026-05-03 — P2-B3: P2-T5 AI Threats + P2-T6 Security Recon + P2-T8 Story
 - **Finding:** Full page copy and imagery for `/ai-threats`, `/security-reconnaissance`, and `/story` were already shipped in the verbatim **`detailPages`** port (**P2-B2**); no content deltas required beyond acceptance documentation.
