@@ -3,7 +3,7 @@
 Last Updated: 2026-05-03
 
 ## Active Task
-**P2-B1** — **P2-T1** and **P2-T2** are in **Ready** (pick up both in one session).
+**P2-B2** — **P2-T3** and **P2-T4** are in **Ready** (pick up both in one session).
 
 ---
 
@@ -49,7 +49,7 @@ meant to finish in **one agent session** before handoff / commit
 | **P2-I1** | **Done** at **P1-B1** — `@fontsource` in `src/styles/global.css`; Lighthouse / no Google Fonts verified in **P3-T1**. |
 | **P2-I2, P2-I3** | Covered by P2-B7. |
 | **P2-I4** | Run as part of **P3-B1** (image pass + audit fixes together). |
-| **P2-I5** | Primary work in **P2-B1** / P2-T1; backlog row = gap-fill only if something ships incomplete. |
+| **P2-I5** | Primary work landed in **P2-B1** / P2-T1; backlog row = gap-fill only if a11y gaps remain after **P3-T2**. |
 | **P2-I6** | Run as part of **P3-B1** unless already satisfied during P2-B1 styling. |
 
 **`run-phase*.sh` runs for full Phase 2:** **8**
@@ -92,81 +92,8 @@ Not batch-scheduled (per-request). Do not include in `run-phase*.sh` counts.
 
 ## Ready
 
-### P2-T1: BaseLayout, SiteHeader, SiteFooter, base SEO + JSON-LD
-Status: Ready
-Owner: any
-Priority: High
-Phase: 2
-**Execution batch:** **P2-B1** (with P2-T2; fold **P2-I5** nav a11y into this task unless blocked).
-
-#### Goal
-Build the shared chrome that every page mounts inside, plus the SEO
-foundation (per-page metadata helper, JSON-LD for Organization +
-WebSite, OG/Twitter defaults).
-
-#### Scope Included
-- `src/layouts/BaseLayout.astro` — `<html>`, head, fonts, JSON-LD,
-  header slot, main slot, footer slot
-- `src/components/SiteHeader.tsx` (React island) — logo, primary nav,
-  three dropdown groups, mobile drawer; ported from old site with
-  accessibility improvements (P2-I5)
-- `src/components/SiteFooter.tsx` — likely Astro (no interactivity needed)
-- `src/lib/seo.ts` — `buildPageMetadata()`, `getOrganizationJsonLd()`,
-  `getWebsiteJsonLd()` (port from `~/repos/devildog/src/features/site/seo.ts`)
-- `src/content/siteContent.ts` — port `siteMetadata`, `primaryNavigation`,
-  `navigationGroups`, `socialLinks`, `footerContact`, `footerLinkGroups`
-- Port logo + at minimum one OG fallback image to `public/images/devildog/`
-
-#### Acceptance Criteria
-- Visiting `/` renders header, footer, and one placeholder paragraph.
-- View-source shows JSON-LD Organization + WebSite blocks, canonical link,
-  OG/Twitter meta, valid title.
-- Mobile nav opens/closes, dropdowns operable with keyboard (Tab, Enter,
-  Esc, arrow keys), focus trap not required but focus-visible is correct.
-- Lighthouse Accessibility score ≥ 95 on `/`.
-
-#### Test Requirements
-- Component test: `SiteHeader` opens dropdown on click + closes on Esc +
-  closes on outside click.
-- Component test: mobile menu toggle.
-- Snapshot or unit test for `buildPageMetadata` output shape.
-
----
-
-### P2-T2: Home page
-Status: Ready
-Owner: any
-Priority: High
-Phase: 2
-**Execution batch:** **P2-B1** (with P2-T1).
-
-#### Goal
-Port the home page (hero, mission, feature cards, service highlights, CTA)
-from the old site, using the new design language (improved spacing,
-typography rhythm, mobile-first).
-
-#### Scope Included
-- `src/pages/index.astro`
-- Required content imported from `src/content/siteContent.ts`
-  (`heroContent`, `missionContent`, `featureCards`, `serviceHighlights`)
-- Port required home imagery to `public/images/devildog/home/`
-
-#### Acceptance Criteria
-- Page renders all sections from the old `HomePage.tsx`.
-- All visible copy matches what's in `~/repos/devildog/src/features/site/siteContent.ts`
-  (catch drift via `tests/content/siteContent.test.ts`).
-- Lighthouse Performance ≥ 95 on `/`.
-- No layout shift on load (CLS = 0).
-
-#### Test Requirements
-- Content unit test asserting `featureCards` + `serviceHighlights` shapes.
-
----
-
-## Backlog (Phase 2 — Core Buildout)
-
 ### P2-T3: Detail-page system (template + content driver)
-Status: Backlog
+Status: Ready
 Owner: any
 Priority: High
 Phase: 2
@@ -199,7 +126,7 @@ that pre-render every detail-page slug from a single typed content array.
 ---
 
 ### P2-T4: Services hub + service detail pages content port
-Status: Backlog
+Status: Ready
 Owner: any
 Priority: Medium
 Phase: 2
@@ -217,6 +144,8 @@ penetration testing.
 - Internal links between services resolve.
 
 ---
+
+## Backlog (Phase 2 — Core Buildout)
 
 ### P2-T5: AI Threats page
 Status: Backlog
@@ -436,6 +365,8 @@ None.
 
 ### P1-T1: Scaffold Astro 5 + React 19 + Tailwind 4 project — Done; see `DONE_LOG.md`.
 ### P1-T2: Add GitHub Actions CI workflow — Done; see `DONE_LOG.md`.
+### P2-T1: BaseLayout, SiteHeader, SiteFooter, base SEO + JSON-LD — Done; see `DONE_LOG.md`.
+### P2-T2: Home page — Done; see `DONE_LOG.md`.
 
 ### P0-T1: Initialize project-specific AI files
 Status: Done

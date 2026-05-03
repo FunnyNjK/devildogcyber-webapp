@@ -3,31 +3,28 @@
 Last Updated: 2026-05-03
 
 ## Current Phase
-Phase 1 — Foundation (**Done**). Phase 2 — Core buildout (**Ready**): next batch **P2-B1**.
+Phase 2 — Core buildout (**in progress**). **P2-B1** Done; next batch **P2-B2**.
 
 ## Current Task
-Pick up **P2-B1** (`P2-T1` + `P2-T2`): layout + home. See `/ai/TASKS.md` → *Execution batches*.
+Pick up **P2-B2** (`P2-T3` + `P2-T4`): detail-page system + services content port. See `/ai/TASKS.md` → *Execution batches*.
 
 ## What Exists Now
-- Astro **5.18** + React **19** + Tailwind **4** (`@tailwindcss/vite`) + `@astrojs/react`, `@astrojs/sitemap`.
-- DevilDog tokens in `src/styles/global.css` (`@theme` + `:root` CSS vars); `@fontsource` Montserrat / Open Sans.
-- Vitest + Testing Library (jest-dom), ESLint 9 flat + `typescript-eslint` + `eslint-plugin-astro`, `tests/sanity.test.ts`.
-- `.env.example` (eight vars per `DEPLOYMENT.md`), `.nvmrc` **24**, `engines.node` **>=24**.
-- CI: `.github/workflows/ci.yml` — Node **24**, pnpm **10** cache, lint / typecheck / test / build on `push` + `pull_request`.
+- **P2-B1:** `BaseLayout.astro` + `SiteFooter.astro` + `SiteHeader` (React island, keyboard/disclosure nav); `src/lib/seo.ts` (metadata + JSON-LD); `src/content/siteContent.ts` (nav, footer, home copy); home page in `src/pages/index.astro` (hero, feature cards, mission, service highlights, story); `public/images/devildog/` logo + `home/` imagery; tests: `tests/lib/seo.test.ts`, `tests/components/SiteHeader.test.tsx`, `tests/content/siteContent.test.ts`.
+- Still from **P1-B1:** Astro 5 + React 19 + Tailwind 4, Vitest/ESLint, CI `ci.yml`, `@fontsource` in `global.css`.
 
 ## What Works
-- `pnpm dev` (placeholder `/`), `pnpm build` → `dist/` + sitemap, full script suite green locally.
+- `/` renders full chrome + home sections; build outputs JSON-LD, canonical, OG/Twitter tags.
+- `pnpm dev`, `pnpm build`, full script suite green locally.
 
 ## What Is Not Built Yet
-- Real pages, content modules, contact API, SWA deploy (Phases 2–4).
+- Detail routes (`[...slug]`), remaining pages, contact API, SWA deploy (rest of Phase 2–4).
 
 ## Known Problems
-- None at scaffold level. CI must run on GitHub after push (first green run validates workflow).
+- None at repo level. Nav header links point at routes not yet implemented until **P2-B2+** (expected).
 
 ## Important Files or Folders
-- `astro.config.ts`, `src/pages/index.astro`, `src/styles/global.css`
-- `.github/workflows/ci.yml`
+- `src/layouts/BaseLayout.astro`, `src/components/SiteHeader.tsx`, `src/pages/index.astro`, `src/content/siteContent.ts`, `src/lib/seo.ts`
 - `/ai/HANDOFF.md` — resume pointer
 
 ## Next Recommended Action
-Run **P2-B1**: `P2-T1` (BaseLayout, header, footer, SEO) then `P2-T2` (home page) in one session.
+Run **P2-B2**: implement **P2-T3** (`detailPages.ts`, `[...slug].astro`, detail renderer) then **P2-T4** (services pages + `public/images/devildog/pages/`).

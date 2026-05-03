@@ -32,3 +32,8 @@
   --dd-border: rgba(108, 4, 4, 0.14);
   --dd-ink: #090909;
 }
+
+:focus-visible {
+  outline: 2px solid var(--dd-red-bright);
+  outline-offset: 2px;
+}

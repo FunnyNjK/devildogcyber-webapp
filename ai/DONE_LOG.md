@@ -45,6 +45,13 @@ Last Updated: 2026-05-03
 - Updated `/ai/HANDOFF.md` to brief the next AI on context, hard rules,
   and next recommended task (P1-T1 scaffold).
 
+## 2026-05-03 — P2-B1: P2-T1 layout/SEO + P2-T2 home
+- **P2-T1:** `src/layouts/BaseLayout.astro` (canonical, OG/Twitter, dual JSON-LD); `src/components/SiteHeader.tsx` (default export for Astro, `client:load`, disclosure dropdowns with outside-click + Esc, arrow-key link nav, mobile drawer); `src/components/SiteFooter.astro`; `src/lib/seo.ts` (`buildPageMetadata`, org/website JSON-LD, absolute asset URLs); `src/content/siteContent.ts` (nav, footer, home-adjacent copy ported from legacy); `public/images/devildog/logo-white.png` + `public/images/devildog/home/*`; global `:focus-visible` ring in `src/styles/global.css`.
+- **P2-T2:** `src/pages/index.astro` — hero, feature cards, mission + service highlights, story sections; `src/components/home/ServiceHighlightIcon.astro`.
+- **Tests:** `tests/lib/seo.test.ts`, `tests/components/SiteHeader.test.tsx`, `tests/content/siteContent.test.ts`.
+- Lighthouse ≥ 95 on `/` (Performance / Accessibility) not run in CI — track under **P3-T1** / local verification.
+- Commit: `774a932`
+
 ## 2026-05-03 — Planning: execution batches (ADR-019)
 - Added **Execution batches** section and per-task **Execution batch** /
   **Scheduling** lines to `/ai/TASKS.md` (P1–P4 batch IDs, `<num_tasks>`

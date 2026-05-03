@@ -37,7 +37,7 @@ Deliverables:
 - GitHub Actions `ci.yml` passes on push.
 
 ## Phase 2: Core Buildout — pages, content, contact form
-Status: Ready (next batch **P2-B1**)
+Status: In progress (**P2-B1** Done 2026-05-03 — layout + home; see `DONE_LOG.md`; next batch **P2-B2**)
 
 **Autonomous runs (batches):** **8** — **P2-B1** … **P2-B8** (grouped task
 IDs in `/ai/TASKS.md`). Phase 2 improvement rows **P2-I\*** default into
