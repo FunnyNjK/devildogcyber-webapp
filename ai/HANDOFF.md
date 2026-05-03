@@ -9,7 +9,7 @@ Last Updated: 2026-05-03
 **P1-B1:** **P1-T1** (scaffold) + **P1-T2** (`ci.yml`) — Done 2026-05-03. See `DONE_LOG.md`.
 
 ## Active Task
-None — next batch **P2-B1** (`P2-T1` → `P2-T2` same session).
+**P2-B1** — run **P2-T1** then **P2-T2** (both in **Ready** in `TASKS.md`).
 
 ## Next Recommended Task
 **P2-B1:** **P2-T1** then **P2-T2** per `/ai/TASKS.md`. Fold **P2-I5** into **P2-T1** acceptance where feasible.
