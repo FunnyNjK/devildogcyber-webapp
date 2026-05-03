@@ -1,6 +1,6 @@
 # START HERE - AI Project Control File
 
-Last Updated: 2026-05-02
+Last Updated: 2026-05-03
 
 This is the only file an AI assistant needs to read first.
 
@@ -141,23 +141,7 @@ Next recommended task:
 
 ---
 
-## 7. Tool Role Guidance
-
-Recommended division of labor across AI tools:
-
-- **ChatGPT / Codex CLI:** tech lead, architecture, planning, task design, review.
-- **Claude Code:** refactoring, multi-file analysis, test writing, code review,
-  cross-cutting changes.
-- **Cursor or VS Code (with Copilot):** focused implementation work.
-- **GitHub Copilot CLI:** shell command suggestions, git operations, PR-sized tasks.
-- **Gemini CLI:** alternative perspective for analysis or generation.
-
-No tool should expand scope without updating `/ai/TASKS.md`, `/ai/ROADMAP.md`,
-and `/ai/DECISIONS.md` when needed.
-
----
-
-## 8. Scope Control Rules
+## 7. Scope Control Rules
 
 The AI must follow these rules:
 
@@ -170,7 +154,7 @@ The AI must follow these rules:
 
 ---
 
-## 9. Status Values
+## 8. Status Values
 
 Use these task statuses:
 
@@ -184,7 +168,7 @@ Use these task statuses:
 
 ---
 
-## 10. Completion Standard
+## 9. Completion Standard
 
 A task is only complete when:
 

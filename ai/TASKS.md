@@ -1,6 +1,6 @@
 # Tasks
 
-Last Updated: 2026-05-02
+Last Updated: 2026-05-03
 
 ## Active Task
 None — pick the next "Ready" task below.
@@ -11,7 +11,7 @@ None — pick the next "Ready" task below.
 
 ### P1-T1: Scaffold Astro 5 + React 19 + Tailwind 4 project
 Status: Ready
-Owner: Cursor, VS Code, Claude Code, or Codex CLI
+Owner: Claude Code
 Priority: High
 Phase: 1
 
@@ -62,7 +62,7 @@ page work has the right design primitives available.
 
 ### P1-T2: Add GitHub Actions CI workflow
 Status: Ready
-Owner: Codex CLI or Claude Code
+Owner: Claude Code
 Priority: High
 Phase: 1
 
