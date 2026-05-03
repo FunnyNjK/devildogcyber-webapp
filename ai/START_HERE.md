@@ -154,7 +154,8 @@ The AI must follow these rules:
   **except** when those IDs are listed together under **Execution batches**
   in `/ai/TASKS.md` (ADR-019). In a batch, complete every listed task (or
   document Blocked) before handoff.
-- Before claiming **Done** on any task (especially under `./run-phase*.sh`),
+- Before claiming **Done** on any task (especially under
+  `./run-phase-cursor.sh` or `./run-phase.sh`),
   read **Human pairing vs unattended harness** in `/ai/TASKS.md` for that
   task ID. **Unattended: No** means **pair with the human** — do not finish
   or mark Done via harness alone. **Partial** means finish only the

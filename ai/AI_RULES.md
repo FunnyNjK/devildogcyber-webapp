@@ -29,8 +29,10 @@ in `/ai/DECISIONS.md` if the change should persist.
   editor's GUI runs on Windows; the file ops, terminal, and language servers
   run inside WSL.
 
-## Autonomous harness (`run-phase.sh`, `run-phase-cursor.sh`)
+## Autonomous harness (`./run-phase-cursor.sh`, `./run-phase.sh`)
 
+- **Default:** `./run-phase-cursor.sh N` (Cursor CLI). `./run-phase.sh N` is
+  the same harness with Claude Code; **`N`** is identical.
 - Before each harness iteration, read **Human pairing vs unattended harness**
   (task matrix) in `/ai/TASKS.md`. If the work is **Unattended: No**, or
   **Partial** with human steps not yet done, **do not** mark tasks **Done** or

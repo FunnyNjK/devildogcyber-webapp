@@ -440,8 +440,8 @@ Status: Accepted
 ### Decision
 Define **execution batches** in `/ai/TASKS.md`: named groups of existing
 task IDs (e.g. **P1-B1** = P1-T1 + P1-T2) that may be completed in **one**
-autonomous agent session (one `run-phase.sh` / `run-phase-cursor.sh`
-iteration) before handoff and git commit. Batching reduces repeated
+autonomous agent session (one harness iteration:
+`./run-phase-cursor.sh N` or `./run-phase.sh N`) before handoff and git commit. Batching reduces repeated
 full-context reads of `/ai/*.md` and lowers token spend. Phase-level
 **batch counts** are documented in `/ai/ROADMAP.md` and the quick-reference
 table in `/ai/TASKS.md`.

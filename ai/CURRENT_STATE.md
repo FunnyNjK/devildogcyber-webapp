@@ -25,4 +25,6 @@ Phase **3–4**: hardening, Azure SWA + DNS (**P4**).
 **`astro.config.ts`**, **`public/robots.txt`**, **`public/staticwebapp.config.json`**, **`scripts/verify-build-seo.ts`**, **`tests/deploy/sitePublicSurface.test.ts`**.
 
 ## Next Recommended Action
-Kick off **P3-B1** per **`TASKS.md`** batch table.
+Kick off **P3-B1** per **`TASKS.md`** batch table — e.g. next batch only:
+**`./run-phase-cursor.sh 1`**; full Phase 3: **`./run-phase-cursor.sh 2`**.
+(Same **`N`** with **`./run-phase.sh`** if using Claude Code.)

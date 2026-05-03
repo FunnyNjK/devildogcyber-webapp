@@ -12,7 +12,9 @@ Last Updated: 2026-05-03
 **P3-B1** — **P3-T1** / **P3-T2** + **P2-I4** + **P2-I6**.
 
 ## Next Recommended Task
-Phase 3 hardened pass: Lighthouse, axe/keyboard polish, Astro `<Image>` + motion/focus follow-ups (**`TASKS.md`** batch).
+Phase 3 hardened pass (**`TASKS.md`**): **P3-B1** then **P3-B2**. Harness:
+**`./run-phase-cursor.sh 1`** (this batch only) or **`./run-phase-cursor.sh 2`**
+(full Phase 3). Same **`N`** with **`./run-phase.sh`** (Claude Code).
 
 ## What Is Blocked
 Nothing AI-side.

@@ -7,10 +7,12 @@ Last Updated: 2026-05-03
 
 ---
 
-## Execution batches (autonomous / `run-phase*.sh`)
+## Execution batches (autonomous — `./run-phase-cursor.sh N`)
 
-Autonomous harnesses (`./run-phase.sh`, `./run-phase-cursor.sh`) advance
-**one batch per iteration**. A **batch** is a defined set of task IDs
+**Primary harness:** `./run-phase-cursor.sh <N>` (Cursor CLI `agent`). Same
+batch counts **`N`** apply to `./run-phase.sh` if you use Claude Code instead.
+
+Autonomous harnesses advance **one batch per iteration**. A **batch** is a defined set of task IDs
 meant to finish in **one agent session** before handoff / commit
 (ADR-019). This cuts repeated `/ai` context loading and token cost.
 
@@ -23,7 +25,7 @@ meant to finish in **one agent session** before handoff / commit
 - Do **not** merge tasks across batches or invent new groupings without
   updating this section and ADR-019.
 
-### Human pairing vs unattended harness (`run-phase*.sh`)
+### Human pairing vs unattended harness (`run-phase-cursor.sh` / `run-phase.sh`)
 
 Some work **must not** be driven only by the phase scripts: it needs you
 (keys in portals, DNS at registrar, Azure admin consent, Postmark
@@ -34,11 +36,11 @@ repo auth already work.
 
 | Tag | Meaning |
 |-----|---------|
-| **`Unattended: OK`** | Safe to run under `./run-phase.sh` / `./run-phase-cursor.sh` without you at the keyboard (AI reads `/ai`, edits code, runs tests; no live secrets or tenant-only actions required to finish). |
+| **`Unattended: OK`** | Safe to run under `./run-phase-cursor.sh` (or `./run-phase.sh`) without you at the keyboard (AI reads `/ai`, edits code, runs tests; no live secrets or tenant-only actions required to finish). |
 | **`Unattended: Partial`** | AI can do most of the implementation; **you** must supply secrets, approve org settings, confirm domain/DNS choices, run a provider dashboard step, or do a **manual** check (e.g. keyboard walk) before the task is truly **Done**. **Pause the script** for those steps, then resume or run the next batch in chat. |
 | **`Unattended: No`** | **Do not** rely on the harness alone for completion. Treat as **pair work**: Cursor/IDE session with the human, or human executes portal/registrar while AI documents. Script may still be used **only** for doc/code prep if `HANDOFF.md` says so. |
 
-**Task matrix (every ID — check before each `run-phase*.sh` iteration)**
+**Task matrix (every ID — check before each `./run-phase-cursor.sh` iteration)**
 
 | ID | Unattended | Why |
 |----|------------|-----|
@@ -64,7 +66,7 @@ repo auth already work.
 
 **Operational rule for any AI run**
 
-Before starting a batch in `run-phase*.sh`, read this matrix. If **any**
+Before starting a batch in `./run-phase-cursor.sh`, read this matrix. If **any**
 constituent task is **No** or **Partial** and the human has **not** already
 completed the hands-on parts, either: (1) **skip** that batch in the script
 and work with the human in a normal chat session first, or (2) run the
@@ -73,9 +75,9 @@ with “needs human: …” until unblocked.
 
 ### Phase 1 — Foundation
 
-| Batch ID | Constituent tasks (order) | `run-phase*.sh` runs for full phase |
+| Batch ID | Constituent tasks (order) | Harness iterations (`N`) for full phase |
 |----------|---------------------------|-------------------------------------|
-| **P1-B1** | P1-T1 → P1-T2 | **1** |
+| **P1-B1** | P1-T1 → P1-T2 | **1** (`./run-phase-cursor.sh 1`) |
 
 ### Phase 2 — Core buildout
 
@@ -100,7 +102,7 @@ with “needs human: …” until unblocked.
 | **P2-I5** | Primary work landed in **P2-B1** / P2-T1; backlog row = gap-fill only if a11y gaps remain after **P3-T2**. |
 | **P2-I6** | Run as part of **P3-B1** unless already satisfied during P2-B1 styling. |
 
-**`run-phase*.sh` runs for full Phase 2:** **8**
+**Harness iterations for full Phase 2** (e.g. `./run-phase-cursor.sh 8`): **8**
 
 ### Phase 3 — Hardening
 
@@ -109,7 +111,7 @@ with “needs human: …” until unblocked.
 | **P3-B1** | P3-T1, P3-T2, **P2-I4**, **P2-I6** |
 | **P3-B2** | P3-T3 |
 
-**Runs for full Phase 3:** **2**
+**Harness iterations for full Phase 3** (e.g. `./run-phase-cursor.sh 2`): **2**
 
 ### Phase 4 — Deployment
 
@@ -123,21 +125,24 @@ human per the matrix above (`P4-T*` includes multiple **No** / **Partial**).
 | **P4-B3** | P4-T4, P4-T5 | Postmark verification + first production deploy + smoke test. |
 | **P4-B4** | P4-T6 | DNS cutover + www→apex verification. |
 
-**Runs for full Phase 4:** **4**
+**Harness iterations for full Phase 4** (e.g. `./run-phase-cursor.sh 4`): **4**
 
 ### Phase 5 — Enhancements
 
-Not batch-scheduled (per-request). Do not include in `run-phase*.sh` counts.
+Not batch-scheduled (per-request). Do not include harness `N` counts.
 
-### Quick reference: `<num_tasks>` for `run-phase.sh` / `run-phase-cursor.sh`
+### Quick reference: `./run-phase-cursor.sh N`
 
-| Goal | `<num_tasks>` |
-|------|----------------|
-| Phase 1 only (from repo ready for P1) | `1` |
-| Phase 2 only (Phase 1 already Done) | `8` |
-| Phase 3 only (Phase 2 already Done) | `2` |
-| Phase 4 only (Phase 3 already Done) | `4` |
-| **Phases 1–4 end-to-end** | **`15`** |
+Run from repo root (where `/ai/` lives). **`N`** = number of batch iterations.
+Claude Code users: same **`N`** with `./run-phase.sh`.
+
+| Goal | Command |
+|------|---------|
+| Phase 1 only (from repo ready for P1) | `./run-phase-cursor.sh 1` |
+| Phase 2 only (Phase 1 already Done) | `./run-phase-cursor.sh 8` |
+| Phase 3 only (Phase 2 already Done) | `./run-phase-cursor.sh 2` |
+| Phase 4 only (Phase 3 already Done) | `./run-phase-cursor.sh 4` |
+| **Phases 1–4 end-to-end** | **`./run-phase-cursor.sh 15`** |
 
 ---
 
