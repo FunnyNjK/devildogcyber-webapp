@@ -47,7 +47,7 @@ meant to finish in **one agent session** before handoff / commit
 | Item | Default |
 |------|---------|
 | **P2-I1** | **Done** at **P1-B1** — `@fontsource` in `src/styles/global.css`; Lighthouse / no Google Fonts verified in **P3-T1**. |
-| **P2-I2, P2-I3** | Covered by P2-B7. |
+| **P2-I2, P2-I3** | **Done** (2026-05-03) — shipped in **P2-B7**. |
 | **P2-I4** | Run as part of **P3-B1** (image pass + audit fixes together). |
 | **P2-I5** | Primary work landed in **P2-B1** / P2-T1; backlog row = gap-fill only if a11y gaps remain after **P3-T2**. |
 | **P2-I6** | Run as part of **P3-B1** unless already satisfied during P2-B1 styling. |

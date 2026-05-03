@@ -1,6 +1,6 @@
 # Deployment
 
-Last Updated: 2026-05-02
+Last Updated: 2026-05-03
 
 ## Deployment Status
 Project-specific deployment plan documented. Resource provisioning in
@@ -11,8 +11,9 @@ Azure happens during P4-T1 (not now).
 ## Target Environments
 
 - **Local development:** WSL Ubuntu, native processes (`pnpm dev`).
-  No Docker for the app itself. Optional local SWA emulator via
-  `swa start dist --api-location api`.
+  No Docker for the app itself. Production-like build is **`pnpm build`**
+  (`astro build` + **`pnpm --filter api build`**, which bundles `api/contact/index.js`).
+  Optional local SWA emulator via `swa start dist --api-location api`.
 - **Staging:** Azure SWA preview environment (auto-created per PR).
 - **Production:** Azure SWA production environment, custom domain
   `devildogcyber.com` with `www` 301-redirected to apex.
@@ -33,9 +34,9 @@ GitHub Actions, two workflows:
 Triggers: `push`, `pull_request`. Runs:
 - pnpm install (with cache keyed on `pnpm-lock.yaml`)
 - lint (ESLint 9 flat config)
-- typecheck (`tsc --noEmit`)
+- typecheck (`tsc --noEmit` + `pnpm --filter api typecheck`)
 - test (Vitest, `--run`)
-- build (`astro build`)
+- build (`pnpm build` → `astro build` + managed API bundle under `api/`)
 
 Fails the PR if any step fails. Per ADR-010, this is NOT
 `workflow_dispatch`-only.
