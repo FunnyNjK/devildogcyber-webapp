@@ -8,6 +8,7 @@ Last Updated: 2026-05-03
 - **Tests:** **`tests/content/navLinks.test.ts`** — asserts **`about.astro`** registers static **`/about`** (P2-B6 regression).
 - **Checks:** `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build` (WSL).
 - Implementation commit: `6c45a6d`
+- Documentation follow-up (DONE_LOG commit hash correction): `e20489d`
 
 ## 2026-05-03 — P2-B5: P2-T9 About-us (team) parity + UX polish
 - **`hero.layout?: 'backdrop'`** on **`DetailPage`** — **`src/pages/[...slug].astro`** renders full-bleed hero (photo at 40% opacity + gradient overlay + copy) matching legacy **`DetailPage.tsx`**; **`/about-us`** sets **`layout: 'backdrop'`** (split gradient hero unchanged for other detail pages).
