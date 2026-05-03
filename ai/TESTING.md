@@ -28,7 +28,7 @@ and the navigation/IA invariants.
   HTML escaping, error handling.
 - `api/contact/lib/turnstile.ts` — config validation, success path,
   failure path, missing-config path, network-error path.
-- `api/contact/lib/rateLimit.ts` — sliding window math (`api/contact/lib/rateLimit.test.ts`).
+- `api/contact/lib/rateLimit.ts` — sliding window bookkeeping (**`rateLimit.test.ts`**, deterministic `now()` injectable per test harness).
 
 ### Component tests (required for interactive components)
 - `SiteHeader.tsx` — dropdown open/close (mouse + keyboard), mobile drawer
