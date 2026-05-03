@@ -59,7 +59,7 @@ Last Updated: 2026-05-03
 - **P1-T1:** Astro **5.18**, React **19**, Tailwind **4** via `@tailwindcss/vite`, `@astrojs/react`, `@astrojs/sitemap`, `@fontsource` Montserrat/Open Sans, DevilDog `@theme` + `:root` tokens in `src/styles/global.css`, Vitest + Testing Library jest-dom (`tests/sanity.test.ts`), ESLint 9 flat (`typescript-eslint`, `eslint-plugin-astro`, `eslint-plugin-react-hooks`), `.env.example` (eight vars), `.nvmrc` / `engines.node` **24+**, placeholder `src/pages/index.astro`, `public/favicon.svg`.
 - **P1-T2:** `.github/workflows/ci.yml` — `push` + `pull_request`, pnpm **10**, Node **24**, `pnpm install --frozen-lockfile`, lint, typecheck, test, build.
 - **P2-I1** row closed in `TASKS.md` (fonts at scaffold).
-- Commit: `(record after push)`
+- Commit: `f6b9656`
 
 ## 2026-05-02 — Workflow setup (pre-existing)
 - Created customized AI project starter for WSL-native dev with Astro 5 +
