@@ -1,0 +1,101 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import DetailPageSections from "../components/detail/DetailPageSections.astro";
+import { detailPages, slugToPath } from "../content/detailPages";
+import type { DetailPage } from "../content/detailPages";
+export function getStaticPaths() {
+  return detailPages.map((page) => ({
+    params: { slug: page.slug.join("/") },
+    props: { page },
+  }));
+}
+
+type Props = {
+  page: DetailPage;
+};
+
+const { page } = Astro.props;
+const path = slugToPath(page.slug);
+---
+
+<BaseLayout
+  title={page.title}
+  description={page.description}
+  path={path}
+  imagePath={page.hero.imageSrc}
+  imageAlt={page.hero.imageAlt}
+>
+  <main>
+    <section
+      class:list={[
+        "relative overflow-hidden scroll-mt-28 text-white",
+        page.hero.align === "center"
+          ? "bg-[linear-gradient(180deg,var(--dd-ink)_0%,rgba(42,5,5,0.94)_92%)] pb-28 pt-20 lg:pb-36 lg:pt-28 text-center"
+          : "bg-[linear-gradient(120deg,var(--dd-ink)_0%,rgba(108,4,4,0.82)_72%,rgba(176,17,22,0.66))] pb-24 pt-20 lg:pb-32 lg:pt-26",
+      ]}
+    >
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(176,17,22,0.42),transparent_38%),linear-gradient(180deg,rgba(255,255,255,0.04),transparent_55%)]"
+      />
+
+      <div
+        class:list={[
+          "relative mx-auto w-full max-w-7xl gap-14 px-6",
+          page.hero.align === "center"
+            ? "flex flex-col items-center"
+            : "grid gap-12 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] lg:items-center",
+        ]}
+      >
+        <div class:list={[page.hero.align === "center" ? "max-w-4xl" : "", "relative z-10"]}>
+          <p class="text-sm font-semibold uppercase tracking-[0.28em] text-[color:var(--dd-red-bright)]">
+            {page.hero.eyebrow}
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+            {page.hero.title}
+          </h1>
+          <p class="mt-6 max-w-3xl text-lg leading-8 text-white/84 sm:text-xl">
+            {page.hero.subtitle}
+          </p>
+        </div>
+
+        {
+          page.hero.align === "center" ? (
+            <div class="relative z-10 mt-12 w-full max-w-4xl">
+              <div class="overflow-hidden rounded-[2rem] border border-white/12 shadow-[0_28px_80px_rgba(0,0,0,0.45)]">
+                <img
+                  src={page.hero.imageSrc}
+                  alt={page.hero.imageAlt}
+                  width={1600}
+                  height={1000}
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="async"
+                  class="h-full w-full object-cover"
+                />
+              </div>
+            </div>
+          ) : (
+            <div class="relative z-10 mx-auto w-full max-w-2xl lg:mx-0">
+              <div class="absolute -inset-4 rounded-[2rem] bg-[linear-gradient(135deg,rgba(176,17,22,0.5),transparent_72%)] blur-2xl" aria-hidden="true" />
+              <div class="relative overflow-hidden rounded-[2rem] border border-white/12 shadow-[0_28px_80px_rgba(0,0,0,0.35)]">
+                <img
+                  src={page.hero.imageSrc}
+                  alt={page.hero.imageAlt}
+                  width={1200}
+                  height={900}
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="async"
+                  class="h-full w-full object-cover"
+                />
+              </div>
+            </div>
+          )
+        }
+      </div>
+    </section>
+
+    <DetailPageSections sections={page.sections} cta={page.cta} />
+  </main>
+</BaseLayout>

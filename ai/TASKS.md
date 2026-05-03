@@ -3,7 +3,7 @@
 Last Updated: 2026-05-03
 
 ## Active Task
-**P2-B2** — **P2-T3** and **P2-T4** are in **Ready** (pick up both in one session).
+**P2-B3** — run **P2-T5**, **P2-T6**, and **P2-T8** together (same batch).
 
 ---
 
@@ -91,59 +91,7 @@ Not batch-scheduled (per-request). Do not include in `run-phase*.sh` counts.
 ---
 
 ## Ready
-
-### P2-T3: Detail-page system (template + content driver)
-Status: Ready
-Owner: any
-Priority: High
-Phase: 2
-**Execution batch:** **P2-B2** (with P2-T4).
-
-#### Goal
-Replicate the legacy site's `[...slug]/page.tsx` pattern as Astro pages
-that pre-render every detail-page slug from a single typed content array.
-
-#### Scope Included
-- Port `~/repos/devildog/src/features/site/detailPages.ts` →
-  `src/content/detailPages.ts` (verbatim copy + types)
-- `src/pages/[...slug].astro` with `getStaticPaths()` driven by
-  `detailPages` slugs
-- `src/components/DetailPage.tsx` (or `DetailPage.astro`) rendering all
-  section kinds: `split`, `cards`, `list`, `team`
-- CTA component shared between detail pages and home
-
-#### Acceptance Criteria
-- Visiting any slug from `detailPages` (e.g. `/services/identity-management`,
-  `/compliance/cmmc`, `/services/maritime/yacht-services`) renders correctly.
-- Build pre-renders all detail pages — no SSR fallback.
-- Section kinds (`split`, `cards`, `list`, `team`) all render with
-  consistent typography and spacing.
-
-#### Test Requirements
-- Unit test asserting every navigation link in `navigationGroups` resolves
-  to either a real Astro page or a slug present in `detailPages`.
-
----
-
-### P2-T4: Services hub + service detail pages content port
-Status: Ready
-Owner: any
-Priority: Medium
-Phase: 2
-Depends on: P2-T3
-**Execution batch:** **P2-B2** (with P2-T3 — implement system first, then this port).
-
-Port content + assets for: services overview, executive services, yacht /
-port / ship-builder maritime trio, identity management, security monitoring,
-risk assessment, security controls, training, watchdog cloud, documentation,
-penetration testing.
-
-#### Acceptance Criteria
-- All 11 service detail pages render via the P2-T3 system.
-- Required imagery present in `public/images/devildog/pages/`.
-- Internal links between services resolve.
-
----
+None — next batch (**P2-B3**) entries remain in Phase 2 Backlog below until picked up.
 
 ## Backlog (Phase 2 — Core Buildout)
 
@@ -367,6 +315,8 @@ None.
 ### P1-T2: Add GitHub Actions CI workflow — Done; see `DONE_LOG.md`.
 ### P2-T1: BaseLayout, SiteHeader, SiteFooter, base SEO + JSON-LD — Done; see `DONE_LOG.md`.
 ### P2-T2: Home page — Done; see `DONE_LOG.md`.
+### P2-T3: Detail-page system (`detailPages`, `[...slug].astro`, section renderer, nav invariant test, `/about` + `/contact` stubs) — Done; see `DONE_LOG.md`.
+### P2-T4: Services imagery + URLs via detail system (`public/images/devildog/pages/`, legacy team photos for `/about-us`) — Done; see `DONE_LOG.md`.
 
 ### P0-T1: Initialize project-specific AI files
 Status: Done

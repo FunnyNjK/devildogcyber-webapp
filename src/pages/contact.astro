@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Contact DevilDog Cybersecurity";
+const description = "Reach out to DevilDog Cybersecurity — the inquiry form arrives in this rebuild’s contact batch.";
+---
+
+<BaseLayout description={description} title={title} path="/contact">
+  <main class="mx-auto flex w-full max-w-3xl flex-col gap-8 px-6 py-24 sm:py-28">
+    <div>
+      <p class="text-sm font-semibold uppercase tracking-[0.28em] text-[color:var(--dd-red-bright)]">Contact</p>
+      <h1 class="mt-4 font-display text-4xl font-extrabold tracking-tight text-[color:var(--dd-copy)] sm:text-5xl">{title}</h1>
+      <p class="mt-4 text-lg leading-8 text-[color:var(--dd-muted)]">
+        The DevilDog Cybersecurity contact form — with Cloudflare Turnstile, honeypot, and Postmark-backed delivery — lands in the
+        next contact implementation batch alongside the Azure Functions endpoint.
+      </p>
+    </div>
+  </main>
+</BaseLayout>

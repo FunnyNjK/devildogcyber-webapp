@@ -2,6 +2,15 @@
 
 Last Updated: 2026-05-03
 
+## 2026-05-03 — P2-B2: P2-T3 detail system + P2-T4 services port
+- **`src/content/detailPages.ts`** — verbatim legacy port from `~/repos/devildog/src/features/site/detailPages.ts` (typed `detailPages`, helpers, frameworks, maritime builders, `/about-us` team payloads).
+- **Routing:** `src/pages/[...slug].astro` with `getStaticPaths()` emitting every slug (static output; `/about` + `/contact` stubs avoid dead nav targets until **P2-B6/P2-B7**).
+- **Presentation:** `src/components/detail/DetailPageSections.astro`, `DetailSplitSection.astro` (split column order parity with legacy DetailPage.tsx), `DetailPageCta.astro`.
+- **Assets:** Legacy `public/images/devildog/pages/*` copied; `public/images/devildog/team/*` for leadership imagery referenced by detail content.
+- **Tests:** `tests/content/navLinks.test.ts` verifies every `navigationGroups` href resolves to `detailPages` or a literal `src/pages/*.astro` route; collision guard versus catch-all duplicates.
+- **Checks:** `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build` (WSL).
+- Commit: `041bd56`
+
 ## 2026-05-02 — P0-T1: Initialize project-specific AI files
 - Catalogued the legacy DevilDog site at `~/repos/devildog` (Next.js 15,
   App Router, Azure App Service deploy with Postmark + Turnstile contact

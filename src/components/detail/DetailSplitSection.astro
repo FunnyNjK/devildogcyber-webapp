@@ -1,0 +1,142 @@
+---
+import type { DetailPageSection } from "../../content/detailPages";
+
+type SplitSection = Extract<DetailPageSection, { kind: "split" }>;
+
+export type Props = {
+  section: SplitSection;
+  index: number;
+};
+
+const { section, index } = Astro.props;
+
+function sectionShell(theme: SplitSection["theme"]) {
+  const light =
+    "border-[color:var(--dd-border)] bg-white text-[color:var(--dd-copy)] shadow-[0_18px_45px_rgba(15,23,42,0.08)] rounded-[2rem]";
+  const dark =
+    "rounded-[2rem] border-white/12 bg-[linear-gradient(155deg,var(--dd-red-deep),var(--dd-red)_48%,rgba(176,17,22,0.94))] text-white shadow-[0_24px_68px_rgba(0,0,0,0.22)]";
+  return theme === "dark" ? dark : light;
+}
+
+function muted(theme: SplitSection["theme"]) {
+  return theme === "dark" ? "text-white/76" : "text-[color:var(--dd-muted)]";
+}
+
+function eyebrow(theme: SplitSection["theme"]) {
+  return theme === "dark"
+    ? "text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-white/72"
+    : "text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-[color:var(--dd-red-bright)]";
+}
+
+const hasImage = Boolean(section.imageSrc);
+const panelBorder =
+  section.theme === "dark" ? "border-white/14" : "border-[color:var(--dd-border)]/80";
+---
+
+<section class:list={["overflow-hidden scroll-mt-28 border", sectionShell(section.theme)]}>
+  <div
+    class:list={[
+      "grid gap-0 lg:items-stretch lg:gap-0",
+      hasImage ? "lg:grid-cols-[1fr_1fr]" : "",
+    ].filter(Boolean)}
+  >
+    {
+      !hasImage ? (
+        <div class="flex flex-col justify-center px-8 py-10 sm:px-10 sm:py-14">
+          {section.eyebrow ? <p class={eyebrow(section.theme)}>{section.eyebrow}</p> : null}
+          <h2 class="mt-3 font-display text-3xl font-extrabold tracking-tight sm:text-4xl">{section.title}</h2>
+          {section.description ? (
+            <p class:list={["mt-4 text-lg font-semibold", muted(section.theme)]}>{section.description}</p>
+          ) : null}
+          <div class:list={["mt-6 space-y-4 text-base leading-8 sm:text-lg", muted(section.theme)]}>
+            {section.paragraphs.map((p) => (
+              <p>{p}</p>
+            ))}
+          </div>
+          {section.bullets ? (
+            <ul class:list={["mt-8 list-none space-y-3 text-sm leading-7 sm:text-base", muted(section.theme)]}>
+              {section.bullets.map((b) => (
+                <li class="flex gap-3">
+                  <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[color:var(--dd-red)]" aria-hidden />
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
+      ) : section.imagePosition === "left" ? (
+        <>
+          <div class:list={["relative min-h-[14rem] border-b lg:min-h-full lg:border-b-0 lg:border-r", panelBorder]}>
+            <img
+              src={section.imageSrc}
+              alt={section.imageAlt ?? section.title}
+              width={1200}
+              height={900}
+              loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
+              class="h-full min-h-[14rem] w-full object-cover"
+            />
+          </div>
+          <div class="flex flex-col justify-center px-8 py-10 sm:px-10 sm:py-14">
+            {section.eyebrow ? <p class={eyebrow(section.theme)}>{section.eyebrow}</p> : null}
+            <h2 class="mt-3 font-display text-3xl font-extrabold tracking-tight sm:text-4xl">{section.title}</h2>
+            {section.description ? (
+              <p class:list={["mt-4 text-lg font-semibold", muted(section.theme)]}>{section.description}</p>
+            ) : null}
+            <div class:list={["mt-6 space-y-4 text-base leading-8 sm:text-lg", muted(section.theme)]}>
+              {section.paragraphs.map((p) => (
+                <p>{p}</p>
+              ))}
+            </div>
+            {section.bullets ? (
+              <ul class:list={["mt-8 list-none space-y-3 text-sm leading-7 sm:text-base", muted(section.theme)]}>
+                {section.bullets.map((b) => (
+                  <li class="flex gap-3">
+                    <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[color:var(--dd-red)]" aria-hidden />
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+        </>
+      ) : (
+        <>
+          <div class="flex flex-col justify-center px-8 py-10 sm:px-10 sm:py-14">
+            {section.eyebrow ? <p class={eyebrow(section.theme)}>{section.eyebrow}</p> : null}
+            <h2 class="mt-3 font-display text-3xl font-extrabold tracking-tight sm:text-4xl">{section.title}</h2>
+            {section.description ? (
+              <p class:list={["mt-4 text-lg font-semibold", muted(section.theme)]}>{section.description}</p>
+            ) : null}
+            <div class:list={["mt-6 space-y-4 text-base leading-8 sm:text-lg", muted(section.theme)]}>
+              {section.paragraphs.map((p) => (
+                <p>{p}</p>
+              ))}
+            </div>
+            {section.bullets ? (
+              <ul class:list={["mt-8 list-none space-y-3 text-sm leading-7 sm:text-base", muted(section.theme)]}>
+                {section.bullets.map((b) => (
+                  <li class="flex gap-3">
+                    <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[color:var(--dd-red)]" aria-hidden />
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+          <div class:list={["relative min-h-[14rem] border-t lg:min-h-full lg:border-l lg:border-t-0", panelBorder]}>
+            <img
+              src={section.imageSrc}
+              alt={section.imageAlt ?? section.title}
+              width={1200}
+              height={900}
+              loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
+              class="h-full min-h-[14rem] w-full object-cover"
+            />
+          </div>
+        </>
+      )
+    }
+  </div>
+</section>

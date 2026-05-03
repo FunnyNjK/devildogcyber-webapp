@@ -3,16 +3,16 @@
 Last Updated: 2026-05-03
 
 ## Current State Summary
-**P2-B1** complete (layout, SEO, home). Next unit: **P2-B2** (detail system + services port). Legacy site `~/repos/devildog` remains read-only reference.
+**P2-B2** complete (verbatim `detailPages.ts`, Astro catch-all renderer, `/services` hub + maritime + other service URLs, imagery + legacy team photos). Next unit: **P2-B3** (AI Threats, Security Recon, Story polishing if needed).
 
 ## Last Completed Task
-**P2-B1:** **P2-T1** + **P2-T2** — Done 2026-05-03. See `DONE_LOG.md`.
+**P2-B2:** **P2-T3** + **P2-T4** — Done 2026-05-03. See `DONE_LOG.md`.
 
 ## Active Task
-**P2-B2** — run **P2-T3** then **P2-T4** (both in **Ready** in `TASKS.md`).
+**P2-B3** — run **P2-T5** then **P2-T6** then **P2-T8** (batch in `TASKS.md`). Note: `/ai-threats`, `/security-reconnaissance`, and `/story` already pre-render via `detailPages` + `[...slug].astro`; evaluate whether acceptance is polish-only versus no-op closes.
 
 ## Next Recommended Task
-**P2-B2:** **P2-T3** (detail-page system) then **P2-T4** (services hub + imagery) per `/ai/TASKS.md`.
+**P2-B3** — reconcile **P2-T5**/**P2-T6**/**P2-T8** with existing detail routes; expand stubs only if backlog scope requires deltas beyond parity.
 
 ## What Is Blocked
 Nothing on the AI side. Azure (**P4-B1**) is production-only.
@@ -25,4 +25,4 @@ Nothing on the AI side. Azure (**P4-B1**) is production-only.
 Image rights; Postmark/DKIM before **P4-B4**; Turnstile allowlist for SWA preview.
 
 ## Tests / Checks Last Run
-`pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build` — all exit 0 (2026-05-03, WSL). Lighthouse targets for `/` (Performance / Accessibility ≥ 95) not run in CI — verify in **P3-T1** or locally before launch.
+`pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build` — all exit 0 (2026-05-03, WSL).

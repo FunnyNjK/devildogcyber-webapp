@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "About This Site";
+const description =
+  "How this DevilDog Cybersecurity marketing site is built and what to expect as the rebuild progresses.";
+---
+
+<BaseLayout description={description} title={title} path="/about">
+  <main class="mx-auto flex w-full max-w-3xl flex-col gap-8 px-6 py-24 sm:py-28">
+    <div>
+      <p class="text-sm font-semibold uppercase tracking-[0.28em] text-[color:var(--dd-red-bright)]">About This Site</p>
+      <h1 class="mt-4 font-display text-4xl font-extrabold tracking-tight text-[color:var(--dd-copy)] sm:text-5xl">{title}</h1>
+    </div>
+    <div class="space-y-5 text-base leading-8 text-[color:var(--dd-muted)]">
+      <p>
+        This marketing site for DevilDog Cybersecurity is built with Astro for static-first performance. The interactive header
+        uses a lightweight React island; most content ships as plain HTML so pages stay fast for visitors and auditors.
+      </p>
+      <p>
+        The full About This Site page is scheduled for richer content during core buildout. For now this route exists so
+        navigation, SEO, and content tests can validate the rebuild’s routing model.
+      </p>
+    </div>
+  </main>
+</BaseLayout>
