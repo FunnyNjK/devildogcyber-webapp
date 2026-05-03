@@ -9,6 +9,7 @@ Last Updated: 2026-05-03
 - **`scripts/verify-build-seo.ts`**: invoked at end of **`pnpm build`**; asserts **sitemap-*** **`<loc>`** set equals **`/` + `/about` + `/contact` + `detailPages`**, **`robots.txt`** points at **`sitemap-index.xml`**, and SWA config **`trailingSlash`**.
 - **`tests/deploy/sitePublicSurface.test.ts`**, **`eslint.config.js`** **`scripts/**`** globals.
 - Checks: `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build` (WSL). **`@azure/static-web-apps-cli` v2.0.9** may still **301** **`/contact` → `/contact/`** locally; production behavior is authoritative.
+- Implementation commit: **`21c24a6`**
 
 ## 2026-05-03 — P2-B7: P2-T11 + P2-T12 `/contact` + **`POST /api/contact`**
 
