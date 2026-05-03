@@ -3,7 +3,7 @@
 Last Updated: 2026-05-03
 
 ## Active Task
-**P2-B3** — run **P2-T5**, **P2-T6**, and **P2-T8** together (same batch).
+**P2-B4** — run **P2-T7** (compliance hub + framework pages).
 
 ---
 
@@ -91,19 +91,9 @@ Not batch-scheduled (per-request). Do not include in `run-phase*.sh` counts.
 ---
 
 ## Ready
-None — next batch (**P2-B3**) entries remain in Phase 2 Backlog below until picked up.
+None — **P2-B4** backlog entry (**P2-T7**) sits below until picked up.
 
 ## Backlog (Phase 2 — Core Buildout)
-
-### P2-T5: AI Threats page
-Status: Backlog
-Phase: 2 — Depends on P2-T3.
-**Execution batch:** **P2-B3** (with P2-T6, P2-T8).
-
-### P2-T6: Security Reconnaissance page
-Status: Backlog
-Phase: 2 — Depends on P2-T3.
-**Execution batch:** **P2-B3** (with P2-T5, P2-T8).
 
 ### P2-T7: Compliance hub + framework pages
 Status: Backlog
@@ -111,11 +101,6 @@ Phase: 2 — Depends on P2-T3.
 **Execution batch:** **P2-B4**.
 Pages: compliance overview, CMMC, CMMI, NIST 800-171, GLBA, HIPAA, HITRUST,
 ISO 27001/27002.
-
-### P2-T8: Story page
-Status: Backlog
-Phase: 2 — Depends on P2-T3.
-**Execution batch:** **P2-B3** (with P2-T5, P2-T6).
 
 ### P2-T9: About-us (team) page
 Status: Backlog
@@ -318,6 +303,9 @@ None.
 ### P2-T2: Home page — Done; see `DONE_LOG.md`.
 ### P2-T3: Detail-page system (`detailPages`, `[...slug].astro`, section renderer, nav invariant test, `/about` + `/contact` stubs) — Done; see `DONE_LOG.md`.
 ### P2-T4: Services imagery + URLs via detail system (`public/images/devildog/pages/`, legacy team photos for `/about-us`) — Done; see `DONE_LOG.md`.
+### P2-T5: AI Threats page — Done; see `DONE_LOG.md`.
+### P2-T6: Security Reconnaissance page — Done; see `DONE_LOG.md`.
+### P2-T8: Story page — Done; see `DONE_LOG.md`.
 
 ### P0-T1: Initialize project-specific AI files
 Status: Done

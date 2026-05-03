@@ -32,6 +32,12 @@ describe("navigation link targets resolve", () => {
   const staticRoutes = staticRoutesFromPagesDir(pagesRoot);
   const detailPaths = new Set(detailPages.map((page) => slugToPath(page.slug)));
 
+  it("P2-B3 detail routes (AI Threats, Security Recon, Story) are emitted by detailPages", () => {
+    for (const routePath of ["/ai-threats", "/security-reconnaissance", "/story"] as const) {
+      expect(detailPaths.has(routePath), `Missing detail route ${routePath}`).toBe(true);
+    }
+  });
+
   it("every navigationGroups href resolves to a detail page slug or static src/pages route", () => {
     expect(staticRoutes.has("/")).toBe(true);
 

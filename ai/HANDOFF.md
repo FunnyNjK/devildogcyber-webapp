@@ -3,16 +3,16 @@
 Last Updated: 2026-05-03
 
 ## Current State Summary
-**P2-B2** complete (verbatim `detailPages.ts`, Astro catch-all renderer, `/services` hub + maritime + other service URLs, imagery + legacy team photos). Next unit: **P2-B3** (AI Threats, Security Recon, Story polishing if needed).
+**P2-B3** complete (**P2-T5**, **P2-T6**, **P2-T8**): AI Threats, Security Recon, and Story were already in verbatim `detailPages` from **P2-B2**; batch added an explicit `navLinks` regression for `/ai-threats`, `/security-reconnaissance`, `/story`. Next unit: **P2-B4** (**P2-T7** compliance hub + frameworks).
 
 ## Last Completed Task
-**P2-B2:** **P2-T3** + **P2-T4** — Done 2026-05-03. See `DONE_LOG.md`.
+**P2-B3:** **P2-T5** + **P2-T6** + **P2-T8** — Done 2026-05-03. See `DONE_LOG.md`.
 
 ## Active Task
-**P2-B3** — run **P2-T5** then **P2-T6** then **P2-T8** (batch in `TASKS.md`). Note: `/ai-threats`, `/security-reconnaissance`, and `/story` already pre-render via `detailPages` + `[...slug].astro`; evaluate whether acceptance is polish-only versus no-op closes.
+**P2-B4** — run **P2-T7** (compliance hub + framework pages). Content likely already in `detailPages`; confirm nav + imagery + acceptance vs `TASKS.md` row.
 
 ## Next Recommended Task
-**P2-B3** — reconcile **P2-T5**/**P2-T6**/**P2-T8** with existing detail routes; expand stubs only if backlog scope requires deltas beyond parity.
+**P2-B4** — parity check compliance routes (`/compliance`, framework slugs) against legacy IA; expand or polish only if gaps surface.
 
 ## What Is Blocked
 Nothing on the AI side. Azure (**P4-B1**) is production-only.
