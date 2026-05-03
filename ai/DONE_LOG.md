@@ -7,7 +7,7 @@ Last Updated: 2026-05-03
 - **`DetailPageSections.astro`** — **`kind: 'team'`** reworked to vertical **`TeamCard`**-style articles (portrait strip **`h-80`**, role uppercase, name + bio + bordered cream highlight pills); section shell matches legacy transparent padding (no outer bordered panel).
 - **Tests:** **`tests/content/navLinks.test.ts`** — asserts **`/about-us`** exists on **`detailPages`** map.
 - **Checks:** `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build` (WSL).
-- Implementation commit: `eb51e57`
+- Implementation commit: `9489120`
 
 ## 2026-05-03 — P2-B4: P2-T7 Compliance hub + framework pages
 - **Finding:** Full hub + framework payloads for `/compliance` and `/compliance/*` frameworks were already in the verbatim **`detailPages`** port (**P2-B2**); **`public/images/devildog/pages`** already included referenced assets (`compliance.jpg`, `badge.jpeg`, `hitrust.jpg`, `iso.jpg`, `finance.jpg`, `healthcare.jpg`, military/finance imagery for CMMC/NIST/etc.).
