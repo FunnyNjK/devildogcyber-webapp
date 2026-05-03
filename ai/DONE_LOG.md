@@ -6,7 +6,7 @@ Last Updated: 2026-05-03
 - **Finding:** Full hub + framework payloads for `/compliance` and `/compliance/*` frameworks were already in the verbatim **`detailPages`** port (**P2-B2**); **`public/images/devildog/pages`** already included referenced assets (`compliance.jpg`, `badge.jpeg`, `hitrust.jpg`, `iso.jpg`, `finance.jpg`, `healthcare.jpg`, military/finance imagery for CMMC/NIST/etc.).
 - **Tests:** `tests/content/navLinks.test.ts` — explicit regression that `/compliance` plus `/compliance/cmmc`, `/compliance/cmmi`, `/compliance/nist-800-171`, `/compliance/glba`, `/compliance/hipaa`, `/compliance/hitrust`, `/compliance/iso-27001-27002` exist on the `detailPages` map (IA drift guard).
 - **Checks:** `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build` (WSL).
-- Implementation commit: `62813ed`
+- Implementation commit: `b52049a`
 
 ## 2026-05-03 — P2-B3: P2-T5 AI Threats + P2-T6 Security Recon + P2-T8 Story
 - **Finding:** Full page copy and imagery for `/ai-threats`, `/security-reconnaissance`, and `/story` were already shipped in the verbatim **`detailPages`** port (**P2-B2**); no content deltas required beyond acceptance documentation.
