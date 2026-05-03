@@ -1,6 +1,6 @@
 # Migration Inventory — devildog (old) → devildogcyber-webapp (new)
 
-Last Updated: 2026-05-02
+Last Updated: 2026-05-03
 
 This document is the bridge between the legacy site at `~/repos/devildog`
 (Next.js 15 + App Router, Azure App Service) and the new site in this
@@ -18,7 +18,7 @@ URL paths preserved verbatim so external SEO signals remain valid.
 | Old URL                                       | New file                                                        | Status   | Task    |
 | --------------------------------------------- | --------------------------------------------------------------- | -------- | ------- |
 | `/`                                           | `src/pages/index.astro`                                         | Backlog  | P2-T2   |
-| `/about`                                      | `src/pages/about.astro`                                         | Backlog  | P2-T10  |
+| `/about`                                      | `aboutPageContent.ts` + `src/pages/about.astro`                 | Done     | P2-T10  |
 | `/contact`                                    | `src/pages/contact.astro` + `ContactForm.tsx`                   | Backlog  | P2-T11  |
 | `/services`                                   | via `src/pages/[...slug].astro` (slug `services`)               | Backlog  | P2-T4   |
 | `/services/executive-services`                | catch-all                                                       | Backlog  | P2-T4   |
@@ -124,8 +124,8 @@ already well-shaped for direct port.
 | Contact page copy                       | `src/features/contact/contactContent.ts`                   | `src/content/contactContent.ts`               | Verbatim copy.                                                     |
 | Team members                            | `teamMembers` constant inside `detailPages.ts`             | extract to `src/content/teamMembers.ts`       | Refactor: extract from inline scope so the team is reusable.       |
 | Home hero, mission, feature cards, service highlights | exports in `siteContent.ts`                                | same in `src/content/siteContent.ts`          | Direct port.                                                       |
-| Story content + about principles        | exports in `siteContent.ts`                                | same in `src/content/siteContent.ts`          | Direct port.                                                       |
-| About page (`/about`) copy              | inline in `src/app/(marketing)/about/page.tsx`             | `src/content/aboutPageContent.ts` + page      | Refactor: legacy left this inline; lift to typed module per ADR-012. |
+| Story content (`storyContent`)            | exports in `siteContent.ts`                                | `src/content/siteContent.ts`                   | Shared with **`/story`** detail page and **`/about`** teaser (`aboutPageContent` imports it). |
+| About page (`/about`) hero + principles | inline in `(marketing)/about/page.tsx` + `aboutPrinciples` in `siteContent` | `src/content/aboutPageContent.ts` + `about.astro` | Principles lifted out of **`siteContent.ts`** (**P2-T10**); single source `storyContent` for story block. |
 | SEO helpers + JSON-LD                   | `src/features/site/seo.ts`                                 | `src/lib/seo.ts`                              | Direct port. Replace `next/Metadata` type with Astro-friendly shape.|
 | Contact validation                      | `src/features/contact/contactValidation.ts` + `.test.ts`   | `src/lib/contactValidation.ts` + tests        | Direct port (per ADR-015).                                         |
 | Postmark client                         | `src/features/contact/postmark.ts` + `.test.ts`            | `api/contact/lib/postmark.ts` + tests         | Move to API workspace; remove `'use server'` (no longer Next.js).  |

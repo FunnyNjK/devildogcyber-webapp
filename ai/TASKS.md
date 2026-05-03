@@ -3,7 +3,7 @@
 Last Updated: 2026-05-03
 
 ## Active Task
-**P2-B6** — run **P2-T10** (About-this-site page).
+**P2-B7** — run **P2-T11** + **P2-T12** (Contact UI + **`/api/contact`**).
 
 ---
 
@@ -38,7 +38,7 @@ meant to finish in **one agent session** before handoff / commit
 | **P2-B3** | P2-T5, P2-T6, P2-T8 | AI Threats, Security Reconnaissance, Story — same static pattern after P2-B2. |
 | **P2-B4** | P2-T7 | Compliance hub + framework pages (single large batch). |
 | **P2-B5** | P2-T9 | About-us (team) page + imagery. |
-| **P2-B6** | P2-T10 | About-this-site page. |
+| **P2-B6** | P2-T10 | `/about` (legacy marketing About page). |
 | **P2-B7** | P2-T11, P2-T12 | Contact UI + `/api/contact` Azure Function in one session (larger diff; acceptable per ADR-019). |
 | **P2-B8** | P2-T13 | Sitemap, robots, SEO verification, `staticwebapp.config.json` — run after public routes exist. |
 
@@ -91,14 +91,9 @@ Not batch-scheduled (per-request). Do not include in `run-phase*.sh` counts.
 ---
 
 ## Ready
-None — pick up **P2-B6** (**P2-T10**) from backlog.
+None — pick up **P2-B7** (**P2-T11**, **P2-T12**) from backlog.
 
 ## Backlog (Phase 2 — Core Buildout)
-
-### P2-T10: About page (about this site)
-Status: Backlog
-Phase: 2 — Standalone Astro page; old equivalent is `/about`.
-**Execution batch:** **P2-B6**.
 
 ### P2-T11: Contact page (UI only)
 Status: Backlog
@@ -294,6 +289,7 @@ None.
 ### P2-T8: Story page — Done; see `DONE_LOG.md`.
 ### P2-T7: Compliance hub + framework pages — Done; see `DONE_LOG.md`.
 ### P2-T9: About-us (team) page — Done; see `DONE_LOG.md`.
+### P2-T10: `/about` (legacy marketing About page) — Done; see `DONE_LOG.md`.
 
 ### P0-T1: Initialize project-specific AI files
 Status: Done

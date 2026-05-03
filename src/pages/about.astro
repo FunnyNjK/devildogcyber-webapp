@@ -1,26 +1,84 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-
-const title = "About This Site";
-const description =
-  "How this DevilDog Cybersecurity marketing site is built and what to expect as the rebuild progresses.";
+import {
+  aboutPageHero,
+  aboutPageMetadata,
+  aboutPagePrinciples,
+  aboutPageStorySection,
+} from "../content/aboutPageContent";
 ---
 
-<BaseLayout description={description} title={title} path="/about">
-  <main class="mx-auto flex w-full max-w-3xl flex-col gap-8 px-6 py-24 sm:py-28">
-    <div>
-      <p class="text-sm font-semibold uppercase tracking-[0.28em] text-[color:var(--dd-red-bright)]">About This Site</p>
-      <h1 class="mt-4 font-display text-4xl font-extrabold tracking-tight text-[color:var(--dd-copy)] sm:text-5xl">{title}</h1>
-    </div>
-    <div class="space-y-5 text-base leading-8 text-[color:var(--dd-muted)]">
-      <p>
-        This marketing site for DevilDog Cybersecurity is built with Astro for static-first performance. The interactive header
-        uses a lightweight React island; most content ships as plain HTML so pages stay fast for visitors and auditors.
-      </p>
-      <p>
-        The full About This Site page is scheduled for richer content during core buildout. For now this route exists so
-        navigation, SEO, and content tests can validate the rebuild’s routing model.
-      </p>
-    </div>
+<BaseLayout
+  description={aboutPageMetadata.description}
+  title={aboutPageMetadata.title}
+  path={aboutPageMetadata.path}
+  imagePath={aboutPageMetadata.imagePath}
+  imageAlt={aboutPageMetadata.imageAlt}
+>
+  <main class="py-20 sm:py-24">
+    <section class="mx-auto w-full max-w-7xl px-6">
+      <div
+        class="rounded-[2.25rem] bg-[linear-gradient(135deg,var(--dd-red),var(--dd-red-deep))] px-8 py-12 text-white shadow-[0_26px_70px_rgba(108,4,4,0.24)] sm:px-12"
+      >
+        <p class="text-sm font-semibold uppercase tracking-[0.28em] text-white/60">{aboutPageHero.eyebrow}</p>
+        <h1 class="mt-4 max-w-4xl font-display text-4xl font-extrabold tracking-tight sm:text-5xl">
+          {aboutPageHero.title}
+        </h1>
+        <p class="mt-6 max-w-3xl text-base leading-8 text-white/80 sm:text-lg">{aboutPageHero.intro}</p>
+        <div class="mt-8">
+          <a
+            href={aboutPageHero.backHome.href}
+            class="inline-flex rounded-full border border-white/20 px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-white/10"
+          >
+            {aboutPageHero.backHome.label}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto mt-12 grid w-full max-w-7xl gap-6 px-6 lg:grid-cols-3">
+      {
+        aboutPagePrinciples.map((item) => (
+          <article
+            class="h-full rounded-[1.75rem] border border-[color:var(--dd-border)] bg-white p-7 text-[color:var(--dd-copy)] shadow-[0_18px_40px_rgba(15,23,42,0.08)]"
+          >
+            <h2 class="text-2xl font-bold text-[color:var(--dd-red)]">{item.title}</h2>
+            <p class="mt-4 text-sm leading-7 text-[color:var(--dd-muted)]">{item.description}</p>
+          </article>
+        ))
+      }
+    </section>
+
+    <section
+      class="mx-auto mt-12 grid w-full max-w-7xl gap-10 px-6 lg:grid-cols-[.95fr_1.05fr] lg:items-center lg:py-4"
+    >
+      <div
+        class="overflow-hidden rounded-[2rem] border border-[color:var(--dd-border)] bg-white shadow-[0_18px_50px_rgba(15,23,42,0.12)]"
+      >
+        <img
+          src={aboutPageStorySection.imageSrc}
+          alt={aboutPageStorySection.imageAlt}
+          width={1200}
+          height={900}
+          loading="lazy"
+          decoding="async"
+          class="h-full w-full object-cover"
+        />
+      </div>
+
+      <div
+        class="rounded-[2rem] border border-[color:var(--dd-border)] bg-white p-8 shadow-[0_18px_50px_rgba(15,23,42,0.08)] sm:p-10"
+      >
+        <p class="text-sm font-semibold uppercase tracking-[0.28em] text-[color:var(--dd-red-bright)]">
+          {aboutPageStorySection.subtitle}
+        </p>
+        <h2 class="mt-3 font-display text-4xl font-extrabold tracking-tight text-[color:var(--dd-copy)]">
+          {aboutPageStorySection.title}
+        </h2>
+        <div class="mt-6 space-y-5 text-base leading-8 text-[color:var(--dd-muted)]">
+          {aboutPageStorySection.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+      </div>
+    </section>
   </main>
 </BaseLayout>

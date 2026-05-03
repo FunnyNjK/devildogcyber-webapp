@@ -265,24 +265,6 @@ export const storyContent = {
   ],
 } as const;
 
-export const aboutPrinciples = [
-  {
-    title: 'Veteran-led perspective',
-    description:
-      'Mission-first discipline, accountability, and follow-through shape how programs are designed and delivered.',
-  },
-  {
-    title: 'Turnkey execution',
-    description:
-      'DevilDog helps assess, implement, document, and support cybersecurity programs instead of stopping at recommendations.',
-  },
-  {
-    title: 'Compliance-aware delivery',
-    description:
-      'Solutions are built with real-world frameworks in mind, including CMMC, HIPAA, HITRUST, and ISO initiatives.',
-  },
-] as const;
-
 export const socialLinks = [
   {
     label: 'Facebook',

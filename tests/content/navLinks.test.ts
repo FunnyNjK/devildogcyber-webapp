@@ -57,6 +57,10 @@ describe("navigation link targets resolve", () => {
     expect(detailPaths.has("/about-us"), "Missing detail route /about-us").toBe(true);
   });
 
+  it("P2-B6 standalone /about route exists (about.astro)", () => {
+    expect(staticRoutes.has("/about"), "Missing static route /about").toBe(true);
+  });
+
   it("every navigationGroups href resolves to a detail page slug or static src/pages route", () => {
     expect(staticRoutes.has("/")).toBe(true);
 

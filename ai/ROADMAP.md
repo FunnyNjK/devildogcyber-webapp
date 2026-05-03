@@ -37,7 +37,7 @@ Deliverables:
 - GitHub Actions `ci.yml` passes on push.
 
 ## Phase 2: Core Buildout — pages, content, contact form
-Status: In progress (**P2-B5** Done 2026-05-03 — About-us / team page; see `DONE_LOG.md`; next batch **P2-B6**)
+Status: In progress (**P2-B6** Done 2026-05-03 — **`/about`** page; see `DONE_LOG.md`; next batch **P2-B7**)
 
 **Autonomous runs (batches):** **8** — **P2-B1** … **P2-B8** (grouped task
 IDs in `/ai/TASKS.md`). Phase 2 improvement rows **P2-I\*** default into
@@ -62,7 +62,7 @@ Task IDs (grouped for autonomous runs — see `/ai/TASKS.md` *Execution batches*
 - **P2-B3:** P2-T5, P2-T6, P2-T8 — AI Threats, Security Recon, Story
 - **P2-B4:** P2-T7 — compliance hub + frameworks
 - **P2-B5:** P2-T9 — team page
-- **P2-B6:** P2-T10 — about this site
+- **P2-B6:** P2-T10 — `/about` (legacy marketing About page)
 - **P2-B7:** P2-T11, P2-T12 — contact UI + managed API
 - **P2-B8:** P2-T13 — SEO + sitemap + robots + `staticwebapp.config.json`
 
