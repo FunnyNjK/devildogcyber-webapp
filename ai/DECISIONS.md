@@ -334,9 +334,12 @@ Date: 2026-05-02
 Status: Accepted
 
 ### Decision
-The 301 redirect from `www.devildogcyber.com` to `devildogcyber.com` is
-configured as a SWA route rule in `staticwebapp.config.json`, not in
-application code.
+The **`www` → apex** redirect stays out of application code; it is enforced
+by **Azure Static Web Apps**: **`staticwebapp.config.json`** declares
+**`forwardingGateway.allowedForwardedHosts`** plus **`trailingSlash`**
+normalization, while the **hostname** 301 is completed by setting the **apex
+custom domain as the default domain** on the SWA resource (**ADR-021** —
+path-only **`routes`** entries do not inspect the HTTP Host header alone).
 
 ### Reason
 - The legacy site implements this via a Next.js `proxy.ts`, which only
@@ -477,6 +480,27 @@ Adds **`esbuild`** as an **`api`** devDependency; slightly longer **`pnpm build`
 
 ### Related Tasks
 **P2-T12**; **`pnpm-workspace.yaml`**, **`api/`** package, **`api/scripts/bundle-contact.mjs`**, root **`package.json`** `build` script.
+
+---
+
+## ADR-021: Canonical host www→apex + staticwebapp.config.json (clarifies ADR-014)
+
+Date: 2026-05-03
+Status: Accepted
+
+### Decision
+- **`staticwebapp.config.json`** declares **`trailingSlash: "never"`** plus **`forwardingGateway.allowedForwardedHosts`** for **`devildogcyber.com`** and **`www.devildogcyber.com`** where proxy headers apply.
+- The **hostname** redirect **`www.devildogcyber.com` → apex** is enforced by setting the **apex custom domain as the default domain** on the Static Web Apps resource (301 with path preserved); see [Manage the default domain in Azure Static Web Apps](https://learn.microsoft.com/en-us/azure/static-web-apps/custom-domain-default). Path-only **`routes`** do not match the HTTP Host header by themselves.
+- **`platform.apiRuntime`** is **not** pinned in-repo: the SWA CLI schema through v2.0.9 rejects **`node:24`** even where production supports Node 24 (**ADR-018**); set the Functions Node 24 runtime in Azure during provisioning (**P4-T1**).
+
+### Reason
+Keeps config aligned with Microsoft’s routing model and the apex canonical strategy in **`PROJECT.md`**, and documents why **`swa`** local emulation can differ from production for trailing-slash behavior.
+
+### Tradeoffs
+Portal “Set default” step required for production host canonicalization (**P4-T6**). Local emulator may still redirect **`/contact` → `/contact/`** despite **`trailingSlash: "never"`** — verify on the deployed SWA host.
+
+### Related Tasks
+**P2-T13**, **P4-T6**, **ADR-014**.
 
 ---
 

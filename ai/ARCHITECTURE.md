@@ -130,9 +130,10 @@ Vitest specs. Mirrors `src/` structure. Coverage targets in `/ai/TESTING.md`.
 ## SEO and canonical URL strategy
 
 - One canonical domain: `devildogcyber.com`.
-- `www.devildogcyber.com` 301-redirects to apex via SWA `staticwebapp.config.json`
-  redirect rule (the old site did this with a Next.js proxy redirect; SWA
-  handles it natively).
+- `www.devildogcyber.com` 301‑redirects to apex by setting apex as the **default
+  custom domain** on the SWA resource, with **`staticwebapp.config.json`**
+  listing both hostnames under **`forwardingGateway.allowedForwardedHosts`**
+  and enforcing **`trailingSlash: "never"`** (**ADR‑021**).
 - Each page sets `<link rel="canonical">` to the apex URL.
 - `/sitemap.xml` and `/robots.txt` generated at build (Astro's
   `@astrojs/sitemap` integration).

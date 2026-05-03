@@ -37,7 +37,7 @@ Deliverables:
 - GitHub Actions `ci.yml` passes on push.
 
 ## Phase 2: Core Buildout — pages, content, contact form
-Status: In progress (**P2-B7** Done 2026-05-03 — contact UI + **`/api/contact`**; see `DONE_LOG.md`; next batch **P2-B8**)
+Status: Done (**P2-B8** complete 2026-05-03 — **P2-T13** SEO + SWA routing config; next **Phase 3**)
 
 **Autonomous runs (batches):** **8** — **P2-B1** … **P2-B8** (grouped task
 IDs in `/ai/TASKS.md`). Phase 2 improvement rows **P2-I\*** default into
@@ -54,7 +54,7 @@ Goals:
 - Build the contact page + form + Azure Function endpoint.
 - Wire Postmark, Turnstile, honeypot, rate limiting.
 - Add SEO baseline: per-page metadata, JSON-LD, sitemap, robots,
-  www→apex redirect via `staticwebapp.config.json`.
+  SWA routing config + apex default domain for www→apex (**ADR-021**).
 
 Task IDs (grouped for autonomous runs — see `/ai/TASKS.md` *Execution batches*):
 - **P2-B1:** P2-T1, P2-T2 — layout + home (nav a11y **P2-I5** folded into T1)

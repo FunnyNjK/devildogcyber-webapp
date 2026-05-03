@@ -3,7 +3,7 @@
 Last Updated: 2026-05-03
 
 ## Active Task
-**P2-B8** — run **P2-T13** (SEO + sitemap + robots + **`staticwebapp.config.json`**).
+**P3-B1** — **P3-T1**, **P3-T2**, **P2-I4**, **P2-I6** (Lighthouse + a11y + image optimization + motion/focus polish).
 
 ---
 
@@ -91,29 +91,7 @@ Not batch-scheduled (per-request). Do not include in `run-phase*.sh` counts.
 ---
 
 ## Ready
-None — pick up **P2-B8** (**P2-T13**) from backlog.
-
-## Backlog (Phase 2 — Core Buildout)
-
-### P2-T13: SEO finalization
-Status: Backlog
-Owner: any
-Priority: Medium
-Phase: 2
-**Execution batch:** **P2-B8**.
-
-#### Goal
-Generate `sitemap.xml` and `robots.txt`, verify per-page metadata, OG
-images, JSON-LD, canonical tags. Add `staticwebapp.config.json` with
-the www→apex 301 redirect (replaces the old Next.js `proxy.ts`).
-
-#### Acceptance Criteria
-- `dist/sitemap-index.xml` includes every public page.
-- `dist/robots.txt` references the sitemap.
-- `staticwebapp.config.json` redirects `www.devildogcyber.com` → apex
-  with 301 (verified via local SWA emulator).
-
----
+Pick up **Phase 3** batch **P3-B1** when starting the next autonomous run (**P3-T1** + **P3-T2** + **P2-I4** + **P2-I6**).
 
 ## Backlog (Phase 2 — Improvements, in addition to ports)
 
@@ -218,6 +196,7 @@ None.
 ### P2-T10: `/about` (legacy marketing About page) — Done; see `DONE_LOG.md`.
 ### P2-T11: Contact page (React island + validation + Turnstile) — Done; see `DONE_LOG.md`.
 ### P2-T12: `/api/contact` Azure Function (Postmark, Turnstile, honeypot, rate limit) — Done; see `DONE_LOG.md`.
+### P2-T13: SEO finalization — Done; see `DONE_LOG.md`.
 
 ### P0-T1: Initialize project-specific AI files
 Status: Done

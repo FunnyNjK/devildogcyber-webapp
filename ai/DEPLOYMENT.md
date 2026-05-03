@@ -13,7 +13,8 @@ Azure happens during P4-T1 (not now).
 - **Local development:** WSL Ubuntu, native processes (`pnpm dev`).
   No Docker for the app itself. Production-like build is **`pnpm build`**
   (`astro build` + **`pnpm --filter api build`**, which bundles `api/contact/index.js`).
-  Optional local SWA emulator via `swa start dist --api-location api`.
+  Optional local SWA emulator via **`swa start ./dist --api-location api --swa-config-location ./dist`**.
+The emulator may **not** match Azure’s **`trailingSlash: "never"`** behavior (`/contact` ↔ `/contact/`) despite the same **`staticwebapp.config.json`** — rely on **`pnpm build`** (runs **`scripts/verify-build-seo.ts`**) and a deployed smoke check (**P4**).
 - **Staging:** Azure SWA preview environment (auto-created per PR).
 - **Production:** Azure SWA production environment, custom domain
   `devildogcyber.com` with `www` 301-redirected to apex.
@@ -130,8 +131,9 @@ completeness:
    variables above).
 7. Add custom domain `devildogcyber.com` in the SWA "Custom domains"
    blade; verify via TXT or CNAME per Azure's instructions.
-8. Add `www.devildogcyber.com` as a custom domain too — required so the
-   `staticwebapp.config.json` 301 from `www` to apex can fire.
+8. Add `www.devildogcyber.com` as a custom domain, then set **`devildogcyber.com`**
+   as the **default domain** in the SWA **Custom domains** blade so all other
+   hostnames 301 to apex with paths preserved (**ADR‑021**).
 
 ---
 

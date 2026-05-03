@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && pnpm --filter api run build",
+    "build": "astro build && pnpm --filter api run build && node --experimental-strip-types scripts/verify-build-seo.ts",
     "preview": "astro preview",
     "test": "vitest run",
     "test:watch": "vitest",

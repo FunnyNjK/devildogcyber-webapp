@@ -3,27 +3,26 @@
 Last Updated: 2026-05-03
 
 ## Current Phase
-Phase 2 — Core buildout (**in progress**). **P2-B7** Done; next batch **P2-B8**.
+Phase 2 **complete** (**P2-B8**); next **Phase 3** — **P3-B1**.
 
 ## Current Task
-Pick up **P2-B8**: **P2-T13** SEO baseline + **`staticwebapp.config.json`** (after route set stabilized).
+Start **P3-B1**: **P3-T1** + **P3-T2** + **P2-I4** + **P2-I6** (Lighthouse, a11y, images, motion/focus).
 
 ## What Exists Now
-- **P2-B7:** **`/contact`** — legacy marketing layout mirrored (dark hero + form section + sidebar CTA): **`contactPageContent.ts`**, **`ContactForm.tsx`** + **`TurnstileWidget.tsx`**, **`src/lib/contactValidation.ts`**. **`api/contact`** — Azure Functions v4 HTTP **`contact`** (`app.http`), Postmark/Turnstile/honeypot/sliding rate limit (**`CONTACT_RATE_LIMIT_*`**, per-IP **`x-forwarded-for`/`cf-connecting-ip`**). Shared validation bundled into **`api/contact/index.js`** via **`esbuild`**. **`pnpm-workspace`** + **`api`** package; root **`pnpm build`** bundles Functions.
-- **P2-B6:** **`/about`** — ported legacy marketing About (see `DONE_LOG.md`).
-- Earlier **P2-B1…P2-B5:** layout, detail system, hubs, **`/about-us`**.
+- **P2-B8:** SEO baseline — **`@astrojs/sitemap`** + **`scripts/verify-build-seo.ts`**, **`public/robots.txt`**, **`public/staticwebapp.config.json`** (see **`HANDOFF.md`**, **ADR-021**).
+- **P2-B7–P2-B1:** prior buildout (layout, pages, contact API) per **`DONE_LOG.md`**.
 
 ## What Works
-Static site builds; **`/contact`** renders; CI **`pnpm lint`/`typecheck`/`test`/`build`** exercises Astro + bundled API workspace.
+`pnpm lint`/`typecheck`/`test`; **`pnpm build`** bundles Astro → **`dist/`** plus API bundle; build verifies **sitemap** URL parity vs **`detailPages`** and **robots**/**SWA** config presence.
 
 ## What Is Not Built Yet
-**P2-B8** (SEO infra + apex/www config), Phase 4 SWA provisioning.
+Phase **3–4**: hardening, Azure SWA + DNS (**P4**).
 
 ## Known Problems
-None at repo level. Live Postmark/Turnstile need env vars in SWA (**P4**).
+**`@azure/static-web-apps-cli`** (v2.0.9): may still **301** **`/contact` → `/contact/`** locally despite **`trailingSlash: "never"`**; production follows Azure (**`TESTING.md`**, **ADR-021**).
 
 ## Important Files or Folders
-`src/pages/contact.astro`, `src/components/ContactForm.tsx`, `src/lib/contactValidation.ts`, `src/content/contactContent.ts`, `api/contact/`, `api/scripts/bundle-contact.mjs`, `pnpm-workspace.yaml`, `tests/components/ContactForm.test.tsx`, `tests/api/contact-handler.integration.test.ts`
+**`astro.config.ts`**, **`public/robots.txt`**, **`public/staticwebapp.config.json`**, **`scripts/verify-build-seo.ts`**, **`tests/deploy/sitePublicSurface.test.ts`**.
 
 ## Next Recommended Action
-Run **P2-B8** (**P2-T13**).
+Kick off **P3-B1** per **`TASKS.md`** batch table.

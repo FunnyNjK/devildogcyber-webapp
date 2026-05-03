@@ -54,7 +54,7 @@ Exercises **`handleContactSubmission`** for:
 - `pnpm lint`
 - `pnpm typecheck`
 - `pnpm test` (Vitest --run)
-- `pnpm build`
+- `pnpm build` — includes **`node --experimental-strip-types scripts/verify-build-seo.ts`**, which asserts **`dist/sitemap-*.xml`** `<loc>` URLs match **`detailPages` + `/` + `/about` + `/contact`**, validates **`dist/robots.txt`** references **`sitemap-index.xml`**, and checks **`dist/staticwebapp.config.json`** **`trailingSlash`**. (**P2‑T13**)
 
 ---
 

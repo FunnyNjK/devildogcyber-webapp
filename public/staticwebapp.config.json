@@ -1,0 +1,7 @@
+{
+  "$schema": "https://aka.ms/swaconfig/schema",
+  "trailingSlash": "never",
+  "forwardingGateway": {
+    "allowedForwardedHosts": ["devildogcyber.com", "www.devildogcyber.com"]
+  }
+}

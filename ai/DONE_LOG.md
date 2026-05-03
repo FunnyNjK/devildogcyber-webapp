@@ -2,6 +2,14 @@
 
 Last Updated: 2026-05-03
 
+## 2026-05-03 — P2-B8: P2-T13 SEO baseline + **`staticwebapp.config.json`**
+
+- **`public/robots.txt`**, **`public/staticwebapp.config.json`** (copied to **`dist/`**): **`trailingSlash: "never"`**, **`forwardingGateway.allowedForwardedHosts`** (apex + **`www`**); host-level **`www` → apex** complements Portal **default domain** (**ADR-021**, **DEPLOYMENT.md**).
+- **`astro.config.ts`**: **`@astrojs/sitemap`** **`serialize`** — normalize home to **`https://devildogcyber.com/`**, strip trailing slashes on other **`loc`** values so sitemap matches **`BaseLayout`** canonicals.
+- **`scripts/verify-build-seo.ts`**: invoked at end of **`pnpm build`**; asserts **sitemap-*** **`<loc>`** set equals **`/` + `/about` + `/contact` + `detailPages`**, **`robots.txt`** points at **`sitemap-index.xml`**, and SWA config **`trailingSlash`**.
+- **`tests/deploy/sitePublicSurface.test.ts`**, **`eslint.config.js`** **`scripts/**`** globals.
+- Checks: `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build` (WSL). **`@azure/static-web-apps-cli` v2.0.9** may still **301** **`/contact` → `/contact/`** locally; production behavior is authoritative.
+
 ## 2026-05-03 — P2-B7: P2-T11 + P2-T12 `/contact` + **`POST /api/contact`**
 
 - **`src/content/contactContent.ts`**, **`src/pages/contact.astro`** — marketing contact hero + sidebar CTA (**`Turnstile` + Postmark teaser copy** toned), **`ContactForm`** island (**`client:visible`**).
