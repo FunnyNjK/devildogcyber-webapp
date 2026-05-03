@@ -8,6 +8,7 @@ Last Updated: 2026-05-03
 - **Tests:** **`tests/content/navLinks.test.ts`** — asserts **`/about-us`** exists on **`detailPages`** map.
 - **Checks:** `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build` (WSL).
 - Implementation commit: `9489120`
+- Documentation follow-up (DONE_LOG hash after amend): `ae2294f`
 
 ## 2026-05-03 — P2-B4: P2-T7 Compliance hub + framework pages
 - **Finding:** Full hub + framework payloads for `/compliance` and `/compliance/*` frameworks were already in the verbatim **`detailPages`** port (**P2-B2**); **`public/images/devildog/pages`** already included referenced assets (`compliance.jpg`, `badge.jpeg`, `hitrust.jpg`, `iso.jpg`, `finance.jpg`, `healthcare.jpg`, military/finance imagery for CMMC/NIST/etc.).

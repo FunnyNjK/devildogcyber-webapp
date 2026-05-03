@@ -56,18 +56,14 @@ External services:
 Static HTML pages, pre-rendered at build time. Home + stubs map to discrete
 routes (e.g. `index.astro`, `about.astro`, `contact.astro`); every entry in the
 typed `detailPages` array emits a static HTML file via **`[...slug].astro`**
-(`getStaticPaths()` joins each slug segment with `/`). Those detail templates
+(`getStaticPaths()` joins each slug segment with `/`). Detail heroes default to the split gradient layout; **`hero.layout: 'backdrop'`** (used on **`/about-us`**) renders the legacy-style full-bleed photo + overlay. Templates
 consume `src/components/detail/*` Astro partials (`DetailPageSections.astro`,
 `DetailSplitSection.astro`, `DetailPageCta.astro`). React islands hydrate only
 where needed (currently `SiteHeader`). Remaining conventions follow
 `/ai/MIGRATION_INVENTORY.md` for IA parity.
 
 ### `src/content/` — Typed content modules
-TypeScript modules holding all site copy (`siteContent.ts`, `detailPages.ts`,
-`contactContent.ts`, `teamMembers.ts`). Mirrors the legacy site's content
-shape so that copy can be ported nearly verbatim. Astro pages import from
-here. Strict typing (`as const satisfies readonly Foo[]`) preserved from
-the old codebase because it caught real content bugs.
+TypeScript modules holding site copy: **`siteContent.ts`** (nav, footer, home-adjacent copy) and **`detailPages.ts`** (all catch-all detail payloads, including **`/about-us`** team members inline). **`contactContent.ts`** and shared **`contactValidation.ts`** land with **P2-B7**. Mirrors the legacy module shape; strict typing (`as const satisfies readonly DetailPage[]`) preserved because it caught real content bugs.
 
 ### `src/components/` — React islands
 Interactive UI only. Two known islands at v1:

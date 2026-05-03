@@ -24,7 +24,7 @@ Contact form + API (**P2-B7**), SWA infra (**P4**), SEO finalization (**P2-B8**)
 None at repo level. `/contact` / `/about` stubs remain intentional until **P2-B7** / **P2-B6**.
 
 ## Important Files or Folders
-`src/content/detailPages.ts`, `src/pages/[...slug].astro`, `tests/content/navLinks.test.ts`, `public/images/devildog/pages/`
+`src/content/detailPages.ts`, `src/pages/[...slug].astro`, `src/components/detail/DetailPageSections.astro`, `tests/content/navLinks.test.ts`, `public/images/devildog/pages/`, `public/images/devildog/team/`
 
 ## Next Recommended Action
 Run **P2-B6**: **P2-T10** `/about` page port + polish.
