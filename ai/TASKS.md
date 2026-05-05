@@ -3,7 +3,7 @@
 Last Updated: 2026-05-06
 
 ## Active Task
-**Phase 4** — **P4-B1** (**P4-T1**): human provisions SWA (**`scripts/azure/provision-swa.sh`** or **`DEPLOYMENT.md`**) — **Unattended: No**; see **Ready** below.
+**Phase 4** — **P4-B2** (**P4-T2**, **P4-T3**): SWA **Configuration** app settings + optional Entra/OIDC — see **Ready** below.
 
 ---
 
@@ -147,7 +147,7 @@ Claude Code users: same **`N`** with `./run-phase.sh`.
 ---
 
 ## Ready
-**Phase 4** batch **P4-B1** (**P4-T1**): provision **`devildogcyber`** (**Standard**, **`devil-web-rg`**, **`centralus`**, subscription **`179ae124-553a-42c7-89cd-0d665cddef65`**) per **`/ai/DEPLOYMENT.md`** / **ADR-023**; add **`AZURE_STATIC_WEB_APPS_API_TOKEN`** to GitHub; confirm **Deploy** workflow. **Unattended: No**.
+**Phase 4** batch **P4-B2** (**P4-T2**, **P4-T3**): add Postmark / Turnstile / rate-limit / honeypot (and build-time **`PUBLIC_TURNSTILE_SITE_KEY`** if needed) in Azure + GitHub per **`/ai/DEPLOYMENT.md`**. **P4-T1** **Done** (SWA + green **Deploy** on **`main`**).
 
 ## Done (recent)
 
@@ -227,11 +227,6 @@ Document per-page JS budget; fail build above threshold. **Shipped:** **`scripts
 
 ## Backlog (Phase 4 — Deployment)
 
-### P4-T1: Provision Azure SWA resource + DNS
-Status: Backlog · Phase: 4 · **Execution batch:** **P4-B1**.
-**Unattended script:** **No** — Azure subscription, naming, deployment token in GitHub; **pair with human**.
-**Repo prep:** **`scripts/azure/provision-swa.sh`** (defaults **ADR-023**), **`.github/workflows/deploy.yml`**, **`/ai/DEPLOYMENT.md`**. Close when SWA **`devildogcyber`** exists, default hostname works, **`AZURE_STATIC_WEB_APPS_API_TOKEN`** is set, and **Deploy** workflow succeeds. **GoDaddy** DNS / apex cutover = **P4-T6**.
-
 ### P4-T2: Configure OIDC federated credential and deploy.yml
 Status: Backlog · Phase: 4 · **Execution batch:** **P4-B2** (with P4-T3).
 **Unattended script:** **Partial** — **`deploy.yml`** is **in repo** (SWA deploy token). **Optional:** Entra app + federated credential + **`azure/login`** for ARM automation — needs tenant admin (you or IT).
@@ -279,6 +274,8 @@ None.
 ### P2-T13: SEO finalization — Done; see `DONE_LOG.md`.
 
 ### P3-T3: Bundle size budget — Done; see `DONE_LOG.md`.
+
+### P4-T1: Provision Azure SWA + GitHub deploy — Done 2026-05-06; **`devildogcyber`**, **`devil-web-rg`**, **`AZURE_STATIC_WEB_APPS_API_TOKEN`**, green **Deploy** (`https://polite-sky-09fcf0610.7.azurestaticapps.net`); commits **`56ae3df`**, **`79398f1`**, **`8a5c2da`**. **P4-T6** DNS remains.
 
 ### P0-T1: Initialize project-specific AI files
 Status: Done

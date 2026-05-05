@@ -9,8 +9,7 @@ in **Central US**, with CI/CD from **GitHub**
 [FunnyNjK/devildogcyber-webapp](https://github.com/FunnyNjK/devildogcyber-webapp)
 (`main` = production). **Confirmed subscription:** `179ae124-553a-42c7-89cd-0d665cddef65`.
 
-**P4-T1** (provision SWA in Azure) remains **human-paired** — run
-**`scripts/azure/provision-swa.sh`** after **`az login`** / **`az account set`**, or use the Portal checklist below. **P4-T1** is **Done** when the SWA exists in **`devil-web-rg`**, the default **`*.azurestaticapps.net`** URL responds, and **`AZURE_STATIC_WEB_APPS_API_TOKEN`** is stored in GitHub (**Repository secrets**). Custom DNS (GoDaddy + Azure Portal) can follow in **P4-T6** without blocking the first deploy.
+**P4-T1** is **Done** (2026-05-06): SWA **`devildogcyber`** in **`devil-web-rg`**, **`AZURE_STATIC_WEB_APPS_API_TOKEN`** on GitHub, **Deploy** workflow green; site **`https://polite-sky-09fcf0610.7.azurestaticapps.net`**. New environments: run **`scripts/azure/provision-swa.sh`** or Portal checklist. Custom DNS (**GoDaddy**) = **P4-T6**.
 
 See **ADR-023** for naming, region, SKU, and subscription.
 

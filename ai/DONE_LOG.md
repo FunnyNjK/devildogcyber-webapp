@@ -2,6 +2,12 @@
 
 Last Updated: 2026-05-06
 
+## 2026-05-06 — P4-B1 / P4-T1: SWA live + GitHub Deploy green
+
+- Azure: **`devil-web-rg`**, **`devildogcyber`** (**Standard**, **centralus**); default URL **`https://polite-sky-09fcf0610.7.azurestaticapps.net`**. Human: **`AZURE_STATIC_WEB_APPS_API_TOKEN`** in GitHub.
+- **Deploy** run **25405261583** succeeded after: **`pnpm/action-setup`** fix (**`56ae3df`**), **`astro sync`** in **`typecheck`** (**`79398f1`**), **`app_location: dist`** for prebuilt Astro (**`8a5c2da`**).
+- Planning: **`TASKS.md`** **P4-T1** → **Done**; **`HANDOFF.md`**, **`CURRENT_STATE.md`** updated.
+
 ## 2026-05-06 — Deploy workflow: app_location dist + typecheck astro sync
 
 - **`pnpm typecheck`:** run **`astro sync`** first (gitignored **`.astro/types`**); **`import.meta.glob`** types require it on fresh CI checkouts — **`package.json`** **`typecheck`** script updated.

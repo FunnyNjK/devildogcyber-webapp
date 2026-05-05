@@ -84,7 +84,7 @@ Goals:
 - Bundle size budget enforced (**P3-B2**).
 
 ## Phase 4: Deployment and Operations
-Status: **Next** — **P4-T1**: provision SWA **`devildogcyber`** (**Standard**, **ADR-023**) + GitHub **`AZURE_STATIC_WEB_APPS_API_TOKEN`**; **`deploy.yml`** in repo. DNS (**GoDaddy**) + apex default = **P4-T6**.
+Status: **In progress** — **P4-T1** **Done** (SWA + green **Deploy**). Next: **P4-B2**–**P4-B4** (app settings, Postmark, smoke, **GoDaddy** DNS / apex **P4-T6**).
 
 **Autonomous runs (batches):** **4** — **P4-B1** … **P4-B4** (see `TASKS.md`).
 
