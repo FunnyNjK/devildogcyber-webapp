@@ -3,7 +3,7 @@
 Last Updated: 2026-05-05
 
 ## Active Task
-**Phase 4** — **P4-B2**: **P4-T2** **Done** (repo/deploy wiring + docs). **P4-T3** — human enters SWA + GitHub secrets (**Unattended: No**); see **`DEPLOYMENT.md`** § **P4-B2** and **`HANDOFF.md`**.
+**Phase 4** — **P4-B3** (**P4-T4**, **P4-T5**): Postmark sender verification in production context + confirm **Deploy** + real **`/contact`** submit (happy path).
 
 ---
 
@@ -147,9 +147,12 @@ Claude Code users: same **`N`** with `./run-phase.sh`.
 ---
 
 ## Ready
-**P4-T3** (finishes **P4-B2**): human completes **`DEPLOYMENT.md`** § **P4-B2** (GitHub **`PUBLIC_TURNSTILE_SITE_KEY`**, SWA application settings, Turnstile hosts, smoke **`/contact`**). Then **P4-B3** (**P4-T4**, **P4-T5**).
+**P4-B3** — **P4-T4** (Postmark / sender verification) + **P4-T5** (pipeline + observed smoke). **P4-B4** — **P4-T6** GoDaddy DNS when ready.
 
 ## Done (recent)
+
+### P4-B2 (2026-05-05)
+**P4-T2**, **P4-T3** — Repo **Deploy**/**CI** Turnstile build env; human SWA + GitHub secrets; prod **curl** smoke (**GET** pages **200**, honeypot **POST** **`ok:true`**). **Human follow-up:** real **`/contact`** email (**P4-B3**).
 
 ### P3-B2 (2026-05-05)
 **P3-T3** — Hydrated **JS gzip** budgets: **`scripts/js-budget.config.json`** (default **72 KiB** total per page, **_contact_ 75 KiB**, largest single chunk **≈62 KiB**); **`scripts/check-js-budget.mjs`** walks **`dist/**/*.html`**, unions **`/_astro/*.js`** island entries + static **Vite** `from"./…js"` graph, fails **`pnpm build`** on breach. **Human:** none for this task (**Unattended: OK**).
@@ -227,10 +230,6 @@ Document per-page JS budget; fail build above threshold. **Shipped:** **`scripts
 
 ## Backlog (Phase 4 — Deployment)
 
-### P4-T3: Production env-var configuration in SWA
-Status: Backlog · Phase: 4 · **Execution batch:** **P4-B2** (**P4-T2** **Done**).
-**Unattended script:** **No** — **you** enter secrets in Azure/GitHub; AI must not fake Done without confirmation. **Checklist:** **`DEPLOYMENT.md`** § **P4-B2**.
-
 ### P4-T4: Postmark sender verification confirmed in production
 Status: Backlog · Phase: 4 · **Execution batch:** **P4-B3** (with P4-T5).
 **Unattended script:** **No** — Postmark/DNS inbox steps **require human**.
@@ -246,7 +245,7 @@ Status: Backlog · Phase: 4 · **Execution batch:** **P4-B4**.
 ---
 
 ## Blocked
-**P4-T3** — production secrets and Portal configuration (**Unattended: No**). Follow **`/ai/DEPLOYMENT.md`** § **P4-B2**; confirm **`POST /api/contact`** + inbox delivery before marking **Done**.
+None.
 
 ## Review
 None.
@@ -270,6 +269,8 @@ None.
 ### P2-T13: SEO finalization — Done; see `DONE_LOG.md`.
 
 ### P3-T3: Bundle size budget — Done; see `DONE_LOG.md`.
+
+### P4-T3: Production env-var configuration (SWA + GitHub) — Done 2026-05-05: human added secrets; prod smoke **GET /** **GET /contact** **200**; **POST /api/contact** honeypot branch **`{"ok":true}`** on default hostname. **Follow-up:** submit real form once to confirm Turnstile + Postmark delivery (**P4-B3**).
 
 ### P4-T2: Configure deploy.yml (+ optional OIDC) — Done 2026-05-06 (chat): **`deploy.yml`** production path via **`AZURE_STATIC_WEB_APPS_API_TOKEN`** (**ADR-023**); **`ci.yml`** Build passes **`PUBLIC_TURNSTILE_SITE_KEY`** when set (parity with **Deploy**). Entra / **`azure/login`** remains optional (**ADR-006**); tenant admin not required for stock SWA deploy.
 

@@ -2,6 +2,13 @@
 
 Last Updated: 2026-05-05
 
+## 2026-05-05 — **P4-T3** / **P4-B2** closed (human secrets + prod smoke)
+
+- Human added SWA application settings + GitHub **`PUBLIC_TURNSTILE_SITE_KEY`**.
+- **curl** smoke: **`GET https://polite-sky-09fcf0610.7.azurestaticapps.net/`** **200**; **`GET …/contact`** **200**; **`POST …/api/contact`** body **`{"company_website":"https://bot.example"}`** → **`{"ok":true}`** (honeypot path).
+- **`/ai`**: **P4-T3** → **Done**; **Blocked** cleared; **HANDOFF**/**CURRENT_STATE**/**TASKS**/**ROADMAP** → **P4-B3** active. Commit **`9242e4f`**.
+- **Remaining:** real browser **`/contact`** submit → **`CONTACT_EMAIL_TO`** + Postmark sender verification (**P4-B3**).
+
 ## 2026-05-05 — P4-B2 (automatable): **P4-T2** Done; **P4-T3** human checklist
 
 - **`ci.yml`**: Build step **`PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.PUBLIC_TURNSTILE_SITE_KEY }}`** — parity with **`deploy.yml`** when the repo secret is set.

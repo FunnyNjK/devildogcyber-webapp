@@ -3,28 +3,28 @@
 Last Updated: 2026-05-05
 
 ## Current State Summary
-**P4-T2** **Done** (repo): **`deploy.yml`** + **`ci.yml`** Turnstile build parity; **`DEPLOYMENT.md`** § **P4-B2** human checklist. **P4-T3** **Blocked** until secrets are entered (**Unattended: No**). SWA **`devildogcyber`** live at **`https://polite-sky-09fcf0610.7.azurestaticapps.net`**.
+**P4-B2** **Done** (**P4-T2**, **P4-T3**): SWA + GitHub secrets applied; prod quick smoke OK (**GET /** **`/contact`** **200**; honeypot **POST** **`{"ok":true}`**). SWA **`https://polite-sky-09fcf0610.7.azurestaticapps.net`**.
 
 ## Last Completed Task
-**P4-B2** (automatable) — **P4-T2** — deploy/CI wiring + **P4-B2** checklist docs (2026-05-05); see **`DONE_LOG.md`**. **P4-T1** remains Done from prior session.
+**P4-T3** — production configuration + human secrets (2026-05-05); **`DONE_LOG.md`**.
 
 ## Active Task
-**P4-T3** — finish **P4-B2**: Portal **Environment variables** + GitHub **`PUBLIC_TURNSTILE_SITE_KEY`**; Turnstile host allowlist; smoke **`/contact`**.
+**P4-B3** — **P4-T4** / **P4-T5**: Postmark sender verification in prod; one real **`/contact`** submit (Turnstile + email receipt); confirm latest **Deploy** run green after secret changes.
 
 ## Next Recommended Task
-Human runs **`DEPLOYMENT.md`** § **P4-B2**, then mark **P4-T3** / **P4-B2** Done after smoke + email receipt. Next batch: **P4-B3** (**P4-T4**, **P4-T5**). **GoDaddy** = **P4-T6**.
+Browser: submit **`/contact`** on deploy URL; check **`CONTACT_EMAIL_TO`**. Then **P4-T4** checklist in Postmark (DKIM/sender if needed). **P4-T6** GoDaddy when cutting over apex.
 
 ## What Is Blocked
-**P4-T3** — needs live secrets and Portal steps (see **`DEPLOYMENT.md`** § **P4-B2**).
+None.
 
 ### Human follow-up (Partial — **P3-B1**)
 Assets, Lighthouse on deploy URL, manual a11y, reduced-motion spot-check.
 
 ## Important Instructions for Next AI
-Read **`/ai/START_HERE.md`**. **P4-T3** is **No** — pair with human for Portal/GitHub; do not mark **Done** until **`POST /api/contact`** smoke succeeds.
+Read **`/ai/START_HERE.md`**. **P4-B3** is **No**/**Partial** — pair for Postmark dashboard + one human-visible contact submit; document **`DONE_LOG`** when **P4-T4**/**P4-T5** close.
 
 ## Known Risks
 Turnstile host allowlist for **`*.azurestaticapps.net`**; Postmark/DKIM at go-live; Functions **Node 24** in Portal (**ADR-018**).
 
 ## Tests / Checks Last Run
-Local **`pnpm lint`** + **`typecheck`** OK this session; **`pnpm build`** / full **`pnpm test`** require **Node 24** (sandbox had Node **20**). **`main`** pushed to **origin** (this session). Prior **Deploy** success: run **25405261583** (2026-05-06).
+**curl** prod **GET /** **`/contact`** **200**; **POST /api/contact** honeypot **`{"ok":true}`** (2026-05-05). Re-run **Deploy** on **`main`** after adding **`PUBLIC_TURNSTILE_SITE_KEY`** if not already green.
