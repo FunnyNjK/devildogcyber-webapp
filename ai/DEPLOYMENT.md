@@ -1,10 +1,13 @@
 # Deployment
 
-Last Updated: 2026-05-03
+Last Updated: 2026-05-05
 
 ## Deployment Status
-Project-specific deployment plan documented. Resource provisioning in
-Azure happens during P4-T1 (not now).
+Project-specific deployment plan documented. **P4-T1** (Azure SWA + initial
+DNS readiness) is **in progress** — use **`scripts/azure/provision-swa.sh`**
+(after **`az login`**) or the Portal checklist below. **Do not** treat **P4-T1**
+as **Done** until a human verifies the resource and any domain-validation DNS
+records in Cloudflare (see **`/ai/TASKS.md`** matrix: **Unattended: No**).
 
 ---
 
@@ -42,8 +45,11 @@ Triggers: `push`, `pull_request`. Runs:
 Fails the PR if any step fails. Per ADR-010, this is NOT
 `workflow_dispatch`-only.
 
-### `.github/workflows/deploy.yml`
-Triggers: `push` to `main`. Runs:
+### `.github/workflows/deploy.yml` (planned — **P4-T2**)
+
+Not yet in the repository. When added, intended triggers: `push` to `main`.
+Intended steps:
+
 - All CI steps (or depends on `ci.yml` succeeding)
 - Authenticates to Azure via OIDC (federated credentials, ADR-006)
 - Deploys via `Azure/static-web-apps-deploy@v1` action
@@ -109,29 +115,72 @@ swa start dist --api-location api      # local SWA emulator (optional)
 
 ---
 
-## Initial Azure Setup (one-time per project)
+## P4-T1 — Provision SWA + DNS (human-paired; **`Unattended: No`**)
 
-Done outside the AI workflow during P4-T1, but documented here for
-completeness:
+**Goal:** Azure resource group + **Free** tier Static Web App exist; you know
+the default **`*.azurestaticapps.net`** hostname; optional early **custom-domain
+validation** DNS in Cloudflare (full apex/`www` cutover remains **P4-T6**).
 
-1. Create the SWA resource in Azure portal (`swa-devildogcyber-prod`,
-   Free tier).
-2. Create an Azure AD app registration for the GitHub deploy.
-3. Configure federated credential on the app registration:
+### Option A — Azure CLI (WSL)
+
+```bash
+cd ~/repos/devildogcyber-webapp
+az login
+# Optional: az account set --subscription <id>
+export AZURE_SUBSCRIPTION_ID=   # optional; script uses current default if unset
+./scripts/azure/provision-swa.sh
+```
+
+Defaults: **`rg-devildogcyber-prod`**, **`swa-devildogcyber-prod`**, **`southcentralus`**.
+Override with **`AZURE_RG`**, **`AZURE_SWA_NAME`**, **`AZURE_LOCATION`**.
+
+### Option B — Azure Portal
+
+1. Create resource group **`rg-devildogcyber-prod`** (region: **South Central US** or your chosen region).
+2. Create **Static Web App** **`swa-devildogcyber-prod`**, **Free** tier, **no**
+   GitHub source (deployment will use GitHub Actions + OIDC in **P4-T2**).
+3. Note **URL** / **default hostname** from the resource overview.
+
+### DNS (P4-T1 vs P4-T6)
+
+- **Smoke test:** use the default **`https://<name>.azurestaticapps.net`** URL — no DNS change.
+- **Custom domain validation:** when you add **`devildogcyber.com`** / **`www`**
+  in the SWA **Custom domains** blade, Azure shows **TXT** / **CNAME** values —
+  add those in **Cloudflare** (or your DNS host). This can happen in **P4-T1**
+  for early SSL verification; **production cutover** of apex/`www` to SWA is
+  still tracked as **P4-T6**.
+
+### Acceptance (close **P4-T1** only after human confirms)
+
+- [ ] SWA resource exists in the expected subscription/RG.
+- [ ] Default hostname opens (placeholder or empty site is OK).
+- [ ] If custom domains were started: validation records exist in DNS and the
+  blade shows verified (or explicitly deferred with a note in **`HANDOFF.md`**).
+
+---
+
+## P4-T2+ — OIDC, deploy workflow, secrets, Postmark, go-live
+
+Done after **P4-T1** (see **`/ai/TASKS.md`** batches **P4-B2** … **P4-B4**).
+
+1. Create an Azure AD app registration for the GitHub deploy.
+2. Configure federated credential on the app registration:
    - Issuer: `https://token.actions.githubusercontent.com`
    - Subject: `repo:<owner>/devildogcyber-webapp:ref:refs/heads/main`
    - Audience: `api://AzureADTokenExchange`
-4. Grant the app registration "Static Web App Contributor" on the SWA
+3. Grant the app registration "Static Web App Contributor" on the SWA
    resource.
-5. Add repo variables in GitHub:
+4. Add repo variables in GitHub:
    - `AZURE_CLIENT_ID`
    - `AZURE_TENANT_ID`
    - `AZURE_SUBSCRIPTION_ID`
+5. Add **`deploy.yml`** (not yet in repo) and any **`AZURE_STATIC_WEB_APPS_API_TOKEN`**
+   or OIDC-only pattern per the chosen **`Azure/static-web-apps-deploy`** action version.
 6. Configure runtime environment variables in the SWA resource (the eight
-   variables above).
-7. Add custom domain `devildogcyber.com` in the SWA "Custom domains"
+   variables in **Secrets and Configuration** above).
+7. Add custom domain **`devildogcyber.com`** in the SWA "Custom domains"
    blade; verify via TXT or CNAME per Azure's instructions.
-8. Add `www.devildogcyber.com` as a custom domain, then set **`devildogcyber.com`**
+8. Add **`www.devildogcyber.com`** as a custom domain, then set **`devildogcyber.com`**
    as the **default domain** in the SWA **Custom domains** blade so all other
    hostnames 301 to apex with paths preserved (**ADR‑021**).
 

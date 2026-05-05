@@ -84,7 +84,7 @@ Goals:
 - Bundle size budget enforced (**P3-B2**).
 
 ## Phase 4: Deployment and Operations
-Status: **Next** — **Phase 3** complete; start **P4-B1** (**P4-T1**) with human pairing (**Unattended: No**).
+Status: **Next** — **P4-T1** in progress: repo has **`scripts/azure/provision-swa.sh`** + **`DEPLOYMENT.md`** checklist; human must provision SWA + DNS acceptance (**Unattended: No**).
 
 **Autonomous runs (batches):** **4** — **P4-B1** … **P4-B4** (see `TASKS.md`).
 

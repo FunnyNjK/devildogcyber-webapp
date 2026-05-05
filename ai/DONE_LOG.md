@@ -2,6 +2,12 @@
 
 Last Updated: 2026-05-05
 
+## 2026-05-05 — P4-T1 repository prep (task **not** closed)
+
+- **`scripts/azure/provision-swa.sh`** — idempotent **`az group create`** + **`az staticwebapp create`** (**Free**, no GitHub source); prints **default hostname** for smoke tests (**P4-T1**).
+- **`/ai/DEPLOYMENT.md`** — **P4-T1** human checklist (CLI vs Portal, DNS vs **P4-T6**); **P4-T2+** OIDC/deploy section; **`deploy.yml`** noted as **planned** until **P4-T2**.
+- **Human still required** for **P4-T1** **Done:** **`az login`**, subscription, create/verify SWA, Cloudflare DNS when validating custom domains — see **`HANDOFF.md`**.
+
 ## 2026-05-05 — P3-B2: P3-T3 (bundle size budget)
 
 - **`scripts/js-budget.config.json`** — gzip budgets: **`defaultMaxTotalGzipBytes`** 72000 (~default island pages), **`/contact`** override 75000, **`maxSingleChunkGzipBytes`** 62000 (React client chunk).

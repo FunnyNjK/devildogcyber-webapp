@@ -3,7 +3,7 @@
 Last Updated: 2026-05-05
 
 ## Active Task
-**Phase 4** — **P4-B1** (**P4-T1**), **Unattended: No** — pair with the human (Azure + DNS); see **Ready** below.
+**Phase 4** — **P4-B1** (**P4-T1**): human provisions SWA (**`scripts/azure/provision-swa.sh`** or **`DEPLOYMENT.md`**) — **Unattended: No**; see **Ready** below.
 
 ---
 
@@ -147,7 +147,7 @@ Claude Code users: same **`N`** with `./run-phase.sh`.
 ---
 
 ## Ready
-**Phase 4** batch **P4-B1** (**P4-T1**): provision Azure SWA + DNS. **Unattended: No** — do **not** drive completion only from **`./run-phase-cursor.sh`**; work in IDE with the human or document **Blocked** with portal steps.
+**Phase 4** batch **P4-B1** (**P4-T1**): human provisions Azure SWA + DNS per **`/ai/DEPLOYMENT.md`** (**`scripts/azure/provision-swa.sh`** or Portal). **Unattended: No** — do **not** drive completion only from **`./run-phase-cursor.sh`**; pair in IDE or run script after **`az login`**.
 
 ## Done (recent)
 
@@ -230,6 +230,7 @@ Document per-page JS budget; fail build above threshold. **Shipped:** **`scripts
 ### P4-T1: Provision Azure SWA resource + DNS
 Status: Backlog · Phase: 4 · **Execution batch:** **P4-B1**.
 **Unattended script:** **No** — Azure subscription, naming, DNS delegation; **pair with human** (do not complete via harness alone).
+**Repo prep (2026-05-05):** **`scripts/azure/provision-swa.sh`** (CLI) + **P4-T1** checklist in **`/ai/DEPLOYMENT.md`**. Close this task only after human acceptance (SWA exists, default hostname verified; optional custom-domain validation DNS per checklist).
 
 ### P4-T2: Configure OIDC federated credential and deploy.yml
 Status: Backlog · Phase: 4 · **Execution batch:** **P4-B2** (with P4-T3).

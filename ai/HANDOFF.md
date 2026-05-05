@@ -3,19 +3,19 @@
 Last Updated: 2026-05-05
 
 ## Current State Summary
-**Phase 3 complete** (**P3-B1**, **P3-B2**). **P3-T3:** **`scripts/js-budget.config.json`** + **`scripts/check-js-budget.mjs`** — hydrated React island JS (gzip) per route + max single chunk; **`pnpm build`** fails on breach. Earlier **P3-B1** deliverables unchanged (**`ContentImage`**, axe, etc.).
+**Phase 3 complete** (**P3-B1**, **P3-B2**). **Phase 4** — **P4-T1** open (**Unattended: No**). Repo: **`scripts/azure/provision-swa.sh`** + **P4-T1** checklist in **`/ai/DEPLOYMENT.md`**. Human must **`az login`**, create SWA (script or Portal), complete acceptance — then move **P4-T1** to **Done** in **`TASKS.md`** / **`DONE_LOG.md`**.
 
 ## Last Completed Task
 **P3-B2** — **P3-T3** — Done 2026-05-05; see **`DONE_LOG.md`**.
 
 ## Active Task
-**Phase 4** — **P4-B1** (**P4-T1**), **Unattended: No** (Azure SWA + DNS — pair with human).
+**P4-B1** (**P4-T1**): human runs **`./scripts/azure/provision-swa.sh`** or Portal steps in **`DEPLOYMENT.md`**, verifies default hostname (+ optional custom-domain validation DNS).
 
 ## Next Recommended Task
-**P4-T1** per **`TASKS.md`** with human in the loop; do **not** mark **Done** from harness alone without completed Azure/DNS steps (**matrix:** **P4-T1**).
+After **P4-T1** acceptance: **P4-B2** (**P4-T2**, **P4-T3**) — **`deploy.yml`**, OIDC, secrets (**matrix:** **Partial** / **No**).
 
 ## What Is Blocked
-Nothing — repo work is unblocked.
+**P4-T1** **Done** blocked on human Azure + DNS confirmation (repo prep is landed).
 
 ### Human follow-up (Partial tasks from **P3-B1**)
 Complete these before treating launch hardening as signed off:
