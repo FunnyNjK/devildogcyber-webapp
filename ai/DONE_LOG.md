@@ -2,10 +2,15 @@
 
 Last Updated: 2026-05-06
 
+## 2026-05-06 — GitHub Actions: pnpm setup fix (**ci.yml** + **deploy.yml**)
+
+- **`pnpm/action-setup@v4`** failed when both **`with: version: 10`** and **`package.json`** **`packageManager`** (`pnpm@10.12.1`) were set — removed explicit **`version`** so Corepack resolves from **`packageManager`**.
+- Human added **`AZURE_STATIC_WEB_APPS_API_TOKEN`**; **Deploy** should pass after this push (verify in Actions).
+
 ## 2026-05-06 — Azure SWA provisioned (**P4-T1** — GitHub token pending)
 
 - **`devil-web-rg`** + **`devildogcyber`** (**Standard**, **centralus**) in subscription **`179ae124-553a-42c7-89cd-0d665cddef65`**; default hostname **`polite-sky-09fcf0610.7.azurestaticapps.net`**. Provisioning via **Azure MCP** + **`az`** (resource group did not exist prior).
-- **Still open:** **`AZURE_STATIC_WEB_APPS_API_TOKEN`** in GitHub + successful **Deploy** workflow.
+- **Follow-up:** repository secret added by human; **Deploy** unblocked after **pnpm** workflow fix (see newer **DONE_LOG** entry same day).
 
 ## 2026-05-06 — Phase 4 infra alignment (**P4-T1** still open)
 

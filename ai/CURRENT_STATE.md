@@ -6,7 +6,7 @@ Last Updated: 2026-05-06
 Phase **3** Done. **Phase 4** — **`P4-B1`** (**P4-T1**) **almost complete** in Azure; **GitHub deploy secret** + green **Deploy** run remain.
 
 ## Current Task
-**P4-T1 (finish):** In GitHub [FunnyNjK/devildogcyber-webapp](https://github.com/FunnyNjK/devildogcyber-webapp) → **Settings → Secrets and variables → Actions**, add **`AZURE_STATIC_WEB_APPS_API_TOKEN`** from Azure (**`az staticwebapp secrets list --name devildogcyber --resource-group devil-web-rg`** → `properties.apiKey`, or Portal **Manage deployment token**). Re-run the **Deploy Azure Static Web Apps** workflow.
+**P4-T1 (finish):** **`AZURE_STATIC_WEB_APPS_API_TOKEN`** is in repo secrets (human). **Deploy** was failing on **`pnpm/action-setup`** duplicate version — fixed by using **`package.json`** **`packageManager`** only in **`ci.yml`** / **`deploy.yml`**. Watch **Actions** for a green **Deploy** on **`main`**, then close **P4-T1**.
 
 ## What Exists Now
 - **Azure (live):** **`devil-web-rg`** (**centralus**), SWA **`devildogcyber`** (**Standard**), default URL **`https://polite-sky-09fcf0610.7.azurestaticapps.net`**.
@@ -17,7 +17,7 @@ Phase **3** Done. **Phase 4** — **`P4-B1`** (**P4-T1**) **almost complete** in
 Local **`pnpm lint`** / **`typecheck`** / **`test`** / **`build`**; **CI** on push/PR. **Deploy** runs on **`main`/PRs** once the token secret exists.
 
 ## What Is Not Built Yet
-**P4-T1** closure after first successful deploy. **P4-T2+:** SWA app settings (Postmark, Turnstile, **`PUBLIC_TURNSTILE_SITE_KEY`** secret for build), **GoDaddy** DNS + apex (**P4-T6**).
+**P4-T1** until **Deploy** is green. **P4-T2+:** SWA app settings (Postmark, Turnstile, **`PUBLIC_TURNSTILE_SITE_KEY`** secret for build), **GoDaddy** DNS + apex (**P4-T6**).
 
 ## Known Problems
 Raster assets may be missing under **`src/assets/images/devildog/...`**. Local SWA CLI trailing-slash behavior may differ from Azure (**ADR-021**).
