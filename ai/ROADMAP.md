@@ -1,6 +1,6 @@
 # Roadmap
 
-Last Updated: 2026-05-03
+Last Updated: 2026-05-05
 
 ## Phase 0: Project Initialization
 Status: Done
@@ -37,7 +37,7 @@ Deliverables:
 - GitHub Actions `ci.yml` passes on push.
 
 ## Phase 2: Core Buildout — pages, content, contact form
-Status: Done (**P2-B8** complete 2026-05-03 — **P2-T13** SEO + SWA routing config; next **Phase 3**)
+Status: Done (**P2-B8** complete 2026-05-03 — **P2-T13** SEO + SWA routing config); **Phase 3** started **2026-05-05** (**P3-B1**).
 
 **Autonomous runs (batches):** **8** — **P2-B1** … **P2-B8** (grouped task
 IDs in `/ai/TASKS.md`). Phase 2 improvement rows **P2-I\*** default into
@@ -71,17 +71,17 @@ Improvement rows **P2-I1** … **P2-I6** — schedule per `/ai/TASKS.md`
 harness iterations by default.
 
 ## Phase 3: Hardening and Testing
-Status: Backlog
+Status: **In progress** — **P3-B1** complete **2026-05-05**; next **P3-B2** (**P3-T3**).
 
-**Autonomous runs (batches):** **2** — **P3-B1** (P3-T1, P3-T2, P2-I4, P2-I6),
+**Autonomous runs (batches):** **2** — **P3-B1** (P3-T1, P3-T2, P2-I4, P2-I6) **✓**,
 **P3-B2** (P3-T3).
 
 Goals:
-- Test coverage targets met (`/ai/TESTING.md`).
+- Test coverage targets met (`/ai/TESTING.md`); axe smoke on built HTML (**P3-B1**).
 - Error handling reviewed.
-- WCAG AA accessibility audit + fixes.
-- Lighthouse audit and fixes (targets in PROJECT.md).
-- Bundle size budget enforced.
+- WCAG-oriented fixes plus automated axe baseline; manual keyboard / screen reader / contrast (**Partial** — **`HANDOFF.md`**).
+- Lighthouse on deploy URLs (**Partial** — **`HANDOFF.md`**; targets in **`PROJECT.md`**).
+- Bundle size budget enforced (**P3-B2**).
 
 ## Phase 4: Deployment and Operations
 Status: Backlog

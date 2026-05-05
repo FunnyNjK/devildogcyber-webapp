@@ -1,6 +1,6 @@
 # Architecture
 
-Last Updated: 2026-05-03
+Last Updated: 2026-05-05
 
 ## Architecture Status
 Project-specific architecture documented. Default pattern from the starter
@@ -74,13 +74,16 @@ Interactive UI only. Hydrated islands at v1:
 - Optional sub-layouts as patterns repeat across detail pages.
 
 ### `src/lib/` — Shared frontend utilities
-Types and **`contactValidation.ts`** shared between **`ContactForm`** and the **`/api/contact`** Function (**ADR-015**); SEO helpers, slug helpers, content selectors.
+Types and **`contactValidation.ts`** shared between **`ContactForm`** and the **`/api/contact`** Function (**ADR-015**); SEO helpers, slug helpers, content selectors. **`contentImages.ts`** backs **`ContentImage.astro`**: maps **`/images/devildog/...`** URLs to **`src/assets/images/devildog/...`** for **`astro:assets`** (**ADR-022**). **`BaseLayout`** accepts **`lcpPreloadHref`** for hero LCP **`<link rel="preload">`**.
+
+### `src/assets/` — Optimized rasters (optional at build time)
+Mirror raster paths under **`src/assets/images/devildog/`** so **`ContentImage`** emits AVIF/WebP via **`sharp`**. If a file is missing, the component falls back to **`<img src="/images/...">`**. The header logo in **`SiteHeader.tsx`** remains a small **`<img>`** island.
 
 ### `api/contact/` — Contact form endpoint
 Azure Functions **v4** programming model: **`contact/index.ts`** registers **`POST /api/contact`** via **`app.http`** (**`route: 'contact'`**). Runtime loads bundled **`contact/index.js`** (**esbuild**) so **`src/lib/contactValidation.ts`** ships as a single Function artifact alongside **`@azure/functions`**. Logic: honeypot (env **`CONTACT_HONEYPOT_FIELD_NAME`**) silent OK → validation (generic **`400`** on malformed input) → per-IP sliding rate limit (**`CONTACT_RATE_LIMIT_*`**) → Turnstile → Postmark (**`CONTACT_EMAIL_TO`**, etc.). Business logic extracted into **`api/contact/lib/`** for unit testing.
 
 ### `tests/` — Test suite
-Vitest specs. Mirrors `src/` structure. Coverage targets in `/ai/TESTING.md`.
+Vitest specs. Mirrors `src/` structure; **`tests/a11y/dist-html-axe.test.ts`** runs **axe-core** over **`dist/**/*.html`** when **`dist/`** exists (CI runs **build** before **test**). Coverage targets in `/ai/TESTING.md`.
 
 ---
 
