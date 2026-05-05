@@ -10,7 +10,7 @@ Last Updated: 2026-05-05
 - **`src/styles/global.css`**: **`prefers-reduced-motion`** strips transitions/animations.
 - **`tests/a11y/dist-html-axe.test.ts`** (**Vitest**, **`node`**, **`jsdom`**, **axe-core**); serious/critical only; **`color-contrast`** off for JSDOM.
 - **`.github/workflows/ci.yml`**: **Build → Test**.
-- Checks: **`pnpm lint`**, **`pnpm typecheck`**, **`pnpm build`**, **`pnpm test`** (WSL). Implementation commit: **`f641919`**.
+- Checks: **`pnpm lint`**, **`pnpm typecheck`**, **`pnpm build`**, **`pnpm test`** (WSL). Implementation commit: **`11e44eb`**.
 
 ## 2026-05-03 — P2-B8: P2-T13 SEO baseline + **`staticwebapp.config.json`**
 
