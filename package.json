@@ -14,7 +14,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit && pnpm --filter api typecheck"
+    "typecheck": "astro sync && tsc --noEmit && pnpm --filter api typecheck"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.0",
