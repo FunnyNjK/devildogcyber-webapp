@@ -1,6 +1,6 @@
 # Testing Strategy
 
-Last Updated: 2026-05-05
+Last Updated: 2026-05-06
 
 ## Testing Status
 Project-specific strategy documented. Defaults from the starter apply with
@@ -52,7 +52,7 @@ Exercises **`handleContactSubmission`** for:
 
 ### CI checks (required)
 - `pnpm lint`
-- `pnpm typecheck`
+- `pnpm typecheck` — runs **`astro sync`** first (generates gitignored **`.astro/types`** for **`import.meta.glob`** and Astro env); then **`tsc`** + **`api`** typecheck. Fresh clones must not run **`tsc`** alone without **`astro sync`**.
 - `pnpm build` then `pnpm test` — **GitHub Actions** runs **Build** before **Test** so **`tests/a11y/dist-html-axe.test.ts`** can scan **`dist/**/*.html`**. Local dev: run **`pnpm build`** before **`pnpm test`** if you want axe coverage (otherwise the a11y suite is skipped when **`dist/`** is absent).
 - **`pnpm test`** — Vitest (**`tests/**`**, **`api/**`**) including **axe-core** + **JSDOM** on built HTML (**serious** / **critical** only; **`color-contrast`** disabled — verify contrast manually / in browser per **P3-T2**).
 - **`pnpm build`** — includes **`node --experimental-strip-types scripts/verify-build-seo.ts`**, which asserts **`dist/sitemap-*.xml`** `<loc>` URLs match **`detailPages` + `/` + `/about` + `/contact`**, validates **`dist/robots.txt`** references **`sitemap-index.xml`**, and checks **`dist/staticwebapp.config.json`** **`trailingSlash`**. (**P2‑T13**); then **`node scripts/check-js-budget.mjs`** — per-route hydrated **JS gzip** budget from **`dist`** + **`scripts/js-budget.config.json`** (**P3‑T3**).
@@ -79,7 +79,7 @@ Exercises **`handleContactSubmission`** for:
 pnpm test                  # vitest --run
 pnpm test:watch            # vitest
 pnpm lint                  # eslint .
-pnpm typecheck             # `tsc --noEmit` + `pnpm --filter api typecheck`
+pnpm typecheck             # `astro sync` + `tsc --noEmit` + `pnpm --filter api typecheck`
 pnpm build                 # `astro build` + `pnpm --filter api build` + SEO verify + JS budget check
 ```
 
@@ -117,7 +117,6 @@ pnpm --filter api build
 
 ## Known Testing Gaps
 
-- No accessibility automation in CI yet (axe-core integration tracked as
-  P3-T2). Manual audit + Lighthouse counts as the v1 gate.
+- **axe** runs on **`dist/**/*.html`** in CI when **Build** precedes **Test**; **`color-contrast`** is off under JSDOM — manual / browser verification remains (**P3-T2** **Partial**).
 - No visual regression testing. Marketing-site scope; revisit if design
   churn becomes painful.

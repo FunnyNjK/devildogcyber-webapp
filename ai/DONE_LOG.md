@@ -2,6 +2,10 @@
 
 Last Updated: 2026-05-06
 
+## 2026-05-06 — CHAT_END: **`TESTING.md`** typecheck / CI notes
+
+- Documented **`astro sync`** in **`pnpm typecheck`**; corrected **Known Testing Gaps** (axe in CI, contrast manual). No code changes.
+
 ## 2026-05-06 — P4-B1 / P4-T1: SWA live + GitHub Deploy green
 
 - Azure: **`devil-web-rg`**, **`devildogcyber`** (**Standard**, **centralus**); default URL **`https://polite-sky-09fcf0610.7.azurestaticapps.net`**. Human: **`AZURE_STATIC_WEB_APPS_API_TOKEN`** in GitHub.

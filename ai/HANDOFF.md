@@ -27,4 +27,4 @@ Read **`/ai/START_HERE.md`**; **`TASKS.md`** matrix for **P4-T2**/**P4-T3** (**P
 Turnstile host allowlist for **`*.azurestaticapps.net`**; Postmark/DKIM at go-live; Functions **Node 24** in Portal (**ADR-018**).
 
 ## Tests / Checks Last Run
-GitHub **Deploy** run **25405261583** — success (2026-05-06).
+GitHub **Deploy** run **25405261583** — success (2026-05-06). **`main`** at **`de371ed`** — working tree clean; **`/ai`** aligned via **CHAT_END** (2026-05-06).

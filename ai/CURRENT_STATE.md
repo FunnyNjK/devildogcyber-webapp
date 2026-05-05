@@ -26,4 +26,4 @@ Raster assets may be missing under **`src/assets/images/devildog/...`**.
 **`.github/workflows/deploy.yml`**, **`/ai/DEPLOYMENT.md`**, **`api/contact/`**.
 
 ## Next Recommended Action
-Portal → **`devildogcyber`** → **Configuration** — add app settings from **`DEPLOYMENT.md`** table; set Functions runtime **Node 24** if needed.
+Portal → **`devildogcyber`** → **Configuration** — add app settings from **`DEPLOYMENT.md`** table; set Functions runtime **Node 24** if needed. Local **`pnpm typecheck`** requires **`astro sync`** (see **`TESTING.md`**).
