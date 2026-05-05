@@ -27,4 +27,4 @@ Read **`/ai/START_HERE.md`**. **P4-T3** is **No** — pair with human for Portal
 Turnstile host allowlist for **`*.azurestaticapps.net`**; Postmark/DKIM at go-live; Functions **Node 24** in Portal (**ADR-018**).
 
 ## Tests / Checks Last Run
-Local **`pnpm lint`**, **`typecheck`**, **`test`**, **`build`** after **`ci.yml`** env parity (this session). Prior **Deploy** success: run **25405261583** (2026-05-06).
+Local **`pnpm lint`** + **`typecheck`** OK this session; **`pnpm build`** / full **`pnpm test`** require **Node 24** (sandbox had Node **20**). **`main`** pushed (**`7edb564`**). Prior **Deploy** success: run **25405261583** (2026-05-06).
