@@ -1,12 +1,12 @@
 # Current State
 
-Last Updated: 2026-05-06
+Last Updated: 2026-05-05
 
 ## Current Phase
-**Phase 4** — **P4-B1** (**P4-T1**) **Done**. Next: **P4-B2** (**P4-T2**, **P4-T3**) — SWA app settings + secrets.
+**Phase 4** — **P4-T2** **Done**; **P4-B2** blocked on **P4-T3** (human secrets). Next: **P4-B3** after **P4-T3** smoke.
 
 ## Current Task
-**P4-B2:** Enter production env vars on SWA **`devildogcyber`** and optional **`PUBLIC_TURNSTILE_SITE_KEY`** GitHub secret; smoke-test site and **`/api/contact`**.
+**P4-T3:** Human completes **`DEPLOYMENT.md`** § **P4-B2** (SWA env vars + GitHub **`PUBLIC_TURNSTILE_SITE_KEY`**); smoke **`/contact`**.
 
 ## What Exists Now
 - **Azure:** **`devil-web-rg`**, SWA **`devildogcyber`** (**Standard**, **centralus**); site **`https://polite-sky-09fcf0610.7.azurestaticapps.net`** (default hostname).
@@ -17,7 +17,7 @@ Last Updated: 2026-05-06
 `pnpm lint` / **`typecheck`** / **`test`** / **`build`** (with **Node 24**); GitHub **CI** + **Deploy**.
 
 ## What Is Not Built Yet
-Production **Configuration** (Postmark, Turnstile, etc.), **GoDaddy** DNS / apex (**P4-T6**), full **contact** E2E in prod.
+Production **Configuration** still pending human (**P4-T3**); **GoDaddy** DNS / apex (**P4-T6**); full **contact** E2E in prod after secrets.
 
 ## Known Problems
 Raster assets may be missing under **`src/assets/images/devildog/...`**.
@@ -26,4 +26,4 @@ Raster assets may be missing under **`src/assets/images/devildog/...`**.
 **`.github/workflows/deploy.yml`**, **`/ai/DEPLOYMENT.md`**, **`api/contact/`**.
 
 ## Next Recommended Action
-Portal → **`devildogcyber`** → **Configuration** — add app settings from **`DEPLOYMENT.md`** table; set Functions runtime **Node 24** if needed. Local **`pnpm typecheck`** requires **`astro sync`** (see **`TESTING.md`**).
+Follow **`DEPLOYMENT.md`** § **P4-B2** (checklist). Then **P4-B3** Postmark verification + deploy smoke.

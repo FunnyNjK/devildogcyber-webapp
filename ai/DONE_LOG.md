@@ -1,6 +1,13 @@
 # Done Log
 
-Last Updated: 2026-05-06
+Last Updated: 2026-05-05
+
+## 2026-05-05 — P4-B2 (automatable): **P4-T2** Done; **P4-T3** human checklist
+
+- **`ci.yml`**: Build step **`PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.PUBLIC_TURNSTILE_SITE_KEY }}`** — parity with **`deploy.yml`** when the repo secret is set.
+- **`DEPLOYMENT.md`**: new § **P4-B2 — SWA Configuration + GitHub Build secret (human checklist)** (Portal env vars, GitHub secret, Turnstile hosts, smoke steps).
+- **`README.md`**: documents **`PUBLIC_TURNSTILE_SITE_KEY`** + pointer to checklist.
+- **`/ai`**: **`TASKS.md`** — **P4-T2** → **Done**; **Blocked** = **P4-T3**; **`HANDOFF.md`**, **`CURRENT_STATE.md`** updated. **P4-T3** remains open until human completes Portal/GitHub + smoke **`/contact`**. Commit **`4d37708`**.
 
 ## 2026-05-06 — CHAT_END: **`TESTING.md`** typecheck / CI notes
 

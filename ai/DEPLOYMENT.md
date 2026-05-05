@@ -1,6 +1,6 @@
 # Deployment
 
-Last Updated: 2026-05-06
+Last Updated: 2026-05-05
 
 ## Deployment Status
 
@@ -155,6 +155,41 @@ Script defaults: **`devil-web-rg`**, **`devildogcyber`**, **`centralus`**, **`St
 3. Optional GitHub **variables**: **`AZURE_CLIENT_ID`**, **`AZURE_TENANT_ID`**, **`AZURE_SUBSCRIPTION_ID`**.
 4. SWA **Configuration**: application settings from the table above; align **Node 24** Functions runtime in Portal (**ADR-018**).
 5. **Custom domains** in Portal; DNS at **GoDaddy** per Azure instructions; set **default domain** to apex (**ADR-021**).
+
+---
+
+## P4-B2 — SWA Configuration + GitHub Build secret (human checklist)
+
+Use this for **P4-T3** (secrets are never committed). **P4-T2** repo wiring: **`deploy.yml`** + optional **`PUBLIC_TURNSTILE_SITE_KEY`** on **`ci.yml`** Build — OIDC / **`azure/login`** remains optional (**ADR-006**, **ADR-023**).
+
+### GitHub (repository **Secrets and variables** → **Actions**)
+
+1. **`PUBLIC_TURNSTILE_SITE_KEY`** — Cloudflare Turnstile **site** key (public); required for the widget on **`/contact`** in production builds once Turnstile is enabled. Without it, the site builds but Turnstile stays in placeholder mode.
+
+### Azure Portal → Static Web App **`devildogcyber`** → **Environment variables** (Configuration)
+
+Add application settings for the **production** environment (and preview if you want PR previews to send mail — often omitted):
+
+| Name | Notes |
+|------|--------|
+| `POSTMARK_SERVER_TOKEN` | Server API token. |
+| `POSTMARK_FROM_EMAIL` | Verified sender. |
+| `CONTACT_EMAIL_TO` | Inbox for form submissions. |
+| `TURNSTILE_SECRET_KEY` | Turnstile **secret** (server). |
+| `CONTACT_RATE_LIMIT_MAX` | e.g. `5`. |
+| `CONTACT_RATE_LIMIT_WINDOW_MS` | e.g. `600000` (10 min). |
+| `CONTACT_HONEYPOT_FIELD_NAME` | e.g. `company_website` (must match form / Function default). |
+
+After saving, confirm **Functions** runtime is **Node 24** (**ADR-018**).
+
+### Cloudflare Turnstile
+
+Allow the SWA default hostname (e.g. **`<name>.azurestaticapps.net`**) and later **`devildogcyber.com`** / **`www.devildogcyber.com`** in the Turnstile site’s host management.
+
+### Smoke (after settings propagate)
+
+1. Open **`/contact`** on the deploy URL; submit the form.
+2. Confirm **HTTP 200** from **`POST /api/contact`** and delivery to **`CONTACT_EMAIL_TO`** (full sender verification is **P4-T4**).
 
 ---
 
