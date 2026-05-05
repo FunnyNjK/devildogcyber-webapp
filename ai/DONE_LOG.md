@@ -2,6 +2,14 @@
 
 Last Updated: 2026-05-05
 
+## 2026-05-05 — P3-B2: P3-T3 (bundle size budget)
+
+- **`scripts/js-budget.config.json`** — gzip budgets: **`defaultMaxTotalGzipBytes`** 72000 (~default island pages), **`/contact`** override 75000, **`maxSingleChunkGzipBytes`** 62000 (React client chunk).
+- **`scripts/check-js-budget.mjs`** — scans each **`dist/**/*.html`** for **`/_astro/*.js`**, transitively follows **`from"./…js"`** / dynamic imports in emitted chunks, sums **gzip** bytes per route; **`pnpm build`** fails on overflow.
+- **`package.json`** **`build`** — runs checker after **`verify-build-seo.ts`**.
+- **`eslint.config.js`** — lint **`scripts/**/*.{ts,mjs}`**.
+- Checks: **`pnpm lint`**, **`pnpm typecheck`**, **`pnpm build`**, **`pnpm test`** (WSL).
+
 ## 2026-05-05 — P3-B1: P3-T1 + P3-T2 + P2-I4 + P2-I6
 
 - **`src/components/ContentImage.astro`**, **`src/lib/contentImages.ts`**, **`src/assets/images/`** (placeholder), **`sharp`** — optimized AVIF/WebP when rasters live under **`src/assets/images/devildog/...`** (**ADR-022**); otherwise fallback **`<img src="/images/...">`**.

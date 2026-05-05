@@ -3,16 +3,16 @@
 Last Updated: 2026-05-05
 
 ## Current State Summary
-**Phase 3 batch 1 Done** (**P3-B1**: **P3-T1**, **P3-T2**, **P2-I4**, **P2-I6**). **`ContentImage.astro`** + **`src/lib/contentImages.ts`** (**ADR-022**); **`sharp`**; LCP **`<link rel="preload" as="image">`** on **`/`** + detail heroes; global **`prefers-reduced-motion`** overrides; axe on **`dist/**/*.html`** (**`tests/a11y/dist-html-axe.test.ts`**, **`color-contrast`** excluded under JSDOM). CI order: **Build → Test** so axe runs against built HTML. **Site header** logo remains a React **`<img>`** (tiny asset).
+**Phase 3 complete** (**P3-B1**, **P3-B2**). **P3-T3:** **`scripts/js-budget.config.json`** + **`scripts/check-js-budget.mjs`** — hydrated React island JS (gzip) per route + max single chunk; **`pnpm build`** fails on breach. Earlier **P3-B1** deliverables unchanged (**`ContentImage`**, axe, etc.).
 
 ## Last Completed Task
-**P3-B1** — Done 2026-05-05 (implementation + checks); see **`DONE_LOG.md`**.
+**P3-B2** — **P3-T3** — Done 2026-05-05; see **`DONE_LOG.md`**.
 
 ## Active Task
-**P3-B2** — **P3-T3** (bundle size budget).
+**Phase 4** — **P4-B1** (**P4-T1**), **Unattended: No** (Azure SWA + DNS — pair with human).
 
 ## Next Recommended Task
-**`./run-phase-cursor.sh 1`** for **P3-B2** only (or **`2`** if replaying full Phase 3), per **`TASKS.md`**.
+**P4-T1** per **`TASKS.md`** with human in the loop; do **not** mark **Done** from harness alone without completed Azure/DNS steps (**matrix:** **P4-T1**).
 
 ## What Is Blocked
 Nothing — repo work is unblocked.
@@ -26,10 +26,10 @@ Complete these before treating launch hardening as signed off:
 
 ## Important Instructions for Next AI
 - Read **`/ai/START_HERE.md`**; honor **`AI_RULES.md`**, **`DEV_ENVIRONMENT.md`**.
-- **P3-B2** (**P3-T3** only) is **Unattended: OK** — safe to complete via harness if scope stays on bundle budgets.
+- **Phase 4** tasks include **Unattended: No** / **Partial** — follow the **Human pairing vs unattended harness** matrix in **`TASKS.md`** before using **`./run-phase-cursor.sh`**.
 
 ## Known Risks
 Image rights; Postmark/DKIM before **P4-B4**; Turnstile allowlist for SWA preview; SWA CLI schema lags **Node 24** — runtime set in Azure (**P4-T1**).
 
 ## Tests / Checks Last Run
-`pnpm lint`, `pnpm typecheck`, `pnpm build`, `pnpm test` (includes axe on **dist** after build) — all exit 0 (2026-05-05, WSL).
+`pnpm lint`, `pnpm typecheck`, `pnpm build`, `pnpm test` — all exit 0 (2026-05-05, WSL).

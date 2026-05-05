@@ -1,0 +1,10 @@
+{
+  "maxSingleChunkGzipBytes": 62000,
+  "defaultMaxTotalGzipBytes": 72000,
+  "routeOverrides": [
+    {
+      "path": "/contact",
+      "maxTotalGzipBytes": 75000
+    }
+  ]
+}

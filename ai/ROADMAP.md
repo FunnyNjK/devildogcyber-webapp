@@ -37,7 +37,7 @@ Deliverables:
 - GitHub Actions `ci.yml` passes on push.
 
 ## Phase 2: Core Buildout — pages, content, contact form
-Status: Done (**P2-B8** complete 2026-05-03 — **P2-T13** SEO + SWA routing config); **Phase 3** started **2026-05-05** (**P3-B1**).
+Status: Done (**P2-B8** complete 2026-05-03 — **P2-T13** SEO + SWA routing config); **Phase 3** complete **2026-05-05** (**P3-B1**, **P3-B2**).
 
 **Autonomous runs (batches):** **8** — **P2-B1** … **P2-B8** (grouped task
 IDs in `/ai/TASKS.md`). Phase 2 improvement rows **P2-I\*** default into
@@ -71,10 +71,10 @@ Improvement rows **P2-I1** … **P2-I6** — schedule per `/ai/TASKS.md`
 harness iterations by default.
 
 ## Phase 3: Hardening and Testing
-Status: **In progress** — **P3-B1** complete **2026-05-05**; next **P3-B2** (**P3-T3**).
+Status: **Done** — **P3-B2** (**P3-T3**) complete **2026-05-05**.
 
 **Autonomous runs (batches):** **2** — **P3-B1** (P3-T1, P3-T2, P2-I4, P2-I6) **✓**,
-**P3-B2** (P3-T3).
+**P3-B2** (P3-T3) **✓**.
 
 Goals:
 - Test coverage targets met (`/ai/TESTING.md`); axe smoke on built HTML (**P3-B1**).
@@ -84,7 +84,7 @@ Goals:
 - Bundle size budget enforced (**P3-B2**).
 
 ## Phase 4: Deployment and Operations
-Status: Backlog
+Status: **Next** — **Phase 3** complete; start **P4-B1** (**P4-T1**) with human pairing (**Unattended: No**).
 
 **Autonomous runs (batches):** **4** — **P4-B1** … **P4-B4** (see `TASKS.md`).
 

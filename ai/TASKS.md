@@ -3,7 +3,7 @@
 Last Updated: 2026-05-05
 
 ## Active Task
-**P3-B2** — **P3-T3** (bundle size budget + CI thresholds).
+**Phase 4** — **P4-B1** (**P4-T1**), **Unattended: No** — pair with the human (Azure + DNS); see **Ready** below.
 
 ---
 
@@ -147,9 +147,12 @@ Claude Code users: same **`N`** with `./run-phase.sh`.
 ---
 
 ## Ready
-Pick up **Phase 3** batch **P3-B2** (**P3-T3** only).
+**Phase 4** batch **P4-B1** (**P4-T1**): provision Azure SWA + DNS. **Unattended: No** — do **not** drive completion only from **`./run-phase-cursor.sh`**; work in IDE with the human or document **Blocked** with portal steps.
 
 ## Done (recent)
+
+### P3-B2 (2026-05-05)
+**P3-T3** — Hydrated **JS gzip** budgets: **`scripts/js-budget.config.json`** (default **72 KiB** total per page, **_contact_ 75 KiB**, largest single chunk **≈62 KiB**); **`scripts/check-js-budget.mjs`** walks **`dist/**/*.html`**, unions **`/_astro/*.js`** island entries + static **Vite** `from"./…js"` graph, fails **`pnpm build`** on breach. **Human:** none for this task (**Unattended: OK**).
 
 ### P3-B1 (2026-05-05)
 **P3-T1**, **P3-T2**, **P2-I4**, **P2-I6** — Implemented **`ContentImage.astro`** + **`getImage`** LCP preload on home/detail heroes; global reduced-motion strip; axe on **`dist/**/*.html`** ( **`color-contrast`** off under JSDOM); CI runs **Build → Test** so axe executes. Remaining human work for **Partial** tasks: Lighthouse on real/preview URLs; keyboard + screen-reader walk + contrast; copy rasters into **`src/assets/images/devildog/...`** (see **ADR-022**, **`HANDOFF.md`**).
@@ -215,9 +218,10 @@ Phase: 3 · **Execution batch:** **P3-B1** (with P3-T1, P2-I4, P2-I6).
 Zero serious/critical violations on every public route. **Shipped:** **`tests/a11y/dist-html-axe.test.ts`** (serious/critical; **`color-contrast`** disabled under JSDOM — verify in browser).
 
 ### P3-T3: Bundle size budget
-Status: Backlog · Phase: 3 · **Execution batch:** **P3-B2**.
+Status: Done (2026-05-05) — batch **P3-B2**.
+Phase: 3 · **Execution batch:** **P3-B2**.
 **Unattended script:** **OK**.
-Document per-page JS budget; fail build above threshold.
+Document per-page JS budget; fail build above threshold. **Shipped:** **`scripts/js-budget.config.json`**, **`scripts/check-js-budget.mjs`**, chained at end of **`pnpm build`**.
 
 ---
 
@@ -272,6 +276,8 @@ None.
 ### P2-T11: Contact page (React island + validation + Turnstile) — Done; see `DONE_LOG.md`.
 ### P2-T12: `/api/contact` Azure Function (Postmark, Turnstile, honeypot, rate limit) — Done; see `DONE_LOG.md`.
 ### P2-T13: SEO finalization — Done; see `DONE_LOG.md`.
+
+### P3-T3: Bundle size budget — Done; see `DONE_LOG.md`.
 
 ### P0-T1: Initialize project-specific AI files
 Status: Done
