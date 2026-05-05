@@ -7,7 +7,7 @@ Last Updated: 2026-05-05
 - **`ci.yml`**: Build step **`PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.PUBLIC_TURNSTILE_SITE_KEY }}`** — parity with **`deploy.yml`** when the repo secret is set.
 - **`DEPLOYMENT.md`**: new § **P4-B2 — SWA Configuration + GitHub Build secret (human checklist)** (Portal env vars, GitHub secret, Turnstile hosts, smoke steps).
 - **`README.md`**: documents **`PUBLIC_TURNSTILE_SITE_KEY`** + pointer to checklist.
-- **`/ai`**: **`TASKS.md`** — **P4-T2** → **Done**; **Blocked** = **P4-T3**; **`HANDOFF.md`**, **`CURRENT_STATE.md`** updated. **P4-T3** remains open until human completes Portal/GitHub + smoke **`/contact`**. Commit **`4d37708`**.
+- **`/ai`**: **`TASKS.md`** — **P4-T2** → **Done**; **Blocked** = **P4-T3**; **`HANDOFF.md`**, **`CURRENT_STATE.md`** updated. **P4-T3** remains open until human completes Portal/GitHub + smoke **`/contact`**. Commit **`7a85a94`**.
 
 ## 2026-05-06 — CHAT_END: **`TESTING.md`** typecheck / CI notes
 
