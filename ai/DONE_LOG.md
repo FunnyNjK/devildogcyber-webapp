@@ -8,7 +8,7 @@ Last Updated: 2026-05-05
 - **`scripts/check-js-budget.mjs`** — scans each **`dist/**/*.html`** for **`/_astro/*.js`**, transitively follows **`from"./…js"`** / dynamic imports in emitted chunks, sums **gzip** bytes per route; **`pnpm build`** fails on overflow.
 - **`package.json`** **`build`** — runs checker after **`verify-build-seo.ts`**.
 - **`eslint.config.js`** — lint **`scripts/**/*.{ts,mjs}`**.
-- Checks: **`pnpm lint`**, **`pnpm typecheck`**, **`pnpm build`**, **`pnpm test`** (WSL).
+- Checks: **`pnpm lint`**, **`pnpm typecheck`**, **`pnpm build`**, **`pnpm test`** (WSL). Implementation commit: **`0f6a724`**.
 
 ## 2026-05-05 — P3-B1: P3-T1 + P3-T2 + P2-I4 + P2-I6
 

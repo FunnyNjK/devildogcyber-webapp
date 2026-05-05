@@ -105,8 +105,9 @@ Vitest specs. Mirrors `src/` structure; **`tests/a11y/dist-html-axe.test.ts`** r
 
 ### Page render
 1. CI builds static HTML via `astro build`.
-2. SWA serves files from CDN. React islands hydrate as needed.
-3. `/api/contact` is the only server-touched route.
+2. **`scripts/verify-build-seo.ts`** and **`scripts/check-js-budget.mjs`** run at the end of **`pnpm build`** (**P2-T13** SEO invariants; **P3-T3** hydrated **JS gzip** budgets from **`scripts/js-budget.config.json`**).
+3. SWA serves files from CDN. React islands hydrate as needed.
+4. `/api/contact` is the only server-touched route.
 
 ---
 
