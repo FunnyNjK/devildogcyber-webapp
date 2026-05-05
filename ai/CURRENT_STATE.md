@@ -1,30 +1,28 @@
 # Current State
 
-Last Updated: 2026-05-03
+Last Updated: 2026-05-05
 
 ## Current Phase
-Phase 2 **complete** (**P2-B8**); next **Phase 3** — **P3-B1**.
+Phase 3 — **`P3-B1`** complete; next batch **`P3-B2`** (**P3-T3**).
 
 ## Current Task
-Start **P3-B1**: **P3-T1** + **P3-T2** + **P2-I4** + **P2-I6** (Lighthouse, a11y, images, motion/focus).
+Execute **P3-B2**: bundle size budget (**P3-T3**).
 
 ## What Exists Now
-- **P2-B8:** SEO baseline — **`@astrojs/sitemap`** + **`scripts/verify-build-seo.ts`**, **`public/robots.txt`**, **`public/staticwebapp.config.json`** (see **`HANDOFF.md`**, **ADR-021**).
-- **P2-B7–P2-B1:** prior buildout (layout, pages, contact API) per **`DONE_LOG.md`**.
+- **P3-B1:** **`ContentImage.astro`**, **`src/lib/contentImages.ts`**, LCP preload (**`BaseLayout`** **`lcpPreloadHref`**), **`prefers-reduced-motion`** in **`global.css`**, **`tests/a11y/dist-html-axe.test.ts`**, deps **`sharp`**, **`axe-core`**, **`jsdom`**; CI **Build** before **Test** (**.github/workflows/ci.yml**).
+- **P2-B8** and earlier: per **`DONE_LOG.md`**.
 
 ## What Works
-`pnpm lint`/`typecheck`/`test`; **`pnpm build`** bundles Astro → **`dist/`** plus API bundle; build verifies **sitemap** URL parity vs **`detailPages`** and **robots**/**SWA** config presence.
+`pnpm lint` / **`typecheck`** / **`test`** / **`build`**; axe runs on **`dist`** when present; **verify-build-seo** unchanged.
 
 ## What Is Not Built Yet
-Phase **3–4**: hardening, Azure SWA + DNS (**P4**).
+**P3-B2** thresholds; Phase **4** (Azure SWA, DNS, secrets).
 
 ## Known Problems
-**`@azure/static-web-apps-cli`** (v2.0.9): may still **301** **`/contact` → `/contact/`** locally despite **`trailingSlash: "never"`**; production follows Azure (**`TESTING.md`**, **ADR-021**).
+Raster files are still **out of repo** — optimized images activate after copying assets into **`src/assets/images/devildog/...`** (**`HANDOFF.md`**). **`@azure/static-web-apps-cli`** may still **301** **`/contact` → `/contact/`** locally (**`TESTING.md`**, **ADR-021**).
 
 ## Important Files or Folders
-**`astro.config.ts`**, **`public/robots.txt`**, **`public/staticwebapp.config.json`**, **`scripts/verify-build-seo.ts`**, **`tests/deploy/sitePublicSurface.test.ts`**.
+**`src/components/ContentImage.astro`**, **`src/lib/contentImages.ts`**, **`src/assets/images/`**, **`tests/a11y/`**, **`BaseLayout.astro`**.
 
 ## Next Recommended Action
-Kick off **P3-B1** per **`TASKS.md`** batch table — e.g. next batch only:
-**`./run-phase-cursor.sh 1`**; full Phase 3: **`./run-phase-cursor.sh 2`**.
-(Same **`N`** with **`./run-phase.sh`** if using Claude Code.)
+Start **P3-B2** per **`TASKS.md`**: **`./run-phase-cursor.sh 1`** (Phase 3 second batch only) after pulling latest.

@@ -1,6 +1,8 @@
 ---
 import DetailPageCta from "./DetailPageCta.astro";
 import DetailSplitSection from "./DetailSplitSection.astro";
+
+import ContentImage from "../ContentImage.astro";
 import type { DetailPage, DetailPageSection } from "../../content/detailPages";
 
 export type Props = {
@@ -115,13 +117,14 @@ const cardGrid = (cols: 2 | 3 | 4) =>
             {section.members.map((member) => (
               <article class="h-full overflow-hidden rounded-[1.75rem] border border-[color:var(--dd-border)] bg-white shadow-[0_18px_40px_rgba(15,23,42,0.08)]">
                 <div class="aspect-[16/10] max-h-80 min-h-[12rem] overflow-hidden sm:aspect-auto sm:h-80">
-                  <img
+                  <ContentImage
                     src={member.imageSrc}
                     alt={member.imageAlt}
                     width={900}
                     height={900}
                     loading="lazy"
                     decoding="async"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     class="h-full w-full object-cover"
                   />
                 </div>

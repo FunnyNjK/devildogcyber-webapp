@@ -1,9 +1,9 @@
 # Tasks
 
-Last Updated: 2026-05-03
+Last Updated: 2026-05-05
 
 ## Active Task
-**P3-B1** — **P3-T1**, **P3-T2**, **P2-I4**, **P2-I6** (Lighthouse + a11y + image optimization + motion/focus polish).
+**P3-B2** — **P3-T3** (bundle size budget + CI thresholds).
 
 ---
 
@@ -98,9 +98,9 @@ with “needs human: …” until unblocked.
 |------|---------|
 | **P2-I1** | **Done** at **P1-B1** — `@fontsource` in `src/styles/global.css`; Lighthouse / no Google Fonts verified in **P3-T1**. |
 | **P2-I2, P2-I3** | **Done** (2026-05-03) — shipped in **P2-B7**. |
-| **P2-I4** | Run as part of **P3-B1** (image pass + audit fixes together). |
+| **P2-I4** | **Done** (2026-05-05) — **`P3-B1`**; see **`HANDOFF.md`** for asset copy + Lighthouse follow-up. |
 | **P2-I5** | Primary work landed in **P2-B1** / P2-T1; backlog row = gap-fill only if a11y gaps remain after **P3-T2**. |
-| **P2-I6** | Run as part of **P3-B1** unless already satisfied during P2-B1 styling. |
+| **P2-I6** | **Done** (2026-05-05) — **`P3-B1`** (**`prefers-reduced-motion`**, **`focus-visible`** in **`global.css`**). |
 
 **Harness iterations for full Phase 2** (e.g. `./run-phase-cursor.sh 8`): **8**
 
@@ -147,12 +147,17 @@ Claude Code users: same **`N`** with `./run-phase.sh`.
 ---
 
 ## Ready
-Pick up **Phase 3** batch **P3-B1** when starting the next autonomous run (**P3-T1** + **P3-T2** + **P2-I4** + **P2-I6**).
+Pick up **Phase 3** batch **P3-B2** (**P3-T3** only).
+
+## Done (recent)
+
+### P3-B1 (2026-05-05)
+**P3-T1**, **P3-T2**, **P2-I4**, **P2-I6** — Implemented **`ContentImage.astro`** + **`getImage`** LCP preload on home/detail heroes; global reduced-motion strip; axe on **`dist/**/*.html`** ( **`color-contrast`** off under JSDOM); CI runs **Build → Test** so axe executes. Remaining human work for **Partial** tasks: Lighthouse on real/preview URLs; keyboard + screen-reader walk + contrast; copy rasters into **`src/assets/images/devildog/...`** (see **ADR-022**, **`HANDOFF.md`**).
 
 ## Backlog (Phase 2 — Improvements, in addition to ports)
 
 ### P2-I1: Self-hosted fonts via `@fontsource` (per ADR-013)
-Status: Done (2026-05-03). Fonts imported in `src/styles/global.css` at **P1-B1**; confirm no Google Fonts request + Lighthouse under **P3-T1**.
+Status: Done (2026-05-03). Fonts imported in `src/styles/global.css` at **P1-B1**; **Partial:** human confirms no Google Fonts request + Lighthouse thresholds on deploy (**P3-T1** follow-up).
 
 ### P2-I2: Honeypot field on contact form
 Done (2026-05-03) — **`P2-B7`**.
@@ -161,7 +166,7 @@ Done (2026-05-03) — **`P2-B7`**.
 Done (2026-05-03) — **`P2-B7`**.
 
 ### P2-I4: Image optimization pass
-Status: Backlog
+Status: Done (2026-05-05) — batch **P3-B1**; human: copy image binaries + confirm Lighthouse scores on deploy.
 Phase: 2
 **Scheduling:** Default **P3-B1** with P3-T1 / P3-T2 (see Execution batches).
 **Unattended script:** **OK** (see matrix; confirm Lighthouse with human if needed).
@@ -169,7 +174,7 @@ Phase: 2
 Replace raw `<img>` with Astro's `<Image>` (or hand-tuned `srcset`),
 serve AVIF/WebP, set explicit width/height, lazy-load below the fold.
 Acceptance: Lighthouse Performance ≥ 90 on every page; LCP image is
-preloaded on home + each detail page hero.
+preloaded on home + each detail page hero. **Shipped:** **`ContentImage.astro`**, **`src/lib/contentImages.ts`**, **`sharp`**, LCP **`<link rel="preload">`** + **React header logo** still plain **`<img>`** (optional follow-up).
 
 ### P2-I5: Accessibility pass on nav dropdowns
 Status: Backlog
@@ -183,29 +188,31 @@ navigation between items), correct ARIA (`aria-expanded`, `aria-haspopup`,
 core reports zero serious/critical violations on `/` and `/contact`.
 
 ### P2-I6: Reduced-motion + focus-visible styling tokens
-Status: Backlog
+Status: Done (2026-05-05) — batch **P3-B1**; optional: human toggles OS “reduce motion” once.
 Phase: 2
 **Scheduling:** Default **P3-B1** unless already satisfied during **P2-B1**.
 **Unattended script:** **OK** (optional OS setting check with human).
 
 Respect `prefers-reduced-motion` for any transitions over 200ms. Add a
 sitewide focus-visible ring using brand red. Acceptance: with
-"prefer reduced motion" set in OS, no animated transitions over 200ms run.
+"prefer reduced motion" set in OS, no animated transitions over 200ms run. **Shipped:** **`@media (prefers-reduced-motion: reduce)`** collapses transitions/animations in **`global.css`**; **`focus-visible`** ring already uses **`--dd-red-bright`**.
 
 ---
 
 ## Backlog (Phase 3 — Hardening)
 
 ### P3-T1: Lighthouse audit pass
-Status: Backlog · Phase: 3 · **Execution batch:** **P3-B1** (with P3-T2, P2-I4, P2-I6).
+Status: Done (automatable scope, 2026-05-05) — batch **P3-B1**; **Partial:** human runs Lighthouse on prod/preview and signs off on thresholds.
+Phase: 3 · **Execution batch:** **P3-B1** (with P3-T2, P2-I4, P2-I6).
 **Unattended script:** **Partial** — CI/automation can run audits; human confirms launch bar and prod/preview URLs.
 Hit Performance ≥ 95 home / ≥ 90 detail; Accessibility ≥ 95 sitewide;
-SEO ≥ 95 sitewide; Best Practices ≥ 95 sitewide.
+SEO ≥ 95 sitewide; Best Practices ≥ 95 sitewide. **Shipped:** image pipeline + preload + CI build/test order; no Lighthouse CLI in-repo.
 
 ### P3-T2: Accessibility audit pass (axe + manual keyboard walk)
-Status: Backlog · Phase: 3 · **Execution batch:** **P3-B1** (with P3-T1, P2-I4, P2-I6).
+Status: Done (automatable scope, 2026-05-05) — batch **P3-B1**; **Partial:** human keyboard + screen-reader + contrast pass.
+Phase: 3 · **Execution batch:** **P3-B1** (with P3-T1, P2-I4, P2-I6).
 **Unattended script:** **Partial** — axe can be automated; **manual keyboard walk requires human**.
-Zero serious/critical violations on every public route.
+Zero serious/critical violations on every public route. **Shipped:** **`tests/a11y/dist-html-axe.test.ts`** (serious/critical; **`color-contrast`** disabled under JSDOM — verify in browser).
 
 ### P3-T3: Bundle size budget
 Status: Backlog · Phase: 3 · **Execution batch:** **P3-B2**.

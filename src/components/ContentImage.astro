@@ -1,0 +1,62 @@
+---
+import { Image } from "astro:assets";
+
+import { getImageFromPublicPath } from "../lib/contentImages";
+
+type Props = {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  loading?: "eager" | "lazy";
+  fetchpriority?: "high" | "low" | "auto";
+  decoding?: "async" | "auto" | "sync";
+  class?: string;
+  sizes?: string;
+};
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  loading,
+  fetchpriority,
+  decoding,
+  class: className,
+  sizes,
+} = Astro.props;
+
+const meta = getImageFromPublicPath(src);
+const resolvedWidth = width ?? meta?.width;
+const resolvedHeight = height ?? meta?.height;
+---
+
+{
+  meta && resolvedWidth && resolvedHeight ? (
+    <Image
+      src={meta}
+      alt={alt}
+      width={resolvedWidth}
+      height={resolvedHeight}
+      loading={loading}
+      decoding={decoding}
+      fetchpriority={fetchpriority}
+      class={className}
+      sizes={sizes}
+      formats={["avif", "webp"]}
+      quality={82}
+    />
+  ) : (
+    <img
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      loading={loading}
+      decoding={decoding}
+      fetchpriority={fetchpriority}
+      class={className}
+    />
+  )
+}

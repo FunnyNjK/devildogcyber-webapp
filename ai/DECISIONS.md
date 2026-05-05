@@ -1,6 +1,6 @@
 # Architecture Decision Records
 
-Last Updated: 2026-05-03
+Last Updated: 2026-05-05
 
 This file records decisions that affect architecture, dependencies, security,
 deployment, testing, or scope. The first block of ADRs (ADR-001 through
@@ -501,6 +501,26 @@ Portal “Set default” step required for production host canonicalization (**P
 
 ### Related Tasks
 **P2-T13**, **P4-T6**, **ADR-014**.
+
+---
+
+## ADR-022: Content images via `astro:assets` + `ContentImage` fallback; axe on `dist/` HTML
+
+Date: 2026-05-05
+Status: Accepted
+
+### Decision
+- Raster files referenced as **`/images/devildog/...`** in content should live under **`src/assets/images/devildog/...`** (same subtree) so **`astro:assets`** can emit AVIF/WebP. A shared **`ContentImage.astro`** uses **`import.meta.glob`** to resolve those paths; if a file is missing, the component falls back to a plain **`<img src="/images/...">`** so local/CI builds still run.
+- **`sharp`** is a direct dependency for Astro’s image pipeline. **`tests/a11y/dist-html-axe.test.ts`** runs **axe-core** on each built **`dist/**/*.html`** in the **Node** environment with **JSDOM**; **`color-contrast`** is disabled in that harness (unreliable without layout) and is left to human checks under **P3-T2**.
+
+### Reason
+Meets **P2-I4** / **P3-T1** performance direction without blocking builds when image binaries are not yet copied from the legacy repo, and gives an automated **P3-T2** baseline for non-contrast serious/critical issues on static output.
+
+### Tradeoffs
+Header logo remains a React **`<img>`** in **`SiteHeader.tsx`** (small asset; optimization optional). Full Lighthouse and keyboard/screen-reader validation stay **Partial** human steps per **TASKS.md**.
+
+### Related Tasks
+**P3-B1** (**P2-I4**, **P2-I6**, **P3-T1**, **P3-T2**).
 
 ---
 

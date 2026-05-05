@@ -1,8 +1,13 @@
 ---
+import { getImage } from "astro:assets";
+
+import ContentImage from "../components/ContentImage.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import DetailPageSections from "../components/detail/DetailPageSections.astro";
 import { detailPages, slugToPath } from "../content/detailPages";
 import type { DetailPage } from "../content/detailPages";
+import { getImageFromPublicPath } from "../lib/contentImages";
+
 export function getStaticPaths() {
   return detailPages.map((page) => ({
     params: { slug: page.slug.join("/") },
@@ -16,6 +21,16 @@ type Props = {
 
 const { page } = Astro.props;
 const path = slugToPath(page.slug);
+const heroMeta = getImageFromPublicPath(page.hero.imageSrc);
+const heroMaxWidth =
+  page.hero.layout === "backdrop"
+    ? 1920
+    : page.hero.align === "center"
+      ? 1600
+      : 1200;
+const lcpPreloadHref = heroMeta
+  ? (await getImage({ src: heroMeta, width: heroMaxWidth, format: "webp" })).src
+  : page.hero.imageSrc;
 ---
 
 <BaseLayout
@@ -24,13 +39,14 @@ const path = slugToPath(page.slug);
   path={path}
   imagePath={page.hero.imageSrc}
   imageAlt={page.hero.imageAlt}
+  lcpPreloadHref={lcpPreloadHref}
 >
   <main>
     {
       page.hero.layout === "backdrop" ? (
         <section class="relative scroll-mt-28 overflow-hidden bg-[color:var(--dd-ink)] text-white">
           <div class="absolute inset-0">
-            <img
+            <ContentImage
               src={page.hero.imageSrc}
               alt={page.hero.imageAlt}
               width={1920}
@@ -38,6 +54,7 @@ const path = slugToPath(page.slug);
               loading="eager"
               fetchpriority="high"
               decoding="async"
+              sizes="100vw"
               class="h-full w-full object-cover opacity-40"
             />
             <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,9,9,0.45),rgba(9,9,9,0.82))]" aria-hidden="true" />
@@ -95,7 +112,7 @@ const path = slugToPath(page.slug);
             {page.hero.align === "center" ? (
               <div class="relative z-10 mt-12 w-full max-w-4xl">
                 <div class="overflow-hidden rounded-[2rem] border border-white/12 shadow-[0_28px_80px_rgba(0,0,0,0.45)]">
-                  <img
+                  <ContentImage
                     src={page.hero.imageSrc}
                     alt={page.hero.imageAlt}
                     width={1600}
@@ -103,6 +120,7 @@ const path = slugToPath(page.slug);
                     loading="eager"
                     fetchpriority="high"
                     decoding="async"
+                    sizes="(max-width: 1280px) 100vw, 896px"
                     class="h-full w-full object-cover"
                   />
                 </div>
@@ -111,7 +129,7 @@ const path = slugToPath(page.slug);
               <div class="relative z-10 mx-auto w-full max-w-2xl lg:mx-0">
                 <div class="absolute -inset-4 rounded-[2rem] bg-[linear-gradient(135deg,rgba(176,17,22,0.5),transparent_72%)] blur-2xl" aria-hidden="true" />
                 <div class="relative overflow-hidden rounded-[2rem] border border-white/12 shadow-[0_28px_80px_rgba(0,0,0,0.35)]">
-                  <img
+                  <ContentImage
                     src={page.hero.imageSrc}
                     alt={page.hero.imageAlt}
                     width={1200}
@@ -119,6 +137,7 @@ const path = slugToPath(page.slug);
                     loading="eager"
                     fetchpriority="high"
                     decoding="async"
+                    sizes="(max-width: 1024px) 100vw, 45vw"
                     class="h-full w-full object-cover"
                   />
                 </div>

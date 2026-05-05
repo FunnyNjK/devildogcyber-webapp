@@ -1,6 +1,16 @@
 # Done Log
 
-Last Updated: 2026-05-03
+Last Updated: 2026-05-05
+
+## 2026-05-05 — P3-B1: P3-T1 + P3-T2 + P2-I4 + P2-I6
+
+- **`src/components/ContentImage.astro`**, **`src/lib/contentImages.ts`**, **`src/assets/images/`** (placeholder), **`sharp`** — optimized AVIF/WebP when rasters live under **`src/assets/images/devildog/...`** (**ADR-022**); otherwise fallback **`<img src="/images/...">`**.
+- **`src/pages/index.astro`**, **`src/pages/[...slug].astro`**, **`BaseLayout.astro`**: **`getImage`** LCP preload + **`lcpPreloadHref`** prop; detail + home heroes use **`ContentImage`**.
+- **`src/components/detail/*.astro`**, **`about.astro`**, **`SiteFooter.astro`**: **`ContentImage`**. **`SiteHeader.tsx`** keeps **`<img>`** logo.
+- **`src/styles/global.css`**: **`prefers-reduced-motion`** strips transitions/animations.
+- **`tests/a11y/dist-html-axe.test.ts`** (**Vitest**, **`node`**, **`jsdom`**, **axe-core**); serious/critical only; **`color-contrast`** off for JSDOM.
+- **`.github/workflows/ci.yml`**: **Build → Test**.
+- Checks: **`pnpm lint`**, **`pnpm typecheck`**, **`pnpm build`**, **`pnpm test`** (WSL). Implementation commit: **`f641919`**.
 
 ## 2026-05-03 — P2-B8: P2-T13 SEO baseline + **`staticwebapp.config.json`**
 

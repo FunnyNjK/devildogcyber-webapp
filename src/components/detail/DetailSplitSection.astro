@@ -1,6 +1,8 @@
 ---
 import type { DetailPageSection } from "../../content/detailPages";
 
+import ContentImage from "../ContentImage.astro";
+
 type SplitSection = Extract<DetailPageSection, { kind: "split" }>;
 
 export type Props = {
@@ -67,13 +69,14 @@ const panelBorder =
       ) : section.imagePosition === "left" ? (
         <>
           <div class:list={["relative min-h-[14rem] border-b lg:min-h-full lg:border-b-0 lg:border-r", panelBorder]}>
-            <img
+            <ContentImage
               src={section.imageSrc}
               alt={section.imageAlt ?? section.title}
               width={1200}
               height={900}
               loading={index === 0 ? "eager" : "lazy"}
               decoding="async"
+              sizes="(max-width: 1024px) 100vw, 50vw"
               class="h-full min-h-[14rem] w-full object-cover"
             />
           </div>
@@ -125,13 +128,14 @@ const panelBorder =
             ) : null}
           </div>
           <div class:list={["relative min-h-[14rem] border-t lg:min-h-full lg:border-l lg:border-t-0", panelBorder]}>
-            <img
+            <ContentImage
               src={section.imageSrc}
               alt={section.imageAlt ?? section.title}
               width={1200}
               height={900}
               loading={index === 0 ? "eager" : "lazy"}
               decoding="async"
+              sizes="(max-width: 1024px) 100vw, 50vw"
               class="h-full min-h-[14rem] w-full object-cover"
             />
           </div>

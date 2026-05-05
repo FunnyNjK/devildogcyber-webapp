@@ -20,6 +20,8 @@ type Props = {
   imagePath?: string;
   imageAlt?: string;
   keywords?: readonly string[];
+  /** LCP hero: emit `<link rel="preload" as="image">` when set (typically WebP URL from `getImage` or fallback public path). */
+  lcpPreloadHref?: string;
 };
 
 const {
@@ -29,6 +31,7 @@ const {
   imagePath,
   imageAlt,
   keywords,
+  lcpPreloadHref,
 } = Astro.props;
 
 const meta = buildPageMetadata({
@@ -49,6 +52,7 @@ const websiteJsonLd = getWebsiteJsonLd();
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
+    {lcpPreloadHref ? <link rel="preload" as="image" href={lcpPreloadHref} fetchpriority="high" /> : null}
     <meta name="generator" content={Astro.generator} />
     <title>{meta.title}</title>
     <meta name="description" content={meta.description} />

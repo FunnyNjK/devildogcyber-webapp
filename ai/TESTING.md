@@ -1,6 +1,6 @@
 # Testing Strategy
 
-Last Updated: 2026-05-03
+Last Updated: 2026-05-05
 
 ## Testing Status
 Project-specific strategy documented. Defaults from the starter apply with
@@ -53,8 +53,9 @@ Exercises **`handleContactSubmission`** for:
 ### CI checks (required)
 - `pnpm lint`
 - `pnpm typecheck`
-- `pnpm test` (Vitest --run)
-- `pnpm build` — includes **`node --experimental-strip-types scripts/verify-build-seo.ts`**, which asserts **`dist/sitemap-*.xml`** `<loc>` URLs match **`detailPages` + `/` + `/about` + `/contact`**, validates **`dist/robots.txt`** references **`sitemap-index.xml`**, and checks **`dist/staticwebapp.config.json`** **`trailingSlash`**. (**P2‑T13**)
+- `pnpm build` then `pnpm test` — **GitHub Actions** runs **Build** before **Test** so **`tests/a11y/dist-html-axe.test.ts`** can scan **`dist/**/*.html`**. Local dev: run **`pnpm build`** before **`pnpm test`** if you want axe coverage (otherwise the a11y suite is skipped when **`dist/`** is absent).
+- **`pnpm test`** — Vitest (**`tests/**`**, **`api/**`**) including **axe-core** + **JSDOM** on built HTML (**serious** / **critical** only; **`color-contrast`** disabled — verify contrast manually / in browser per **P3-T2**).
+- **`pnpm build`** — includes **`node --experimental-strip-types scripts/verify-build-seo.ts`**, which asserts **`dist/sitemap-*.xml`** `<loc>` URLs match **`detailPages` + `/` + `/about` + `/contact`**, validates **`dist/robots.txt`** references **`sitemap-index.xml`**, and checks **`dist/staticwebapp.config.json`** **`trailingSlash`**. (**P2‑T13**)
 
 ---
 

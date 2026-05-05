@@ -1,4 +1,7 @@
 ---
+import { getImage } from "astro:assets";
+
+import ContentImage from "../components/ContentImage.astro";
 import ServiceHighlightIcon from "../components/home/ServiceHighlightIcon.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import {
@@ -9,6 +12,12 @@ import {
   siteMetadata,
   storyContent,
 } from "../content/siteContent";
+import { getImageFromPublicPath } from "../lib/contentImages";
+
+const heroMeta = getImageFromPublicPath(heroContent.imageSrc);
+const lcpPreloadHref = heroMeta
+  ? (await getImage({ src: heroMeta, width: 1200, format: "webp" })).src
+  : heroContent.imageSrc;
 ---
 
 <BaseLayout
@@ -16,6 +25,7 @@ import {
   path="/"
   imagePath={siteMetadata.defaultOgImage}
   imageAlt={heroContent.imageAlt}
+  lcpPreloadHref={lcpPreloadHref}
 >
   <main>
     <section
@@ -53,7 +63,7 @@ import {
           <div
             class="relative overflow-hidden rounded-[2rem] border border-white/10 shadow-[0_28px_80px_rgba(0,0,0,0.35)]"
           >
-            <img
+            <ContentImage
               src={heroContent.imageSrc}
               alt={heroContent.imageAlt}
               width={1200}
@@ -61,6 +71,7 @@ import {
               loading="eager"
               fetchpriority="high"
               decoding="async"
+              sizes="(max-width: 1024px) 100vw, 42vw"
               class="h-full w-full object-cover"
             />
           </div>
@@ -77,13 +88,14 @@ import {
               class="h-full overflow-hidden rounded-[1.75rem] border border-[color:var(--dd-border)] bg-white text-[color:var(--dd-copy)] shadow-[0_20px_60px_rgba(15,23,42,0.12)] transition duration-200 hover:-translate-y-1 hover:shadow-[0_24px_68px_rgba(15,23,42,0.16)]"
             >
               <div class="h-52 overflow-hidden">
-                <img
+                <ContentImage
                   src={card.imageSrc}
                   alt={card.imageAlt}
                   width={900}
                   height={700}
                   loading="lazy"
                   decoding="async"
+                  sizes="(max-width: 1280px) 50vw, 25vw"
                   class="h-full w-full object-cover"
                 />
               </div>
@@ -109,13 +121,14 @@ import {
       <div class="mx-auto w-full max-w-7xl px-6">
         <div class="grid gap-12 lg:grid-cols-[.95fr_1.05fr] lg:items-center">
           <div class="overflow-hidden rounded-[2rem] border border-white/10 shadow-[0_24px_65px_rgba(0,0,0,0.18)]">
-            <img
+            <ContentImage
               src={missionContent.imageSrc}
               alt={missionContent.imageAlt}
               width={1200}
               height={900}
               loading="lazy"
               decoding="async"
+              sizes="(max-width: 1024px) 100vw, 45vw"
               class="h-full w-full object-cover"
             />
           </div>
@@ -180,13 +193,14 @@ import {
           <div
             class="overflow-hidden rounded-[2rem] border border-[color:var(--dd-border)] bg-white shadow-[0_18px_50px_rgba(15,23,42,0.12)]"
           >
-            <img
+            <ContentImage
               src={storyContent.imageSrc}
               alt={storyContent.imageAlt}
               width={1200}
               height={900}
               loading="lazy"
               decoding="async"
+              sizes="(max-width: 1024px) 100vw, 48vw"
               class="h-full w-full object-cover"
             />
           </div>
