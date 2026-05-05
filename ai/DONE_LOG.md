@@ -2,6 +2,11 @@
 
 Last Updated: 2026-05-06
 
+## 2026-05-06 — Deploy workflow: app_location dist + typecheck astro sync
+
+- **`pnpm typecheck`:** run **`astro sync`** first (gitignored **`.astro/types`**); **`import.meta.glob`** types require it on fresh CI checkouts — **`package.json`** **`typecheck`** script updated.
+- **SWA deploy:** **`app_location: dist`** + **`skip_app_build: true`** (was **`/`** + **`output_location: dist`**, which uploaded repo root and failed “no index.html”).
+
 ## 2026-05-06 — GitHub Actions: pnpm setup fix (**ci.yml** + **deploy.yml**)
 
 - **`pnpm/action-setup@v4`** failed when both **`with: version: 10`** and **`package.json`** **`packageManager`** (`pnpm@10.12.1`) were set — removed explicit **`version`** so Corepack resolves from **`packageManager`**.

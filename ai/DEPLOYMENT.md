@@ -61,9 +61,8 @@ Triggers: `push` to **`main`**, and **`pull_request`** (open/sync/reopen/close).
 
 - Runs the same install → lint → typecheck → **`pnpm build`** → **`pnpm test`** as CI.
 - Deploys with **`Azure/static-web-apps-deploy@v1`**:
-  - **`app_location`:** `/`
+  - **`app_location`:** **`dist`** (pre-built static output; contains **`index.html`**)
   - **`api_location`:** `api`
-  - **`output_location`:** `dist`
   - **`skip_app_build: true`** (build runs in the workflow).
   - **`production_branch`:** `main`
 
