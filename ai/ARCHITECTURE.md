@@ -1,6 +1,6 @@
 # Architecture
 
-Last Updated: 2026-05-05
+Last Updated: 2026-05-06
 
 ## Architecture Status
 Project-specific architecture documented. Default pattern from the starter
@@ -16,7 +16,7 @@ www→apex redirect, and the contact endpoint.
       |
       | HTTPS (free SSL via SWA)
       v
-   Cloudflare DNS (devildogcyber.com)
+   DNS at registrar (GoDaddy — devildogcyber.com)
       |
       v
    Azure Static Web Apps (single resource)
@@ -46,7 +46,7 @@ External services:
 - **Cloudflare Turnstile** — invisible CAPTCHA, server-verified.
 - **GitHub** — source control, CI/CD via Actions.
 - **Azure** — hosting (SWA static + managed Functions).
-- **Cloudflare** — DNS (existing zone for `devildogcyber.com`).
+- **GoDaddy** — DNS / domain registration for `devildogcyber.com` (**ADR-023**).
 
 ---
 
@@ -156,7 +156,7 @@ Vitest specs. Mirrors `src/` structure; **`tests/a11y/dist-html-axe.test.ts`** r
 | Cloudflare Turnstile | Bot mitigation                     | env: `TURNSTILE_SECRET_KEY` (server)       |
 |                      |                                    | env: `PUBLIC_TURNSTILE_SITE_KEY` (client)  |
 | Azure SWA            | Static hosting + managed API       | Azure portal config                        |
-| Cloudflare DNS       | Apex + www DNS records             | Cloudflare dashboard                       |
+| GoDaddy DNS          | Apex + www DNS records             | GoDaddy + Azure custom-domain steps        |
 | GitHub Actions       | CI/CD                              | OIDC federation; no client secrets in repo |
 
 ---

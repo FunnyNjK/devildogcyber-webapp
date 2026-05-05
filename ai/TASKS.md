@@ -1,6 +1,6 @@
 # Tasks
 
-Last Updated: 2026-05-05
+Last Updated: 2026-05-06
 
 ## Active Task
 **Phase 4** — **P4-B1** (**P4-T1**): human provisions SWA (**`scripts/azure/provision-swa.sh`** or **`DEPLOYMENT.md`**) — **Unattended: No**; see **Ready** below.
@@ -120,8 +120,8 @@ human per the matrix above (`P4-T*` includes multiple **No** / **Partial**).
 
 | Batch ID | Constituent tasks | Notes |
 |----------|-------------------|--------|
-| **P4-B1** | P4-T1 | Azure SWA + DNS provisioning; may require human steps in Azure — agent automates what is scriptable and documents the rest. |
-| **P4-B2** | P4-T2, P4-T3 | OIDC / deploy workflow + production env configuration. |
+| **P4-B1** | P4-T1 | Azure SWA provisioning + GitHub **`AZURE_STATIC_WEB_APPS_API_TOKEN`**; custom DNS can follow (**P4-T6**). |
+| **P4-B2** | P4-T2, P4-T3 | **`deploy.yml`** is in repo; human: Entra/OIDC if desired + SWA **Configuration** / typed secrets (**P4-T3**). |
 | **P4-B3** | P4-T4, P4-T5 | Postmark verification + first production deploy + smoke test. |
 | **P4-B4** | P4-T6 | DNS cutover + www→apex verification. |
 
@@ -147,7 +147,7 @@ Claude Code users: same **`N`** with `./run-phase.sh`.
 ---
 
 ## Ready
-**Phase 4** batch **P4-B1** (**P4-T1**): human provisions Azure SWA + DNS per **`/ai/DEPLOYMENT.md`** (**`scripts/azure/provision-swa.sh`** or Portal). **Unattended: No** — do **not** drive completion only from **`./run-phase-cursor.sh`**; pair in IDE or run script after **`az login`**.
+**Phase 4** batch **P4-B1** (**P4-T1**): provision **`devildogcyber`** (**Standard**, **`devil-web-rg`**, **`centralus`**, subscription **`179ae124-553a-42c7-89cd-0d665cddef65`**) per **`/ai/DEPLOYMENT.md`** / **ADR-023**; add **`AZURE_STATIC_WEB_APPS_API_TOKEN`** to GitHub; confirm **Deploy** workflow. **Unattended: No**.
 
 ## Done (recent)
 
@@ -229,12 +229,12 @@ Document per-page JS budget; fail build above threshold. **Shipped:** **`scripts
 
 ### P4-T1: Provision Azure SWA resource + DNS
 Status: Backlog · Phase: 4 · **Execution batch:** **P4-B1**.
-**Unattended script:** **No** — Azure subscription, naming, DNS delegation; **pair with human** (do not complete via harness alone).
-**Repo prep (2026-05-05):** **`scripts/azure/provision-swa.sh`** (CLI) + **P4-T1** checklist in **`/ai/DEPLOYMENT.md`**. Close this task only after human acceptance (SWA exists, default hostname verified; optional custom-domain validation DNS per checklist).
+**Unattended script:** **No** — Azure subscription, naming, deployment token in GitHub; **pair with human**.
+**Repo prep:** **`scripts/azure/provision-swa.sh`** (defaults **ADR-023**), **`.github/workflows/deploy.yml`**, **`/ai/DEPLOYMENT.md`**. Close when SWA **`devildogcyber`** exists, default hostname works, **`AZURE_STATIC_WEB_APPS_API_TOKEN`** is set, and **Deploy** workflow succeeds. **GoDaddy** DNS / apex cutover = **P4-T6**.
 
 ### P4-T2: Configure OIDC federated credential and deploy.yml
 Status: Backlog · Phase: 4 · **Execution batch:** **P4-B2** (with P4-T3).
-**Unattended script:** **Partial** — AI edits YAML; **Entra / federated credential** needs tenant admin (you or IT).
+**Unattended script:** **Partial** — **`deploy.yml`** is **in repo** (SWA deploy token). **Optional:** Entra app + federated credential + **`azure/login`** for ARM automation — needs tenant admin (you or IT).
 
 ### P4-T3: Production env-var configuration in SWA
 Status: Backlog · Phase: 4 · **Execution batch:** **P4-B2** (with P4-T2).

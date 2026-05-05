@@ -1,12 +1,20 @@
 # Done Log
 
-Last Updated: 2026-05-05
+Last Updated: 2026-05-06
+
+## 2026-05-06 — Phase 4 infra alignment (**P4-T1** still open)
+
+- **ADR-023** — Subscription **`179ae124-553a-42c7-89cd-0d665cddef65`**, **`devil-web-rg`**, SWA **`devildogcyber`**, **Standard**, **`centralus`**, GitHub [FunnyNjK/devildogcyber-webapp](https://github.com/FunnyNjK/devildogcyber-webapp); **GoDaddy** for DNS when cutting over; deploy via **`AZURE_STATIC_WEB_APPS_API_TOKEN`**.
+- **`.github/workflows/deploy.yml`** — build + **`Azure/static-web-apps-deploy@v1`** (`/`, **`api`**, **`dist`**, **`skip_app_build`**); PR preview + close job.
+- **`scripts/azure/provision-swa.sh`** — defaults match **ADR-023**; **`AZURE_SKU`** override supported.
+- **`/ai/DEPLOYMENT.md`**, **`ARCHITECTURE.md`** (DNS), **`HANDOFF.md`**, **`CURRENT_STATE.md`**, **`TASKS.md`** updated.
+- **Human still required:** create SWA + GitHub secret + green deploy (**P4-T1**).
 
 ## 2026-05-05 — P4-T1 repository prep (task **not** closed)
 
 - **`scripts/azure/provision-swa.sh`** — idempotent **`az group create`** + **`az staticwebapp create`** (**Free**, no GitHub source); prints **default hostname** for smoke tests (**P4-T1**).
 - **`/ai/DEPLOYMENT.md`** — **P4-T1** human checklist (CLI vs Portal, DNS vs **P4-T6**); **P4-T2+** OIDC/deploy section; **`deploy.yml`** noted as **planned** until **P4-T2**.
-- **Human still required** for **P4-T1** **Done:** **`az login`**, subscription, create/verify SWA, Cloudflare DNS when validating custom domains — see **`HANDOFF.md`**.
+- **Human still required** for **P4-T1** **Done:** **`az login`**, subscription, create/verify SWA — see **`HANDOFF.md`** (DNS may be **GoDaddy**, **P4-T6**).
 
 ## 2026-05-05 — P3-B2: P3-T3 (bundle size budget)
 

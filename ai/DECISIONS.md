@@ -1,6 +1,6 @@
 # Architecture Decision Records
 
-Last Updated: 2026-05-05
+Last Updated: 2026-05-06
 
 This file records decisions that affect architecture, dependencies, security,
 deployment, testing, or scope. The first block of ADRs (ADR-001 through
@@ -521,6 +521,35 @@ Header logo remains a React **`<img>`** in **`SiteHeader.tsx`** (small asset; op
 
 ### Related Tasks
 **P3-B1** (**P2-I4**, **P2-I6**, **P3-T1**, **P3-T2**).
+
+---
+
+## ADR-023: Production SWA — Standard tier, Central US, devil-web-rg, GitHub deploy
+
+Date: 2026-05-06
+Status: Accepted
+
+### Decision
+
+- **Subscription:** `179ae124-553a-42c7-89cd-0d665cddef65`.
+- **Region:** **Central US** (`centralus`).
+- **Resource group:** **`devil-web-rg`**.
+- **Static Web App resource name:** **`devildogcyber`**.
+- **SKU:** **Standard** (production / PR previews; ~USD 9/mo hosting plan vs Free).
+- **CI/CD:** [FunnyNjK/devildogcyber-webapp](https://github.com/FunnyNjK/devildogcyber-webapp), branch **`main`** for production; **`.github/workflows/deploy.yml`** uses **`Azure/static-web-apps-deploy@v1`** with repository secret **`AZURE_STATIC_WEB_APPS_API_TOKEN`** from the SWA **Manage deployment token** blade.
+- **DNS:** Custom domain work will use **GoDaddy** + Azure Portal (**P4-T6**); not assumed to be Cloudflare-only.
+
+### Reason
+
+Locks provisioning and docs to owner-confirmed Azure + GitHub targets; Standard tier matches preview-environment and bandwidth expectations for a marketing site with managed API.
+
+### Tradeoffs
+
+Deployment token is a long-lived **GitHub secret** (rotate via Portal if leaked). Entra OIDC (**ADR-006**) remains available for **`azure/login`** / ARM but is not required for the stock SWA deploy action alone.
+
+### Related Tasks
+
+**P4-T1**, **P4-T2**, **P4-T6**; **`scripts/azure/provision-swa.sh`**, **`.github/workflows/deploy.yml`**, **`/ai/DEPLOYMENT.md`**.
 
 ---
 
