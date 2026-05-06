@@ -305,6 +305,5 @@ export const footerContact = {
   title: 'Start the conversation',
   description: 'Tell DevilDog where you need help, and the team will follow up with the right next step.',
   addressLines: ['1401 Lawrence St. Suite 1600', 'Denver, CO 80202', 'United States'],
-  phone: '+1 (800) 498-1295',
   email: 'info@devildogcyber.com',
 } as const;

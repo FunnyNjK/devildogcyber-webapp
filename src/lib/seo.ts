@@ -95,7 +95,6 @@ export function getOrganizationJsonLd() {
     image: toAbsoluteAssetUrl(siteMetadata.defaultOgImage),
     logo: toAbsoluteAssetUrl(siteMetadata.logoPath),
     email: footerContact.email,
-    telephone: footerContact.phone,
     sameAs: socialLinks.map((link) => link.href),
     address: {
       '@type': 'PostalAddress',
@@ -110,7 +109,6 @@ export function getOrganizationJsonLd() {
       {
         '@type': 'ContactPoint',
         contactType: 'customer support',
-        telephone: footerContact.phone,
         email: footerContact.email,
         areaServed: 'US',
         availableLanguage: 'en',
