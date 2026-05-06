@@ -1,6 +1,10 @@
 # Done Log
 
-Last Updated: 2026-05-05
+Last Updated: 2026-05-06
+
+## 2026-05-06 — Legacy marketing site removed from **Azure Government**
+
+- Human decommissioned old site in **Azure Gov** tenant. Current production for **`devildogcyber-webapp`** is **Azure Public** SWA **`devildogcyber`** (**ADR-023**). **`HANDOFF.md`** / **`CURRENT_STATE.md`** updated.
 
 ## 2026-05-05 — **P4-T3** / **P4-B2** closed (human secrets + prod smoke)
 

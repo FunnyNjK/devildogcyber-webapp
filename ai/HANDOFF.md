@@ -1,9 +1,11 @@
 # AI Handoff
 
-Last Updated: 2026-05-05
+Last Updated: 2026-05-06
 
 ## Current State Summary
 **P4-B2** **Done** (**P4-T2**, **P4-T3**): SWA + GitHub secrets applied; prod quick smoke OK (**GET /** **`/contact`** **200**; honeypot **POST** **`{"ok":true}`**). SWA **`https://polite-sky-09fcf0610.7.azurestaticapps.net`**.
+
+**Ops (2026-05-06):** Legacy marketing site removed from **Azure Government**. Production target for this repo is **Azure Public** SWA **`devildogcyber`** only (**ADR-023**). If DNS still pointed at the old Gov endpoint, **GoDaddy** records must target the **new** SWA / custom-domain instructions only.
 
 ## Last Completed Task
 **P4-T3** — production configuration + human secrets (2026-05-05); **`DONE_LOG.md`**.
