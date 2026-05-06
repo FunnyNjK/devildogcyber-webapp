@@ -1,6 +1,6 @@
 # Deployment
 
-Last Updated: 2026-05-05
+Last Updated: 2026-05-06
 
 ## Deployment Status
 
@@ -83,6 +83,20 @@ The [Static Web Apps deploy action](https://github.com/Azure/static-web-apps-dep
 - **SWA “Configuration”** blade: Function + frontend-related app settings (Postmark, Turnstile, etc.).
 - **GitHub Actions:** **`AZURE_STATIC_WEB_APPS_API_TOKEN`** (deploy). Optional later: Entra **`AZURE_CLIENT_ID`**, **`AZURE_TENANT_ID`**, **`AZURE_SUBSCRIPTION_ID`** if you add **`azure/login`** or other Azure Resource Manager automation (**ADR-006**).
 
+### GitHub vs Azure (why contact form returns 500 and Postmark shows nothing)
+
+**GitHub repository secrets** are visible only to **GitHub Actions** while a workflow runs. They are used to **build** the site (e.g. inlining **`PUBLIC_TURNSTILE_SITE_KEY`** into the static HTML/JS). They are **not** automatically copied to the **Azure Function** that handles **`POST /api/contact`**.
+
+That Function runs in **Azure Static Web Apps** and reads **`process.env`** from the SWA resource’s **Environment variables** in the **Azure Portal**. If **`POSTMARK_*`**, **`CONTACT_EMAIL_TO`**, or **`TURNSTILE_SECRET_KEY`** exist **only** in GitHub, the API has no server token → **500** + generic user message, and **Postmark Activity stays empty** (no API call).
+
+| Name | Where it must live |
+|------|---------------------|
+| **`AZURE_STATIC_WEB_APPS_API_TOKEN`** | GitHub Actions secrets |
+| **`PUBLIC_TURNSTILE_SITE_KEY`** | GitHub Actions secrets (passed into **`pnpm build`** in **`deploy.yml`**) |
+| **`POSTMARK_SERVER_TOKEN`**, **`POSTMARK_FROM_EMAIL`**, **`CONTACT_EMAIL_TO`**, **`TURNSTILE_SECRET_KEY`**, **`CONTACT_RATE_LIMIT_*`**, **`CONTACT_HONEYPOT_FIELD_NAME`** | **Azure** → SWA **`devildogcyber`** → **Environment variables** → **Production** |
+
+You may **duplicate** the same values in both places where the table requires it (GitHub for build; Azure for the Function). Keeping server secrets **only** in GitHub is not enough.
+
 ### Required application settings (SWA / build)
 
 | Name | Where used | Notes |
@@ -164,7 +178,10 @@ Use this for **P4-T3** (secrets are never committed). **P4-T2** repo wiring: **`
 
 ### GitHub (repository **Secrets and variables** → **Actions**)
 
-1. **`PUBLIC_TURNSTILE_SITE_KEY`** — Cloudflare Turnstile **site** key (public); required for the widget on **`/contact`** in production builds once Turnstile is enabled. Without it, the site builds but Turnstile stays in placeholder mode.
+1. **`AZURE_STATIC_WEB_APPS_API_TOKEN`** — deploy (required).
+2. **`PUBLIC_TURNSTILE_SITE_KEY`** — Turnstile **site** key (public); passed into **`pnpm build`** so **`/contact`** embeds the widget.
+
+Do **not** assume other secrets here reach the live API — see **GitHub vs Azure** above.
 
 ### Azure Portal → Static Web App **`devildogcyber`** → **Environment variables** (Configuration)
 
