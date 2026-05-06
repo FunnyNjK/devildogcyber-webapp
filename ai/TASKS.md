@@ -1,6 +1,6 @@
 # Tasks
 
-Last Updated: 2026-05-07
+Last Updated: 2026-05-06
 
 ## Active Task
 **Phase 4** — **P4-B4** (**P4-T6**): confirm **www** → apex (**ADR-021**), default custom domain in Portal, TLS; registrar (**GoDaddy**) records match Azure; optional **rollback** rehearsal (**`ROADMAP.md`**).
@@ -63,6 +63,8 @@ repo auth already work.
 | **P4-T4** | No | Postmark sender/DNS verification — **your** inbox or DNS console. |
 | **P4-T5** | Partial | Deploy pipeline may need **your** approval click + smoke test observation. |
 | **P4-T6** | No | Registrar DNS cutover / go-live window — **you** execute; AI documents checklist. |
+| **P5-T1** | OK | Housekeeping deletes + README refresh; no live secrets. |
+| **P5-T2** | OK | File copy under `src/assets/` + build verification; no live secrets. |
 
 **Operational rule for any AI run**
 
@@ -239,45 +241,51 @@ Status: Backlog · Phase: 4 · **Execution batch:** **P4-B4**.
 
 ---
 
-## Blocked
-None.
+## Backlog (Phase 5 — Housekeeping / Enhancements)
 
-## Review
-None.
+### P5-T1: Housekeeping — remove dead code, orphan asset, refresh README
+Status: Backlog · Phase: 5 · **Execution batch:** none (per-request).
+**Unattended script:** **OK** — no live secrets; pure code/docs cleanup.
 
-## Done
+Origin: post-launch repo audit (2026-05-06) flagged a small amount of waste
+that survived the legacy port. Bundle as one PR; the diffs are tiny.
 
-### P1-T1: Scaffold Astro 5 + React 19 + Tailwind 4 project — Done; see `DONE_LOG.md`.
-### P1-T2: Add GitHub Actions CI workflow — Done; see `DONE_LOG.md`.
-### P2-T1: BaseLayout, SiteHeader, SiteFooter, base SEO + JSON-LD — Done; see `DONE_LOG.md`.
-### P2-T2: Home page — Done; see `DONE_LOG.md`.
-### P2-T3: Detail-page system (`detailPages`, `[...slug].astro`, section renderer, nav invariant test, `/about` + `/contact` stubs) — Done; see `DONE_LOG.md`.
-### P2-T4: Services imagery + URLs via detail system (`public/images/devildog/pages/`, legacy team photos for `/about-us`) — Done; see `DONE_LOG.md`.
-### P2-T5: AI Threats page — Done; see `DONE_LOG.md`.
-### P2-T6: Security Reconnaissance page — Done; see `DONE_LOG.md`.
-### P2-T8: Story page — Done; see `DONE_LOG.md`.
-### P2-T7: Compliance hub + framework pages — Done; see `DONE_LOG.md`.
-### P2-T9: About-us (team) page — Done; see `DONE_LOG.md`.
-### P2-T10: `/about` (legacy marketing About page) — Done; see `DONE_LOG.md`.
-### P2-T11: Contact page (React island + validation + Turnstile) — Done; see `DONE_LOG.md`.
-### P2-T12: `/api/contact` Azure Function (Postmark, Turnstile, honeypot, rate limit) — Done; see `DONE_LOG.md`.
-### P2-T13: SEO finalization — Done; see `DONE_LOG.md`.
+- Delete `getDetailPageBySlug` from **`src/content/detailPages.ts`** —
+  exported but has zero callers in `src/`, `tests/`, or `scripts/`.
+  Routing emits all detail pages statically via `getStaticPaths()` passing
+  the full page object as a prop, so a runtime slug lookup is dead weight.
+- Delete unreferenced asset **`public/images/devildog/pages/doctor.jpg`**
+  (no `.astro` / `.ts` / `.tsx` reference; leftover from the legacy port).
+- Update **`ai/MIGRATION_INVENTORY.md`** to drop the now-stale
+  "Re-export `slugToPath` and `getDetailPageBySlug`" claim.
+- Refresh **`README.md`** top line — `"Phase 4"` → reflect launch state;
+  point open items at **P4-T6** (DNS sign-off) and Phase 5 backlog.
 
-### P3-T3: Bundle size budget — Done; see `DONE_LOG.md`.
+Acceptance:
+- `pnpm lint && pnpm typecheck && pnpm test && pnpm build` clean (WSL).
+- `grep -r "getDetailPageBySlug"` returns no source hits (only DONE_LOG
+  history is acceptable).
+- `find public -name doctor.jpg` returns nothing.
 
-### P4-T5: First production deploy + observed smoke — Done 2026-05-06: **`/contact`** happy path on apex domain; Postmark receives sends.
+### P5-T2: Activate image optimization pipeline (ADR-022 follow-through)
+Status: Backlog · Phase: 5 · **Execution batch:** none (per-request).
+**Unattended script:** **OK** — file copy + automated build verification.
 
-### P4-T4: Postmark / production email path — Done 2026-05-06: sender + Azure SWA **`POSTMARK_*`** / **`TURNSTILE_SECRET_KEY`**; Activity confirms delivery.
+Origin: post-launch repo audit (2026-05-06). The `ContentImage` →
+`getImageFromPublicPath` → `astro:assets` → `sharp` → AVIF/WebP +
+LCP `<link rel="preload">` pipeline is fully wired but inert in
+production because `src/assets/images/` is empty, so every page
+falls through to plain `<img src="/images/...">`. Closing the
+gap is a copy-and-verify, not new architecture.
 
-### P4-T3: Production env-var configuration (SWA + GitHub) — Done 2026-05-05: human added secrets; prod smoke **GET /** **GET /contact** **200**; **POST /api/contact** honeypot branch **`{"ok":true}`** on default hostname.
+This task closes the *asset-copy* half of the **Partial** human follow-up
+already noted in **`HANDOFF.md`** / **`CURRENT_STATE.md`**. The Lighthouse
+sign-off on prod (P3-T1 partial) stays a separate human step.
 
-### P4-T2: Configure deploy.yml (+ optional OIDC) — Done 2026-05-06 (chat): **`deploy.yml`** production path via **`AZURE_STATIC_WEB_APPS_API_TOKEN`** (**ADR-023**); **`ci.yml`** Build passes **`PUBLIC_TURNSTILE_SITE_KEY`** when set (parity with **Deploy**). Entra / **`azure/login`** remains optional (**ADR-006**); tenant admin not required for stock SWA deploy.
-
-### P4-T1: Provision Azure SWA + GitHub deploy — Done 2026-05-06; **`devildogcyber`**, **`devil-web-rg`**, **`AZURE_STATIC_WEB_APPS_API_TOKEN`**, green **Deploy** (`https://polite-sky-09fcf0610.7.azurestaticapps.net`); commits **`56ae3df`**, **`79398f1`**, **`8a5c2da`**.
-
-### P0-T1: Initialize project-specific AI files
-Status: Done
-Completed: 2026-05-02
-Outcome: All `/ai/*.md` files updated for the DevilDog rebuild;
-`MIGRATION_INVENTORY.md` created; ADR-011 through ADR-015 added; Phase 1
-+ Phase 2 tasks queued. See `/ai/DONE_LOG.md`.
+- Copy rasters from **`public/images/devildog/{home,pages,team}/*`** to
+  **`src/assets/images/devildog/{home,pages,team}/*`** (identical paths
+  and filenames so **`getImageFromPublicPath`** resolves them via
+  **`import.meta.glob`** with no code change). Skip
+  **`public/images/devildog/pages/doctor.jpg`** if **P5-T1** has already
+  removed it; skip **`public/images/devildog/logo-white.png`** (the
+  React **`SiteHeader`** logo intentionally stays a plain **`<

@@ -1,6 +1,6 @@
 # Roadmap
 
-Last Updated: 2026-05-07
+Last Updated: 2026-05-06
 
 ## Phase 0: Project Initialization
 Status: Done
@@ -104,11 +104,10 @@ Deliverables:
 - Rate limiter enforces per-IP limits.
 - Rollback plan tested at least once.
 
-## Phase 5: Enhancements (post-launch, optional)
-Status: Backlog
+## Phase 5: Enhancements + Housekeeping (post-launch)
+Status: Backlog (per-request; not batch-scheduled — see `TASKS.md`).
 
-Goals (all open / per-request):
-- Privacy-respecting analytics (Plausible or Cloudflare Web Analytics).
-- Contact failure alerting (Postmark webhook → Slack or email).
-- Add a blog or news section if marketing wants one.
-- Convert any remaining detail content into MDX if editor experience needs it.
+Scheduled items (from 2026-05-06 post-launch repo audit):
+- **P5-T1** — Housekeeping: remove dead `getDetailPageBySlug` export +
+  orphan `doctor.jpg` asset; refresh README + `MIGRATION_INVENTORY.md`.
+  **Unattended: OK.** See `/ai/TASKS.md`.
