@@ -250,11 +250,7 @@ export function ContactForm({ siteKey, honeypotFieldName }: ContactFormProps) {
           </div>
         ) : null}
 
-        <div className="relative flex flex-wrap items-center justify-between gap-4">
-          <p className="max-w-xl text-sm leading-7 text-[color:var(--dd-muted)]">
-            The form sends your message to DevilDog by email after Cloudflare Turnstile and the server both verify the submission.
-            Secrets stay server-side — they are never exposed in the browser.
-          </p>
+        <div className="relative flex flex-wrap items-center justify-end gap-4">
           <button
             type="submit"
             disabled={isSubmitting}
