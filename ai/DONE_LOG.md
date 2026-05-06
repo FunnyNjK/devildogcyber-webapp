@@ -6,7 +6,7 @@ Last Updated: 2026-05-06
 
 - Human confirmed form submit on **`https://devildogcyber.com/contact`** → email delivery; Postmark **Activity** shows sends.
 - Fix path: **server** secrets (**`POSTMARK_*`**, **`TURNSTILE_SECRET_KEY`**, etc.) in **Azure SWA** → **Environment variables** (**Production**), not GitHub-only — documented **`DEPLOYMENT.md`** **GitHub vs Azure** (**commit `5a0698b`**).
-- **`/ai`**: **P4-T4**, **P4-T5** → **Done**; **HANDOFF**/**CURRENT_STATE**/**TASKS**/**ROADMAP** updated.
+- **`/ai`**: **P4-T4**, **P4-T5** → **Done**; **HANDOFF**/**CURRENT_STATE**/**TASKS**/**ROADMAP** updated. Commit **`c3735cd`**.
 
 ## 2026-05-06 — Legacy marketing site removed from **Azure Government**
 
