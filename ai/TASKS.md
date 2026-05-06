@@ -1,9 +1,9 @@
 # Tasks
 
-Last Updated: 2026-05-05
+Last Updated: 2026-05-06
 
 ## Active Task
-**Phase 4** — **P4-B3** (**P4-T4**, **P4-T5**): Postmark sender verification in production context + confirm **Deploy** + real **`/contact`** submit (happy path).
+**Phase 4** — **P4-B4** (**P4-T6**): confirm **www** → apex (**ADR-021**), default custom domain in Portal, TLS; registrar (**GoDaddy**) records match Azure.
 
 ---
 
@@ -147,12 +147,15 @@ Claude Code users: same **`N`** with `./run-phase.sh`.
 ---
 
 ## Ready
-**P4-B3** — **P4-T4** (Postmark / sender verification) + **P4-T5** (pipeline + observed smoke). **P4-B4** — **P4-T6** GoDaddy DNS when ready.
+**P4-T6** — final DNS / **www**→apex / default-domain checklist (**P4-B4**) if anything still mismatches **ADR-021**.
 
 ## Done (recent)
 
+### P4-B3 (2026-05-06)
+**P4-T4**, **P4-T5** — **`/contact`** on **`https://devildogcyber.com`**: Turnstile + Postmark end-to-end after **server** env vars set on **Azure SWA** (not GitHub-only); inbox delivery confirmed. See **`DEPLOYMENT.md`** **GitHub vs Azure**.
+
 ### P4-B2 (2026-05-05)
-**P4-T2**, **P4-T3** — Repo **Deploy**/**CI** Turnstile build env; human SWA + GitHub secrets; prod **curl** smoke (**GET** pages **200**, honeypot **POST** **`ok:true`**). **Human follow-up:** real **`/contact`** email (**P4-B3**).
+**P4-T2**, **P4-T3** — Repo **Deploy**/**CI** Turnstile build env; human SWA + GitHub secrets; prod **curl** smoke (**GET** pages **200**, honeypot **POST** **`ok:true`**).
 
 ### P3-B2 (2026-05-05)
 **P3-T3** — Hydrated **JS gzip** budgets: **`scripts/js-budget.config.json`** (default **72 KiB** total per page, **_contact_ 75 KiB**, largest single chunk **≈62 KiB**); **`scripts/check-js-budget.mjs`** walks **`dist/**/*.html`**, unions **`/_astro/*.js`** island entries + static **Vite** `from"./…js"` graph, fails **`pnpm build`** on breach. **Human:** none for this task (**Unattended: OK**).
@@ -230,14 +233,6 @@ Document per-page JS budget; fail build above threshold. **Shipped:** **`scripts
 
 ## Backlog (Phase 4 — Deployment)
 
-### P4-T4: Postmark sender verification confirmed in production
-Status: Backlog · Phase: 4 · **Execution batch:** **P4-B3** (with P4-T5).
-**Unattended script:** **No** — Postmark/DNS inbox steps **require human**.
-
-### P4-T5: First production deploy + smoke test
-Status: Backlog · Phase: 4 · **Execution batch:** **P4-B3** (with P4-T4).
-**Unattended script:** **Partial** — pipeline may need **your** approval + observed smoke test.
-
 ### P4-T6: DNS cutover + www→apex verification
 Status: Backlog · Phase: 4 · **Execution batch:** **P4-B4**.
 **Unattended script:** **No** — registrar / go-live **requires human**; AI documents checklist only.
@@ -270,11 +265,15 @@ None.
 
 ### P3-T3: Bundle size budget — Done; see `DONE_LOG.md`.
 
-### P4-T3: Production env-var configuration (SWA + GitHub) — Done 2026-05-05: human added secrets; prod smoke **GET /** **GET /contact** **200**; **POST /api/contact** honeypot branch **`{"ok":true}`** on default hostname. **Follow-up:** submit real form once to confirm Turnstile + Postmark delivery (**P4-B3**).
+### P4-T5: First production deploy + observed smoke — Done 2026-05-06: **`/contact`** happy path on apex domain; Postmark receives sends.
+
+### P4-T4: Postmark / production email path — Done 2026-05-06: sender + Azure SWA **`POSTMARK_*`** / **`TURNSTILE_SECRET_KEY`**; Activity confirms delivery.
+
+### P4-T3: Production env-var configuration (SWA + GitHub) — Done 2026-05-05: human added secrets; prod smoke **GET /** **GET /contact** **200**; **POST /api/contact** honeypot branch **`{"ok":true}`** on default hostname.
 
 ### P4-T2: Configure deploy.yml (+ optional OIDC) — Done 2026-05-06 (chat): **`deploy.yml`** production path via **`AZURE_STATIC_WEB_APPS_API_TOKEN`** (**ADR-023**); **`ci.yml`** Build passes **`PUBLIC_TURNSTILE_SITE_KEY`** when set (parity with **Deploy**). Entra / **`azure/login`** remains optional (**ADR-006**); tenant admin not required for stock SWA deploy.
 
-### P4-T1: Provision Azure SWA + GitHub deploy — Done 2026-05-06; **`devildogcyber`**, **`devil-web-rg`**, **`AZURE_STATIC_WEB_APPS_API_TOKEN`**, green **Deploy** (`https://polite-sky-09fcf0610.7.azurestaticapps.net`); commits **`56ae3df`**, **`79398f1`**, **`8a5c2da`**. **P4-T6** DNS remains.
+### P4-T1: Provision Azure SWA + GitHub deploy — Done 2026-05-06; **`devildogcyber`**, **`devil-web-rg`**, **`AZURE_STATIC_WEB_APPS_API_TOKEN`**, green **Deploy** (`https://polite-sky-09fcf0610.7.azurestaticapps.net`); commits **`56ae3df`**, **`79398f1`**, **`8a5c2da`**.
 
 ### P0-T1: Initialize project-specific AI files
 Status: Done

@@ -2,6 +2,12 @@
 
 Last Updated: 2026-05-06
 
+## 2026-05-06 — **P4-B3** complete: **`/contact`** + Postmark on production domain
+
+- Human confirmed form submit on **`https://devildogcyber.com/contact`** → email delivery; Postmark **Activity** shows sends.
+- Fix path: **server** secrets (**`POSTMARK_*`**, **`TURNSTILE_SECRET_KEY`**, etc.) in **Azure SWA** → **Environment variables** (**Production**), not GitHub-only — documented **`DEPLOYMENT.md`** **GitHub vs Azure** (**commit `5a0698b`**).
+- **`/ai`**: **P4-T4**, **P4-T5** → **Done**; **HANDOFF**/**CURRENT_STATE**/**TASKS**/**ROADMAP** updated.
+
 ## 2026-05-06 — Legacy marketing site removed from **Azure Government**
 
 - Human decommissioned old site in **Azure Gov** tenant. Current production for **`devildogcyber-webapp`** is **Azure Public** SWA **`devildogcyber`** (**ADR-023**). **`HANDOFF.md`** / **`CURRENT_STATE.md`** updated.
