@@ -1,9 +1,9 @@
 # Tasks
 
-Last Updated: 2026-05-06
+Last Updated: 2026-05-07
 
 ## Active Task
-**Phase 4** — **P4-B4** (**P4-T6**): confirm **www** → apex (**ADR-021**), default custom domain in Portal, TLS; registrar (**GoDaddy**) records match Azure.
+**Phase 4** — **P4-B4** (**P4-T6**): confirm **www** → apex (**ADR-021**), default custom domain in Portal, TLS; registrar (**GoDaddy**) records match Azure; optional **rollback** rehearsal (**`ROADMAP.md`**).
 
 ---
 
@@ -147,7 +147,7 @@ Claude Code users: same **`N`** with `./run-phase.sh`.
 ---
 
 ## Ready
-**P4-T6** — final DNS / **www**→apex / default-domain checklist (**P4-B4**) if anything still mismatches **ADR-021**.
+**P4-T6** (**P4-B4**) — close when **www**→apex + default domain verified. **Then:** Phase 4 v1 launch checklist complete unless **rollback** doc/test is still open. **Phase 5** — see **`ROADMAP.md`** (not batch-scheduled; per-request).
 
 ## Done (recent)
 

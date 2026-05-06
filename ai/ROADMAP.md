@@ -1,6 +1,6 @@
 # Roadmap
 
-Last Updated: 2026-05-06
+Last Updated: 2026-05-07
 
 ## Phase 0: Project Initialization
 Status: Done
@@ -84,7 +84,7 @@ Goals:
 - Bundle size budget enforced (**P3-B2**).
 
 ## Phase 4: Deployment and Operations
-Status: **In progress** — **P4-B1**–**P4-B3** **Done** (**P4-T1**–**P4-T5**); live **`devildogcyber.com`** + contact form verified. Next **P4-B4** (**P4-T6** **www**/apex / registrar) and launch polish.
+Status: **In progress** — **P4-B1**–**P4-B3** **Done** (**P4-T1**–**P4-T5**); apex + **`/contact`** verified. **Open:** **P4-B4** (**P4-T6**) — **www**→apex, default domain (**ADR-021**); **rollback plan tested** at least once (**`DEPLOYMENT.md`**); optional release-process note.
 
 **Autonomous runs (batches):** **4** — **P4-B1** … **P4-B4** (see `TASKS.md`).
 

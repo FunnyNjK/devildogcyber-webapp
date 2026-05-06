@@ -1,29 +1,32 @@
 # Current State
 
-Last Updated: 2026-05-06
+Last Updated: 2026-05-07
 
 ## Current Phase
-**Phase 4** — **P4-B3** **Done** (**P4-T4**, **P4-T5**). Next: **P4-B4** (**P4-T6**) canonical **www**→apex if needed.
+**Phase 4** — **P4-B1**–**P4-B3** **Done**. **P4-B4** (**P4-T6**) = final **www**→apex / default-domain sign-off (**ADR-021**) + optional rollback drill per **`ROADMAP.md`**. **Phase 5** = optional enhancements (backlog only).
 
 ## Current Task
-**P4-T6:** Final custom-domain / **GoDaddy** alignment with **ADR-021** (optional if already verified).
+**P4-T6** — human: confirm **`www.devildogcyber.com`** **301**→ apex, Portal **default** custom domain = apex, TLS healthy; registrar matches Azure.
 
 ## What Exists Now
-- **Azure (commercial):** **`devil-web-rg`**, SWA **`devildogcyber`** (**Standard**, **centralus**); site **`https://polite-sky-09fcf0610.7.azurestaticapps.net`** (default hostname). Legacy **Azure Government** hosting for the old marketing site **decommissioned** (2026-05-06); do not confuse Gov endpoints with **`P4-T6`** DNS targets.
-- **CI/CD:** **`ci.yml`**, **`deploy.yml`** green on **`main`**; repo secret **`AZURE_STATIC_WEB_APPS_API_TOKEN`**.
-- **P1–P3** deliverables: per **`DONE_LOG.md`**.
+- **Azure (commercial):** SWA **`devildogcyber`** (**`devil-web-rg`**, **Standard**, **centralus**); production **`https://devildogcyber.com`** + **`/contact`** → Postmark verified (2026-05-06). Default hostname still available for smoke.
+- **CI/CD:** **`ci.yml`**, **`deploy.yml`** on **`main`**; **`DEPLOYMENT.md`** documents **GitHub vs Azure** env split for the API.
+- **Phases 0–3** and **P4** batches **P4-B1**–**P4-B3**: **Done** per **`TASKS.md`**.
 
 ## What Works
-`pnpm lint` / **`typecheck`** / **`test`** / **`build`** (with **Node 24**); GitHub **CI** + **Deploy**; **`/contact`** → Postmark on **`devildogcyber.com`** (2026-05-06).
+Core site, managed **`POST /api/contact`**, Turnstile + Postmark on prod, GitHub **Deploy**.
 
-## What Is Not Built Yet
-**P4-T6** sign-off if **www**→apex / default domain not yet validated; **P3** partial follow-ups (Lighthouse, assets, manual a11y).
+## What Is Not Built Yet / Follow-up (not all blocking launch)
+- **P4-T6** formal checklist + **rollback** test once (**`DEPLOYMENT.md`**).
+- **P3** **Partial:** Lighthouse on prod URL, manual keyboard/SR/contrast (**`HANDOFF.md`**).
+- **P2-I5** gap-fill (nav a11y) if issues found.
+- **Phase 5** (analytics, alerting, blog, etc.) — **per-request only**.
 
 ## Known Problems
-Raster assets may be missing under **`src/assets/images/devildog/...`**.
+Raster assets may be missing under **`src/assets/images/devildog/...`** (**ADR-022** fallback to **`public/`**).
 
 ## Important Files or Folders
-**`.github/workflows/deploy.yml`**, **`/ai/DEPLOYMENT.md`**, **`api/contact/`**.
+**`.github/workflows/deploy.yml`**, **`/ai/DEPLOYMENT.md`**, **`api/contact/`**, **`public/staticwebapp.config.json`**.
 
 ## Next Recommended Action
-Confirm **`www.devildogcyber.com`** → apex; **`DEPLOYMENT.md`** custom-domain steps. Optional: Postmark domain/DKIM hardening.
+Close **P4-T6** when **www**→apex is verified; optionally document release/rollback; then treat **Phase 4** v1 complete unless **Phase 5** is requested.

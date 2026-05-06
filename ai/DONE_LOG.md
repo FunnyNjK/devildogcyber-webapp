@@ -1,6 +1,11 @@
 # Done Log
 
-Last Updated: 2026-05-06
+Last Updated: 2026-05-07
+
+## 2026-05-07 — CHAT_END: planning sync + remaining phases summary
+
+- **`CURRENT_STATE.md`**, **`HANDOFF.md`**, **`TASKS.md`**, **`ROADMAP.md`** updated: **Phases 0–3** **Done**; **P4-B1**–**P4-B3** **Done**; **P4-B4** (**P4-T6**) + optional rollback remains; **Phase 5** optional backlog; **P3** partials + **P2-I5** gap-fill noted.
+- No application code changes; no **`/mnt/c`** or Docker-for-dev in repo.
 
 ## 2026-05-06 — **P4-B3** complete: **`/contact`** + Postmark on production domain
 
